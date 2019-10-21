@@ -1,0 +1,41 @@
+Package: biodbKegg
+Title: biodbKegg, a library for connecting to the KEGG Database.
+Version: 0.99.0
+Authors@R: c(person("Pierrick", "Roger", email = "pierrick.roger@cea.fr", role = c("aut", "cre")))
+Description: The biodbKegg library provides access to the KEGG Database, using biodb package framework.
+biocViews: Software, Infrastructure, DataImport
+Depends:
+    R (>= 3.6)
+License: AGPL-3
+Encoding: UTF-8
+LazyData: true
+VignetteBuilder: knitr
+Suggests:
+	BiocStyle,
+	roxygen2,
+	devtools,
+	testthat (>= 2.0.0),
+	knitr,
+	rmarkdown,
+	biodb
+Imports:
+	methods
+RoxygenNote: 6.1.1
+Collate:
+    'KeggConn.R'
+    'KeggCompoundConn.R'
+    'KeggEntry.R'
+    'KeggCompoundEntry.R'
+    'KeggEnzymeConn.R'
+    'KeggEnzymeEntry.R'
+    'KeggGenesConn.R'
+    'KeggGenesEntry.R'
+    'KeggModuleConn.R'
+    'KeggModuleEntry.R'
+    'KeggOrthologyConn.R'
+    'KeggOrthologyEntry.R'
+    'KeggPathwayConn.R'
+    'KeggPathwayEntry.R'
+    'KeggReactionConn.R'
+    'KeggReactionEntry.R'
+    'package.R'
