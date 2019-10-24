@@ -1,0 +1,22 @@
+language: r
+cache: packages
+r: release
+
+env:
+    - BIODB_OFFLINE=true BIODB_USERAGENT="biodb.test ; pierrick.roger@cea.fr"
+
+before_install:
+    - sudo apt-get install -y libmagick++-dev
+
+notifications:
+    email:
+        recipients:
+            - pierrick.roger@cea.fr
+
+script:
+    - make build
+    - make full.check || (cat /home/travis/build/pkrog/biodb/biodb.Rcheck/tests/testthat.Rout.fail && false)
+
+branches:
+    only:
+        - master

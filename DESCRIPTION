@@ -17,11 +17,16 @@ Suggests:
 	testthat (>= 2.0.0),
 	knitr,
 	rmarkdown,
-	biodb
+	biodb,
+	igraph,
+	magick
 Imports:
 	methods
 RoxygenNote: 6.1.1
 Collate:
+    'KeggShape.R'
+    'KeggRect.R'
+    'KeggCircle.R'
     'KeggConn.R'
     'KeggCompoundConn.R'
     'KeggEntry.R'
