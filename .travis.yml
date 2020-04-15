@@ -3,20 +3,22 @@ cache: packages
 r: release
 
 env:
-    - BIODB_OFFLINE=true BIODB_USERAGENT="biodb.test ; pierrick.roger@cea.fr"
-
-before_install:
-    - sudo apt-get install -y libmagick++-dev
+    - BIODB_USERAGENT="biodbKegg.test ; pierrick.roger@cea.fr"
 
 notifications:
     email:
         recipients:
             - pierrick.roger@cea.fr
 
-script:
-    - make build
-    - make full.check || (cat /home/travis/build/pkrog/biodb/biodb.Rcheck/tests/testthat.Rout.fail && false)
+before_install:
+    - sudo apt-get install -y libmagick++-dev
+    - R -e 'install.packages("BiocManager");BiocManager::install("BiocCheck")'
+    - R -e 'install.packages("devtools", dependencies=TRUE)'
+# TODO switch to master branch when ready.
+    - R -e 'devtools::install_github("pkrog/biodb", ref="dev_0.99", dependencies=TRUE, build_vignettes=FALSE)'
 
-branches:
-    only:
-        - master
+script:
+    - make test
+    - make build
+    - make full.check || (cat /home/travis/build/pkrog/biodb/biodbKegg.Rcheck/tests/testthat.Rout.fail && false)
+    - make bioc.check
