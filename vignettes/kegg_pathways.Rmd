@@ -2,7 +2,7 @@
 title: "*biodb*: KEGG databases"
 author: "Pierrick Roger"
 date: "`r doc_date()`"
-package: "`r pkg_ver('biodb')`"
+package: "`r pkg_ver('biodbKegg')`"
 abstract: |
   This vignette shows how to use KEGG databases. In it will learn how to retrieve pathways related to a compound using KEGG databases. How to get a pathways map with a set of enzymes and compounds highlighted on it. How to get new information about KEGG Compound and add it to your existing data frame.
 vignette: |

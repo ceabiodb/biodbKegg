@@ -1,3 +1,23 @@
+---
+title: "*biodb*: Search for KEGG compounds"
+author: "Pierrick Roger"
+date: "`r doc_date()`"
+package: "`r pkg_ver('biodbKegg')`"
+abstract: |
+  This vignette shows how to search for entries inside KEGG compound database.
+vignette: |
+  %\VignetteIndexEntry{Searching for KEGG compounds}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+output:
+  BiocStyle::html_document:
+    toc: yes
+    toc_depth: 4
+    toc_float:
+      collapsed: false
+  BiocStyle::pdf_document: default
+---
+
 # Create a Biodb instance
 mybiodb <- biodb::Biodb$new()
 

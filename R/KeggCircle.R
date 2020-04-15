@@ -33,6 +33,7 @@
 #' c1$draw()
 #' }
 #'
+#' @import methods
 #' @include KeggShape.R
 #' @export KeggCircle
 #' @exportClass KeggCircle

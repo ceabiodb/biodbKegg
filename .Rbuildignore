@@ -1,0 +1,8 @@
+^doc$
+^Makefile$
+^LICENSE$
+^cache$
+^tests/testthat/output$
+^\.travis\.yml$
+^biodbKegg\.Rcheck$
+^biodbKegg_.*\.tar\.gz$

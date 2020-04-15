@@ -1,5 +1,5 @@
 Package: biodbKegg
-Title: biodbKegg, a library for connecting to the KEGG Database.
+Title: biodbKegg, a library for connecting to the KEGG Database
 Version: 0.99.0
 Authors@R: c(person("Pierrick", "Roger", email = "pierrick.roger@cea.fr", role = c("aut", "cre")))
 Description: The biodbKegg library provides access to the KEGG Database, using biodb package framework.
@@ -43,3 +43,4 @@ Collate:
     'KeggReactionConn.R'
     'KeggReactionEntry.R'
     'KeggRect.R'
+    'package.R'
