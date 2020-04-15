@@ -1,10 +1,3 @@
-# vi: fdm=marker ts=4 et cc=80 tw=80
-
-# KeggOrthologyConn {{{1
-################################################################################
-
-# Declaration {{{2
-################################################################################
 
 #' The connector class to KEGG Orthology database.
 #'
@@ -34,13 +27,7 @@
 KeggOrthologyConn <- methods::setRefClass("KeggOrthologyConn",
     contains=c("KeggConn"),
 
-# Public methods {{{2
-################################################################################
-
 methods=list(
-
-# Initialize {{{3
-################################################################################
 
 initialize=function(...) {
     callSuper(db.name='orthology', db.abbrev='ko', ...)

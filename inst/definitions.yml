@@ -129,6 +129,17 @@ fields:
   kegg.organism.code:
     description: The 3-4 characters organism code used un KEGG.
 
+  aa.seq:
+    alias: sequence
+    description: Amino acids sequence.
+
+  aa.seq.length:
+    alias:
+    - seq.length
+    - length
+    class: integer
+    description: Length of the amino acids sequence.
+
 # Database IDs {{{2
 ################################################################################
 
@@ -176,6 +187,20 @@ fields:
 
   kegg.reaction.id:
     description: KEGG Reaction ID
+    case.insensitive: true
+    forbids.duplicates: true
+    type: id
+    card: many
+
+  lipidmaps.structure.id:
+    description: LIPID MAPS Structure ID
+    case.insensitive: true
+    forbids.duplicates: true
+    type: id
+    card: many
+
+  uniprot.id:
+    description: UniProt ID
     case.insensitive: true
     forbids.duplicates: true
     type: id

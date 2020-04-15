@@ -1,11 +1,3 @@
-# vi: fdm=marker ts=4 et cc=80 
-
-# BiodbShape {{{1
-################################################################################
-
-# Declaration {{{2
-################################################################################
-
 #' A class for representing a shape.
 #'
 #' This abstract class represents a shape, used for graphical representation.
@@ -16,28 +8,22 @@
 #'
 #' color: A color, as a character string.
 #'
-#' @seealso \code{\link{BiodbRect}}, \code{\link{BiodbCircle}}.
+#' @seealso \code{\link{KeggRect}}, \code{\link{KeggCircle}}.
 #'
 #' @examples
 #' # Create a circle instance
-#' c <- BiodbCircle(x=12, y=5, r=3, label='MyCircle')
+#' c <- KeggCircle(x=12, y=5, r=3, label='MyCircle')
 #'
 #' # Create a rectangle instance
-#' r <- BiodbRect(left=10, top=10, bottom=20, right=30, color='yellow')
+#' r <- KeggRect(left=10, top=10, bottom=20, right=30, color='yellow')
 #'
-#' @export BiodbShape
-#' @exportClass BiodbShape
-BiodbShape <- methods::setRefClass('BiodbShape',
+#' @export KeggShape
+#' @exportClass KeggShape
+KeggShape <- methods::setRefClass('KeggShape',
     fields=list(.label='character',
                 .color='character'),
 
-# Public methods {{{2
-################################################################################
-
 methods=list(
-
-# Initialize {{{3
-################################################################################
 
 initialize=function(label=NA_character_,
                     color=NA_character_) {

@@ -1,11 +1,3 @@
-# vi: fdm=marker ts=4 et cc=80 tw=80
-
-# KeggConn {{{1
-################################################################################
-
-# Declaration {{{2
-################################################################################
-
 #' The connector abstract class to KEGG databases.
 #'
 #' This is the mother class of all KEGG connectors. It defines code common to
@@ -19,22 +11,19 @@
 #' db.abbrev: The database abbreviated name, as defined in
 #' http://www.kegg.jp/kegg/docs/keggapi.html.
 #'
-#' @seealso \code{\link{BiodbFactory}}, \code{\link{BiodbRemotedbConn}}
-#'
 #' @examples
 #' # Create an instance with default settings:
 #' mybiodb <- biodb::Biodb()
 #'
 #' # Create a connector to a KEGG database
 #' conn <- mybiodb$getFactory()$createConn('kegg.compound')
-#' 
+#'
 #' # Search for an entry
 #' conn$wsFind('NADPH', retfmt='parsed')
 #'
 #' # Terminate instance.
 #' mybiodb$terminate()
 #'
-#' @include BiodbRemotedbConn.R
 #' @export KeggConn
 #' @exportClass KeggConn
 KeggConn <- methods::setRefClass("KeggConn",
@@ -44,13 +33,7 @@ KeggConn <- methods::setRefClass("KeggConn",
         .db.abbrev="character"
     ),
 
-# Public methods {{{2
-################################################################################
-
 methods=list(
-
-# Initialize {{{3
-################################################################################
 
 initialize=function(db.name=NA_character_, db.abbrev=NA_character_, ...) {
 
@@ -66,21 +49,15 @@ initialize=function(db.name=NA_character_, db.abbrev=NA_character_, ...) {
     .self$.db.abbrev <- db.abbrev
 },
 
-# Get entry page url {{{3
-################################################################################
-
 getEntryPageUrl=function(id) {
     # Overrides super class' method.
-    
+
     u <- c(.self$getPropValSlot('urls', 'entry.page.url'), 'www_bget')
     p <- .self$.completeEntryId(id)
     fct <- function(x) BiodbUrl(url=u, params=p)$toString()
 
     return(vapply(id, fct, FUN.VALUE=''))
 },
-
-# Web service list {{{3
-################################################################################
 
 wsList=function(retfmt=c('plain', 'request', 'ids')) {
     ":\n\nGets the full list of entry IDs. See http://www.kegg.jp/kegg/docs/keggapi.html for
@@ -120,9 +97,6 @@ wsList=function(retfmt=c('plain', 'request', 'ids')) {
 
     return(results)
 },
-
-# Web service find {{{3
-################################################################################
 
 wsFind=function(query, retfmt=c('plain', 'request', 'parsed', 'ids')) {
     ":\n\nSearches for entries. See http://www.kegg.jp/kegg/docs/keggapi.html for
@@ -165,9 +139,6 @@ wsFind=function(query, retfmt=c('plain', 'request', 'parsed', 'ids')) {
     return(results)
 },
 
-# Search by name {{{3
-################################################################################
-
 searchByName=function(name, max.results=NA_integer_) {
     # Overrides super class' method.
 
@@ -187,12 +158,6 @@ searchByName=function(name, max.results=NA_integer_) {
     return(ids)
 },
 
-# Private methods {{{2
-################################################################################
-
-# Complete entry id {{{3
-################################################################################
-
 .completeEntryId=function(id) {
 
     if ( ! is.na(.self$.db.abbrev) && nchar(.self$.db.abbrev) > 0)
@@ -201,21 +166,15 @@ searchByName=function(name, max.results=NA_integer_) {
     return(id)
 },
 
-# Get entry content request {{{3
-################################################################################
-
 .doGetEntryContentRequest=function(id, concatenate=TRUE) {
-    
+
     fct <- function(x) {
         u <- c(.self$getPropValSlot('urls', 'ws.url'), 'get', x)
         BiodbUrl(url=u)$toString()
     }
-    
+
     return(vapply(id, fct, FUN.VALUE=''))
 },
-
-# Get entry ids {{{3
-################################################################################
 
 .doGetEntryIds=function(max.results=NA_integer_) {
 

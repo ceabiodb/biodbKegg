@@ -1,10 +1,3 @@
-# vi: fdm=marker ts=4 et cc=80 tw=80
-
-# KeggReactionEntry {{{1
-################################################################################
-
-# Declaration {{{2
-################################################################################
 
 #' KEGG Reaction entry class.
 #'
@@ -29,24 +22,12 @@
 KeggReactionEntry <- methods::setRefClass("KeggReactionEntry",
     contains='KeggEntry',
 
-# Public methods {{{2
-################################################################################
-
 methods=list(
-
-# Initialize {{{3
-################################################################################
 
 initialize=function(...) {
 
     callSuper(...)
 },
-
-# Private methods {{{2
-################################################################################
-
-# Parse fields step 2 {{{3
-################################################################################
 
 .parseFieldsStep2=function(parsed.content) {
 

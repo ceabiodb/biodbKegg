@@ -1,11 +1,3 @@
-# vi: fdm=marker ts=4 et cc=80 
-
-# Class declaration {{{1
-################################################################################
-
-# Declaration {{{2
-################################################################################
-
 #' A class for representing a rectangle.
 #'
 #' This class represents a rectangle, used for graphical
@@ -21,35 +13,29 @@
 #'
 #' bottom: Coordinate of bottom border.
 #'
-#' @seealso \code{\link{BiodbShape}}, \code{\link{BiodbCircle}}.
+#' @seealso \code{\link{KeggShape}}, \code{\link{KeggCircle}}.
 #'
-#' @include BiodbShape.R
-#' @export BiodbRect
-#' @exportClass BiodbRect
+#' @include KeggShape.R
+#' @export KeggRect
+#' @exportClass KeggRect
 #'
 #' @examples
 #' # Create a rectangle instance
-#' r <- BiodbRect(left=10, top=10, bottom=20, right=30, color='yellow')
+#' r <- KeggRect(left=10, top=10, bottom=20, right=30, color='yellow')
 #'
 #' # Draw a rectangle on current image
 #' \dontrun{
 #' r$draw()
 #' }
 #'
-BiodbRect <- methods::setRefClass('BiodbRect',
-    contains='BiodbShape',
+KeggRect <- methods::setRefClass('KeggRect',
+    contains='KeggShape',
     fields=list(.left='integer',
                 .bottom='integer',
                 .right='integer',
                 .top='integer'),
 
-# Public methods {{{2
-################################################################################
-
 methods=list(
-
-# Initialize {{{3
-################################################################################
 
 initialize=function(left, top, bottom, right, ...) {
     callSuper(...)
@@ -58,9 +44,6 @@ initialize=function(left, top, bottom, right, ...) {
     .self$.top      <- as.integer(top)
     .self$.bottom   <- as.integer(bottom)
 },
-
-# Draw {{{3
-################################################################################
 
 draw=function() {
     # Overrides super class' method.

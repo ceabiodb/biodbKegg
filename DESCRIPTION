@@ -17,15 +17,14 @@ Suggests:
 	testthat (>= 2.0.0),
 	knitr,
 	rmarkdown,
-	biodb,
 	igraph,
 	magick
 Imports:
-	methods
-RoxygenNote: 6.1.1
+	methods,
+	biodb (>= 0.99.0)
+RoxygenNote: 7.1.0
 Collate:
     'KeggShape.R'
-    'KeggRect.R'
     'KeggCircle.R'
     'KeggConn.R'
     'KeggCompoundConn.R'
@@ -43,4 +42,4 @@ Collate:
     'KeggPathwayEntry.R'
     'KeggReactionConn.R'
     'KeggReactionEntry.R'
-    'package.R'
+    'KeggRect.R'

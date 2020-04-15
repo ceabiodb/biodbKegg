@@ -1,7 +1,3 @@
-# vi: fdm=marker ts=4 et cc=80 tw=80
-
-# Test KEGG Pathway getReactions() {{{1
-################################################################
 
 test_kegg_pathway_getReactions = function(conn) {
     reactions <- conn$getReactions('mmu00260', drop=FALSE)
@@ -13,25 +9,16 @@ test_kegg_pathway_getReactions = function(conn) {
     testthat::expect_true(all(react_type))
 }
 
-# Test KEGG Pathway buildPathwayGraph() {{{1
-################################################################
-
 test_kegg_pathway_buildPathwayGraph = function(conn) {
     graph = conn$buildPathwayGraph('mmu00260')
     testthat::expect_is(graph, 'list')
     testthat::expect_equal(names(graph), c('vertices', 'edges'))
 }
 
-# Test KEGG Pathway getPathwayIgraph() {{{1
-################################################################
-
 test_kegg_pathway_getPathwayIgraph = function(conn) {
     graph = conn$getPathwayIgraph('mmu00260')
     testthat::expect_is(graph, 'igraph')
 }
-
-# Test KEGG Pathway getDecoratedGraphPicture() {{{1
-################################################################
 
 test_getDecoratedGraphPicture = function(conn) {
  
@@ -45,9 +32,6 @@ test_getDecoratedGraphPicture = function(conn) {
     else
         testthat::expect_null(graph_pix)
 }
-
-# Test KEGG Pathway getDecoratedGraphPicture() with a wrong compound {{{1
-################################################################
 
 test_getDecoratedGraphPicture_not_a_compound = function(conn) {
 
@@ -64,9 +48,6 @@ test_getDecoratedGraphPicture_not_a_compound = function(conn) {
     else
         testthat::expect_null(graph_pix)
 }
-
-# Test extractPathwayMapShapes() {{{1
-################################################################################
 
 test_extractPathwayMapShapes <- function(conn) {
 
@@ -85,20 +66,38 @@ test_extractPathwayMapShapes <- function(conn) {
     }
 }
 
-# Main {{{1
-################################################################################
+# Main
+################################################################
 
+# Instantiate Biodb
+biodb <- biodb::createBiodbTestInstance(log='kegg_pathway_test.log', ack=TRUE)
+
+# Load package definitions
+file <- system.file("definitions.yml", package='biodbKegg')
+biodb$loadDefinitions(file)
+
+# Set context
+biodb::setTestContext(biodb, "Test Kegg Pathway connector.")
+
+# Create connector
+conn <- biodb$getFactory()$createConn('kegg.pathway')
+
+# Run tests
+biodb::runGenericTests(conn)
 biodb::testThat('getReactions() works correctly.',
-          test_kegg_pathway_getReactions, conn = conn)
+          test_kegg_pathway_getReactions, conn=conn)
 biodb::testThat('buildPathwayGraph() works correctly.',
-          test_kegg_pathway_buildPathwayGraph, conn = conn)
+          test_kegg_pathway_buildPathwayGraph, conn=conn)
 biodb::testThat('getPathwayIgraph() works correctly.',
-          test_kegg_pathway_getPathwayIgraph, conn = conn)
+          test_kegg_pathway_getPathwayIgraph, conn=conn)
 biodb::testThat('We can build a decorated pathway graph.',
-          test_getDecoratedGraphPicture, conn = conn)
+          test_getDecoratedGraphPicture, conn=conn)
 biodb::testThat('getDecoratedGraphPicture() does not fail when called with
 unexisting compounds.',
           test_getDecoratedGraphPicture_not_a_compound,
-          conn = conn)
+          conn=conn)
 biodb::testThat('extractPathwayMapShapes() works correctly.',
-          test_extractPathwayMapShapes, conn = conn)
+          test_extractPathwayMapShapes, conn=conn)
+
+# Terminate Biodb
+biodb$terminate()

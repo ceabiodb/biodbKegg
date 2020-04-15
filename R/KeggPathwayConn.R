@@ -1,10 +1,3 @@
-# vi: fdm=marker ts=4 et cc=80 
-
-# KeggPathwayConn {{{1
-################################################################################
-
-# Declaration {{{2
-################################################################################
 
 #' The connector class to KEGG Pathway database.
 #'
@@ -37,20 +30,11 @@
 KeggPathwayConn <- methods::setRefClass("KeggPathwayConn",
     contains=c("KeggConn"),
 
-# Public methods {{{2
-################################################################################
-
 methods=list(
-
-# Initialize {{{3
-################################################################################
 
 initialize=function(...) {
     callSuper(db.name='pathway', db.abbrev='path', ...)
 },
-
-# Get reactions {{{3
-################################################################################
 
 getReactions=function(id, drop=TRUE) {
     ":\n\nRetrieves all reactions part of a KEGG pathway. Connects to
@@ -98,9 +82,6 @@ getReactions=function(id, drop=TRUE) {
     return(reactions)
 },
 
-# Convert to organism pathways {{{3
-################################################################################
-
 convertToOrgPathways=function(id, org) {
     ":\n\nTakes a list of pathways IDs and converts them to the
     specified organism, filtering out the ones that do not exist in
@@ -125,9 +106,6 @@ convertToOrgPathways=function(id, org) {
 
     return(id)
 },
-
-# Build pathway graph {{{3
-################################################################################
 
 buildPathwayGraph=function(id, directed=FALSE, drop=TRUE) {
     ":\n\nBuilds a pathway graph in the form of two tables of
@@ -176,9 +154,6 @@ buildPathwayGraph=function(id, directed=FALSE, drop=TRUE) {
     return(graph)
 },
 
-# Get pathway igraph {{{3
-################################################################################
-
 getPathwayIgraph=function(id, directed=FALSE, drop=TRUE) {
     ":\n\nBuilds a pathway graph, as an igraph object, using KEGG database.
     \nid: A character vector of KEGG pathway entry IDs.
@@ -217,9 +192,6 @@ getPathwayIgraph=function(id, directed=FALSE, drop=TRUE) {
     return(graph)
 },
 
-# Get decorated graph picture {{{3
-################################################################################
-
 getDecoratedGraphPicture=function(id, color2ids) {
     ":\n\nCreate a pathway graph picture, with some of its elements colorized.
     \nid: A KEGG pathway ID.
@@ -248,9 +220,6 @@ getDecoratedGraphPicture=function(id, color2ids) {
     
     return(pix)
 },
-
-# Extract shapes from pathway map {{{3
-################################################################################
 
 extractPathwayMapShapes=function(id, color2ids) {
     ":\n\nExtracts shapes from a pathway map image.
@@ -287,11 +256,11 @@ extractPathwayMapShapes=function(id, color2ids) {
                     type <- g[i, 2]
                     c <- as.integer(strsplit(g[i, 3], ',')[[1]])
                     s <- switch(type,
-                                rect=BiodbRect(label=g[i, 5],
+                                rect=KeggRect(label=g[i, 5],
                                            color=color,
                                            left=c[[1]], top=c[[2]],
                                            right=c[[3]], bottom=c[[4]]),
-                                circle=BiodbCircle(label=g[i, 5],
+                                circle=KeggCircle(label=g[i, 5],
                                              color=color, x=c[[1]],
                                              y=c[[2]], r=c[[3]]),
                                 NULL)
@@ -306,12 +275,6 @@ extractPathwayMapShapes=function(id, color2ids) {
 
     return(shapes)
 },
-
-# Private methods {{{2
-################################################################################
-
-# Get pathway HTML page {{{3
-################################################################################
 
 .getPathwayHtml=function(id) {
 
@@ -330,9 +293,6 @@ extractPathwayMapShapes=function(id, color2ids) {
     
     return(html)
 },
-
-# Get pathway image {{{3
-################################################################################
 
 .getPathwayImage=function(id) {
 
@@ -357,9 +317,6 @@ extractPathwayMapShapes=function(id, color2ids) {
     
     return(magick::image_read(img_file))
 },
-
-# Build reaction graph {{{3
-################################################################################
 
 .buildReactionGraph=function(react, directed) {
 

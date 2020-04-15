@@ -1,11 +1,3 @@
-# vi: fdm=marker ts=4 et cc=80 tw=80
-
-# KeggCompoundConn {{{1
-################################################################################
-
-# Declaration {{{2
-################################################################################
-
 #' The connector class to KEGG Compound database.
 #'
 #' This is a concrete connector class. It must never be instantiated directly,
@@ -13,8 +5,7 @@
 #' Only specific methods are described here. See super classes for the
 #' description of inherited methods.
 #'
-#' @seealso \code{\link{BiodbFactory}}, \code{\link{KeggConn}},
-#' \code{\link{BiodbCompounddbConn}}, \code{\link{KeggPathwayConn}}.
+#' @seealso \code{\link{KeggConn}}, \code{\link{KeggPathwayConn}}.
 #'
 #' @examples
 #' # Create an instance with default settings:
@@ -36,26 +27,16 @@
 #' mybiodb$terminate()
 #'
 #' @include KeggConn.R
-#' @include BiodbCompounddbConn.R
 #' @export KeggCompoundConn
 #' @exportClass KeggCompoundConn
 KeggCompoundConn <- methods::setRefClass("KeggCompoundConn",
     contains=c("KeggConn", "BiodbCompounddbConn"),
 
-# Public methods {{{2
-################################################################################
-
 methods=list(
-
-# Initialize {{{3
-################################################################################
 
 initialize=function(...) {
     callSuper(db.name='compound', db.abbrev='cpd', ...)
 },
-
-# Web service find exact mass {{{3
-################################################################################
 
 wsFindExactMass=function(mass=NA_real_, mass.min=NA_real_, mass.max=NA_real_,
                          retfmt=c('plain', 'request', 'parsed', 'ids')) {
@@ -110,9 +91,6 @@ wsFindExactMass=function(mass=NA_real_, mass.min=NA_real_, mass.max=NA_real_,
 
     return(results)
 },
-
-# Web service find molecural weight {{{3
-################################################################################
 
 wsFindMolecularWeight=function(mass=NA_real_, mass.min=NA_real_,
                                mass.max=NA_real_,
@@ -169,13 +147,10 @@ wsFindMolecularWeight=function(mass=NA_real_, mass.min=NA_real_,
     return(results)
 },
 
-# Search compound {{{3
-################################################################################
-
 searchCompound=function(name=NULL, mass=NULL, mass.field=NULL, mass.tol=0.01,
                         mass.tol.unit='plain', max.results=NA_integer_) {
     # Overrides super class' method.
-        
+
     .self$.checkMassField(mass=mass, mass.field=mass.field)
 
     ids <- NULL
@@ -228,9 +203,6 @@ searchCompound=function(name=NULL, mass=NULL, mass.field=NULL, mass.tol=0.01,
     return(ids)
 },
 
-# Get entry image url {{{3
-################################################################################
-
 getEntryImageUrl=function(id) {
     # Overrides super class' method.
 
@@ -242,9 +214,6 @@ getEntryImageUrl=function(id) {
 
     return(vapply(id, fct, FUN.VALUE=''))
 },
-
-# Get pathway IDs per compound {{{3
-################################################################################
 
 getPathwayIdsPerCompound=function(id, org, limit=3) {
     ":\n\nGets organism pathways for each compound. This method retrieves for
@@ -316,9 +285,6 @@ getPathwayIdsPerCompound=function(id, org, limit=3) {
     return(pathways)
 },
 
-# Get module IDs per compound {{{3
-################################################################################
-
 getModuleIdsPerCompound=function(id, org, limit=3) {
     ":\n\nGets organism modules for each compound. This method retrieves for
     each compound the KEGG modules of the organism in which the compound is
@@ -359,9 +325,6 @@ getModuleIdsPerCompound=function(id, org, limit=3) {
     return(modules)
 },
 
-# Get pathway IDs {{{3
-################################################################################
-
 getPathwayIds=function(id, org) {
     ":\n\nGets organism pathways. This method retrieves KEGG pathways of the
     specified organism in which the compounds are involved.
@@ -378,9 +341,6 @@ getPathwayIds=function(id, org) {
 
     return(pathways)
 },
-
-# Add info {{{3
-################################################################################
 
 addInfo=function(x, id.col, org, limit=3, prefix='') {
     ":\n\nAdd informations (as new column appended to the end) to an existing

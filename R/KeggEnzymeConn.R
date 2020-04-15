@@ -1,10 +1,3 @@
-# vi: fdm=marker ts=4 et cc=80 tw=80
-
-# KeggEnzymeConn {{{1
-################################################################################
-
-# Declaration {{{2
-################################################################################
 
 #' The connector class to KEGG Enzyme database.
 #'
@@ -34,20 +27,11 @@
 KeggEnzymeConn <- methods::setRefClass("KeggEnzymeConn",
     contains=c("KeggConn"),
 
-# Public methods {{{2
-################################################################################
-
 methods=list(
-
-# Initialize {{{3
-################################################################################
 
 initialize=function(...) {
     callSuper(db.name='enzyme', db.abbrev='ec', ...)
 },
-
-# Get pathway IDs {{{3
-################################################################################
 
 getPathwayIds=function(id, org) {
     ":\n\nGets organism pathways.  This method retrieves KEGG pathways of the

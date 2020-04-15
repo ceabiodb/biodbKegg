@@ -1,17 +1,9 @@
-# vi: fdm=marker ts=4 et cc=80 tw=80
-
-# Test KEGG Compound wsList {{{1
-################################################################
-
 test.kegg.compound.wsList <- function(conn) {
 
 	results <- conn$wsList(retfmt = 'ids')
 	testthat::expect_is(results, 'character')
 	testthat::expect_true(length(results) > 100)
 }
-
-# Test KEGG Compound wsFind {{{1
-################################################################
 
 test.kegg.compound.wsFind <- function(db) {
 
@@ -33,9 +25,6 @@ test.kegg.compound.wsFind <- function(db) {
 	testthat::expect_true(identical(ids, df[[1]]))
 	testthat::expect_true(ids[[1]] == 'cpd:C00005')
 }
-
-# Test KEGG Compound wsFindExactMass {{{1
-################################################################
 
 test.kegg.compound.wsFindExactMass <- function(db) {
 
@@ -67,9 +56,6 @@ test.kegg.compound.wsFindExactMass <- function(db) {
 	expect_true(length(ids) > 1)
 }
 
-# Test KEGG Compound wsFindMolecularWeight {{{1
-################################################################
-
 test.kegg.compound.wsFindMolecularWeight <- function(db) {
 
 	# Test single mass
@@ -100,9 +86,6 @@ test.kegg.compound.wsFindMolecularWeight <- function(db) {
 	expect_true(length(ids) > 1)
 }
 
-# Test KEGG Compound getPathwayIds() issue 333 {{{1
-################################################################
-
 test.kegg.compound.getPathwayIds_issue_333_20190507 <- function(conn) {
 
 	# Compound
@@ -122,9 +105,6 @@ test.kegg.compound.getPathwayIds_issue_333_20190507 <- function(conn) {
 	testthat::expect_false(any(wrongpws %in% ids))
 }
 
-# Test KEGG Compound getPathwayIds() issue 338 {{{1
-################################################################
-
 test.kegg.compound.getPathwayIds_issue_338_20190517 <- function(conn) {
 
 	# Compound
@@ -143,18 +123,12 @@ test.kegg.compound.getPathwayIds_issue_338_20190517 <- function(conn) {
 	}
 }
 
-# Test KEGG Compound getPathwayIds() {{{1
-################################################################
-
 test.kegg.compound.getPathwayIds <- function(conn) {
 	c = 'C00134'
 	ids = conn$getPathwayIds(c, 'mmu')
 	testthat::expect_is(ids, 'character')
 	testthat::expect_true(length(ids) > 0)
 }
-
-# Test KEGG Compound getPathwayIdsPerCompound() {{{1
-################################################################
 
 test.kegg.compound.getPathwayIdsPerCompound <- function(conn) {
 	c = 'C00134'
@@ -164,9 +138,6 @@ test.kegg.compound.getPathwayIdsPerCompound <- function(conn) {
 	testthat::expect_is(ids[[c]], 'character')
 	testthat::expect_true(length(ids[[c]]) > 0)
 }
-
-# Test addInfo() {{{1
-################################################################
 
 test.addInfo <- function(conn) {
 
@@ -190,15 +161,33 @@ test.addInfo <- function(conn) {
     y2 <- conn$addInfo(x2, id.col='ids', org='mmu')
 }
 
-# Main {{{1
+# Main
 ################################################################
 
-biodb::testThat('wsList() works correctly.', test.kegg.compound.wsList, conn = conn)
-biodb::testThat('wsFind() works correctly.', test.kegg.compound.wsFind, conn = conn)
-biodb::testThat('wsFindExactMass() works correctly.', test.kegg.compound.wsFindExactMass, conn = conn)
-biodb::testThat('wsFindMolecularWeight() works correctly.', test.kegg.compound.wsFindMolecularWeight, conn = conn)
-biodb::testThat('getPathwayIdsPerCompound() works correctly.', test.kegg.compound.getPathwayIdsPerCompound, conn = conn)
-biodb::testThat('getPathwayIds() works correctly.', test.kegg.compound.getPathwayIds, conn = conn)
-biodb::testThat('getPathwayIds() issue_333 is corrected', test.kegg.compound.getPathwayIds_issue_333_20190507, conn = conn)
-biodb::testThat('getPathwayIds() issue_338 is corrected', test.kegg.compound.getPathwayIds_issue_338_20190517, conn = conn)
+# Instantiate Biodb
+biodb <- biodb::createBiodbTestInstance(log='kegg_compound_test.log', ack=TRUE)
+
+# Load package definitions
+file <- system.file("definitions.yml", package='biodbKegg')
+biodb$loadDefinitions(file)
+
+# Set context
+biodb::setTestContext(biodb, "Test Kegg Compound connector.")
+
+# Create connector
+conn <- biodb$getFactory()$createConn('kegg.compound')
+
+# Run tests
+biodb::runGenericTests(conn)
+biodb::testThat('wsList() works correctly.', test.kegg.compound.wsList, conn=conn)
+biodb::testThat('wsFind() works correctly.', test.kegg.compound.wsFind, conn=conn)
+biodb::testThat('wsFindExactMass() works correctly.', test.kegg.compound.wsFindExactMass, conn=conn)
+biodb::testThat('wsFindMolecularWeight() works correctly.', test.kegg.compound.wsFindMolecularWeight, conn=conn)
+biodb::testThat('getPathwayIdsPerCompound() works correctly.', test.kegg.compound.getPathwayIdsPerCompound, conn=conn)
+biodb::testThat('getPathwayIds() works correctly.', test.kegg.compound.getPathwayIds, conn=conn)
+biodb::testThat('getPathwayIds() issue_333 is corrected', test.kegg.compound.getPathwayIds_issue_333_20190507, conn=conn)
+biodb::testThat('getPathwayIds() issue_338 is corrected', test.kegg.compound.getPathwayIds_issue_338_20190517, conn=conn)
 biodb::testThat('addInfo() works correctly.', test.addInfo, conn=conn)
+
+# Terminate Biodb
+biodb$terminate()

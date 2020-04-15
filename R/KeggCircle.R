@@ -1,11 +1,3 @@
-# vi: fdm=marker ts=4 et cc=80
-
-# BiodbCircle {{{1
-################################################################################
-
-# Declaration {{{2
-################################################################################
-
 #' A class for representing a circle.
 #'
 #' This class represents a rectangle, used for graphical
@@ -20,14 +12,14 @@
 #'
 #' r: Radius.
 #'
-#' @seealso \code{\link{BiodbShape}}, \code{\link{BiodbRect}}.
+#' @seealso \code{\link{KeggShape}}, \code{\link{KeggRect}}.
 #'
 #' @examples
 #' # Create an instance
-#' c1 <- BiodbCircle(x=12, y=5, r=3)
+#' c1 <- KeggCircle(x=12, y=5, r=3)
 #'
-#' # Since it inherits from BiodbShape, a color and a label can be set
-#' c2 <- BiodbCircle(x=12, y=5, r=3, color='blue', label='Circle 2')
+#' # Since it inherits from KeggShape, a color and a label can be set
+#' c2 <- KeggCircle(x=12, y=5, r=3, color='blue', label='Circle 2')
 #'
 #' # Getting center
 #' c1$getX()
@@ -41,22 +33,16 @@
 #' c1$draw()
 #' }
 #'
-#' @include BiodbShape.R
-#' @export BiodbCircle
-#' @exportClass BiodbCircle
-BiodbCircle <- methods::setRefClass('BiodbCircle',
-    contains='BiodbShape',
+#' @include KeggShape.R
+#' @export KeggCircle
+#' @exportClass KeggCircle
+KeggCircle <- methods::setRefClass('KeggCircle',
+    contains='KeggShape',
     fields=list(.x='integer',
                 .y='integer',
                 .r='integer'),
 
-# Public methods {{{2
-################################################################################
-
 methods=list(
-
-# Initialize {{{3
-################################################################################
 
 initialize=function(x, y, r, ...) {
     callSuper(...)
@@ -64,9 +50,6 @@ initialize=function(x, y, r, ...) {
     .self$.y <- as.integer(y)
     .self$.r <- as.integer(r)
 },
-
-# Get X {{{3
-################################################################################
 
 getX=function() {
     ":\n\nGet the X coordinate.
@@ -76,9 +59,6 @@ getX=function() {
     return(.self$.x)
 },
 
-# Get Y {{{3
-################################################################################
-
 getY=function() {
     ":\n\nGet the Y coordinate.
     \nReturned value: The Y coordinate.
@@ -87,9 +67,6 @@ getY=function() {
     return(.self$.y)
 },
 
-# Get radius {{{3
-################################################################################
-
 getRadius=function() {
     ":\n\nGet the radius.
     \nReturned value: The radius.
@@ -97,9 +74,6 @@ getRadius=function() {
 
     return(.self$.r)
 },
-
-# Draw {{{3
-################################################################################
 
 draw=function() {
     # Overrides super class' method.

@@ -1,11 +1,3 @@
-# vi: fdm=marker ts=4 et cc=80 tw=80
-
-# KeggEntry {{{1
-################################################################################
-
-# Declaration {{{2
-################################################################################
-
 #' KEGG entry abstract class.
 #'
 #' This is the abstract entry class for all KEGG entry classes. 
@@ -23,30 +15,17 @@
 #' # Terminate instance.
 #' mybiodb$terminate()
 #'
-#' @include BiodbTxtEntry.R
 #' @export KeggEntry
 #' @exportClass KeggEntry
 KeggEntry=methods::setRefClass("KeggEntry",
     contains='BiodbTxtEntry',
 
-# Public methods {{{2
-################################################################################
-
 methods=list(
-
-# Initialize {{{3
-################################################################################
 
 initialize=function(...) {
 
     callSuper(...)
 },
-
-# Private methods {{{2
-################################################################################
-
-# Get tag lines {{{3
-################################################################################
 
 .getTagLines=function(tag, parsed.content) {
 
@@ -75,9 +54,6 @@ initialize=function(...) {
     return(lines)
 },
 
-# Parse multilines field {{{3
-################################################################################
-
 .parseMultilinesField=function(field, tag, parsed.content, strip.chars=' ',
                                split.char=' ') {
 
@@ -96,9 +72,6 @@ initialize=function(...) {
         .self$setFieldValue(field, value)
 },
 
-# Parse names {{{3
-################################################################################
-
 .parseNames=function(parsed.content, strip.chars=' ;',
                      split.char=NA_character_) {
 
@@ -106,9 +79,6 @@ initialize=function(...) {
                                 parsed.content=parsed.content,
                                 strip.chars=strip.chars, split.char=split.char)
 },
-
-# Parse orthology IDs {{{3
-################################################################################
 
 .parseOrthologyIds=function(parsed.content) {
     ids <- .self$.getTagLines(tag='ORTHOLOGY',
@@ -119,9 +89,6 @@ initialize=function(...) {
     }
 },
 
-# Parse module IDs {{{3
-################################################################################
-
 .parseModuleIds=function(parsed.content) {
     module.ids <- .self$.getTagLines(tag='MODULE',
                                      parsed.content=parsed.content)
@@ -130,9 +97,6 @@ initialize=function(...) {
         .self$setFieldValue('kegg.module.id', module.ids)
     }
 },
-
-# Parse pathway IDs {{{3
-################################################################################
 
 .parsePathwayIds=function(parsed.content) {
     pathway.ids <- .self$.getTagLines(tag='PATHWAY',
@@ -143,9 +107,6 @@ initialize=function(...) {
     }
 },
 
-# Parse compound IDs {{{3
-################################################################################
-
 .parseCompoundIds=function(parsed.content) {
     compound.ids <- .self$.getTagLines(tag='COMPOUND',
                                        parsed.content=parsed.content)
@@ -154,9 +115,6 @@ initialize=function(...) {
         .self$setFieldValue('kegg.compound.id', compound.ids)
     }
 },
-
-# Parse DB links {{{3
-################################################################################
 
 .parseDbLinks=function(parsed.content) {
 
@@ -204,9 +162,6 @@ initialize=function(...) {
     }
 },
 
-# Parse genes IDs {{{3
-################################################################################
-
 .parseGenesIds=function(parsed.content) {
 
     lines <- .self$.getTagLines(tag='GENES', parsed.content=parsed.content)
@@ -224,9 +179,6 @@ initialize=function(...) {
         .self$setFieldValue('kegg.genes.id', genes.ids)
     }
 },
-
-# Parse reaction IDs {{{3
-################################################################################
 
 .parseReactionIds=function(parsed.content) {
 
