@@ -3,3 +3,5 @@ tests/testthat/output
 man
 biodbKegg_*.tar.gz
 biodbKegg.Rcheck
+doc
+Meta

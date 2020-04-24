@@ -2,8 +2,6 @@
 	"accession": "C00133",
 	"name": ["D-Alanine", "D-2-Aminopropionic acid", "D-Ala"],
 	"formula": "C3H7NO2",
-	"inchi": "InChI=1S/C3H7NO2/c1-2(4)3(5)6/h2H,4H2,1H3,(H,5,6)/t2-/m1/s1",
-	"inchikey": "QNAYBMKLOCPYGJ-UWTATZPHSA-N",
 	"monoisotopic.mass": 89.0477,
 	"molecular.mass": 89.0932,
 	"chebi.id": "15570",

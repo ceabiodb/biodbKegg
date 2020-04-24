@@ -6,3 +6,4 @@
 ^\.travis\.yml$
 ^biodbKegg\.Rcheck$
 ^biodbKegg_.*\.tar\.gz$
+^Meta$

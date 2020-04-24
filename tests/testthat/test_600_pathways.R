@@ -23,11 +23,13 @@ test_kegg_pathway_getPathwayIgraph = function(conn) {
 test_getDecoratedGraphPicture = function(conn) {
  
     c = list(yellow = c('4.2.1.22', '4.2.3.1'), green = c('C00101', 'C00168'))
-    graph_pix = conn$getDecoratedGraphPicture('mmu00260', color2ids = c)
+    graph_pix = conn$getDecoratedGraphPicture('mmu00260', color2ids=c)
     if (require('magick')) {
         detach('package:magick') # Force using namespace.
         testthat::expect_is(graph_pix, 'magick-image')
-        magick::image_write(graph_pix, path = file.path(biodb::getTestOutputDir(), 'test_getDecoratedGraphPicture_image.png'), format = 'png')
+        path <- file.path(biodb::getTestOutputDir(),
+                          'test_getDecoratedGraphPicture_image.png')
+        magick::image_write(graph_pix, path=path, format='png')
     }
     else
         testthat::expect_null(graph_pix)

@@ -290,7 +290,7 @@ extractPathwayMapShapes=function(id, color2ids) {
 
     # Send request and get HTML page
     html=.self$getBiodb()$getRequestScheduler()$sendRequest(request)
-    
+
     return(html)
 },
 
@@ -298,23 +298,23 @@ extractPathwayMapShapes=function(id, color2ids) {
 
     html <- .self$.getPathwayHtml(id)
     path_idx <- sub('^[^0-9]+', '', id)
-    
+
     cache <- .self$getBiodb()$getPersistentCache()
     img_filename <- paste0('pathwaymap-', path_idx)
     cid <- .self$getCacheId()
     img_file <- cache$getFilePath(cid, img_filename, 'png')
     if ( ! cache$fileExist(cid, img_filename, 'png')) {
         img_url <- stringr::str_match(html,
-                                      'src="([^"]+)"\\s+name="pathwayimage"')
+                                      'src="([^"]+)"\\s+(name|id)="pathwayimage"')
         if (is.na(img_url[1, 1]))
             .self$error('Impossible to find pathway image path inside',
-                        ' HTML page.')
+                        ' HTML page for pathway ID ', id, '.')
         u <- .self$getPropValSlot('urls', 'base.url')
         img_url <- BiodbUrl(url=c(u, img_url[1, 2]))
         .self$getBiodb()$getRequestScheduler()$downloadFile(url=img_url,
                                                             dest.file=img_file)
     }
-    
+
     return(magick::image_read(img_file))
 },
 
