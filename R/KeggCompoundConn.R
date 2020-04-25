@@ -1,7 +1,7 @@
 #' The connector class to KEGG Compound database.
 #'
 #' This is a concrete connector class. It must never be instantiated directly,
-#' but instead be instantiated through the factory \code{\link{BiodbFactory}}.
+#' but instead be instantiated through the factory \code{BiodbFactory}.
 #' Only specific methods are described here. See super classes for the
 #' description of inherited methods.
 #'
