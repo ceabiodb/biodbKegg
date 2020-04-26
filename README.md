@@ -1,8 +1,33 @@
 # biodbKegg
 
-## Citations
+[![Build Status](https://travis-ci.org/pkrog/biodbKegg.svg?branch=master)](https://travis-ci.org/pkrog/biodbKegg)
 
-<http://www.kegg.jp>
+An R package for accessing [Kegg](https://www.kegg.jp/) online database, based on R package/framework [biodb](https://github.com/pkrog/biodb/).
+
+## Introduction
+
+This package implements *biodb* connectors for the following KEGG databases:
+ * KEGG Compound.
+ * KEGG Enzyme.
+ * KEGG Genes.
+ * KEGG Module.
+ * KEGG Orthology.
+ * KEGG Pathway.
+ * KEGG Reaction.
+
+## Examples
+
+TODO
+
+## Installation
+
+TODO
+
+## Documentation
+
+TODO
+
+## Citations
 
  * Kanehisa, M.; Toward pathway engineering: a new database of genetic and molecular pathways. Science & Technology Japan, No. 59, pp. 34-38 (1996), <http://www.kanehisa.jp/docs/archive/stj.pdf>.
  * Kanehisa, M.; A database for post-genome analysis. Trends Genet. 13, 375-376 (1997), <https://doi.org/10.1016/S0168-9525(97)01223-7>.
