@@ -115,8 +115,8 @@ test.kegg.compound.getPathwayIds_issue_338_20190517 <- function(conn) {
 	pw <- 'mmu00190'
 
 	# Get all pathways
-	for (c in c(adp, atp)) {
-		ids <- conn$getPathwayIds(c, 'mmu')
+	for (comp in c(adp, atp)) {
+		ids <- conn$getPathwayIds(comp, 'mmu')
 		testthat::expect_is(ids, 'character')
 		testthat::expect_true(length(ids) > 0)
 		testthat::expect_true(pw %in% ids)
@@ -124,8 +124,8 @@ test.kegg.compound.getPathwayIds_issue_338_20190517 <- function(conn) {
 }
 
 test.kegg.compound.getPathwayIds <- function(conn) {
-	c = 'C00134'
-	ids = conn$getPathwayIds(c, 'mmu')
+	comp <- 'C00134'
+	ids <- conn$getPathwayIds(comp, 'mmu')
 	testthat::expect_is(ids, 'character')
 	testthat::expect_true(length(ids) > 0)
 }

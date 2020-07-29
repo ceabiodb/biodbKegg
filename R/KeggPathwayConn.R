@@ -305,7 +305,7 @@ extractPathwayMapShapes=function(id, color2ids) {
     img_file <- cache$getFilePath(cid, img_filename, 'png')
     if ( ! cache$fileExist(cid, img_filename, 'png')) {
         img_url <- stringr::str_match(html,
-                                      'src="([^"]+)"\\s+(name|id)="pathwayimage"')
+                                      'src="([^"]+)"(\\s+.*)?\\s+(name|id)="pathwayimage"')
         if (is.na(img_url[1, 1]))
             .self$error('Impossible to find pathway image path inside',
                         ' HTML page for pathway ID ', id, '.')
