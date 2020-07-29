@@ -5,7 +5,6 @@ test.kegg.genes.getPathwayIdsPerGene <- function(conn) {
 	testthat::expect_true(id %in% names(ids))
 	testthat::expect_is(ids[[id]], 'character')
 	testthat::expect_true(length(ids[[id]]) > 0)
-    print(ids)
 }
 
 test.kegg.genes.getPathwayIds <- function(conn) {
@@ -13,7 +12,6 @@ test.kegg.genes.getPathwayIds <- function(conn) {
     ids <- conn$getPathwayIds(id, org='mmu')
     testthat::expect_is(ids, 'character')
     testthat::expect_true(length(ids) > 0)
-    print(ids)
 }
 
 # Main
