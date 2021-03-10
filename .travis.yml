@@ -19,5 +19,5 @@ before_install:
 script:
     - make test
     - make build
-    - make full.check || (cat /home/travis/build/pkrog/biodb/biodbKegg.Rcheck/tests/testthat.Rout.fail && false)
+    - make full.check || (cat /home/travis/build/pkrog/biodbKegg.Rcheck/tests/testthat.Rout.fail && false)
     - make bioc.check
