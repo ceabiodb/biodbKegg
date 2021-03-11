@@ -1,6 +1,6 @@
 {
 	"accession": "mmu:14635",
-	"name": ["Galk1", "AA409894", "GALK", "Gk", "Glk", "Glk1"],
+	"name": ["Galk1", "AA409894", "GALK", "Gk", "Gl", "Glk", "Glk1"],
 	"description": "(RefSeq) galactokinase 1",
 	"organism": "Mus musculus (mouse)",
 	"kegg.organism.code": "mmu",

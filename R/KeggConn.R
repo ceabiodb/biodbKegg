@@ -139,14 +139,14 @@ wsFind=function(query, retfmt=c('plain', 'request', 'parsed', 'ids')) {
     return(results)
 },
 
-searchByName=function(name, max.results=NA_integer_) {
+.doSearchForEntries=function(fields=NULL, max.results=NA_integer_) {
     # Overrides super class' method.
 
     ids <- NULL
 
     # Search by name
-    if ( ! is.null(name) && ! is.na(name)) {
-        ids <- .self$wsFind(name, retfmt='ids')
+    if ('name' %in% names(fields)) {
+        ids <- .self$wsFind(fields[['name']], retfmt='ids')
         if ( ! is.na(.self$.db.abbrev) && nchar(.self$.db.abbrev) > 0)
             ids <- sub('^[^:]*:', '', ids)
     }

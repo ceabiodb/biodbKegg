@@ -31,8 +31,14 @@ initialize=function(label=NA_character_,
     .self$.color <- color
 },
 
-# Get label {{3
-################################################################################
+equals=function(other) {
+    "\n\nTest if this shape is the same as another.
+    \nother: The other shape to compare with.
+    \nReturned value: TRUE or FALSE.
+    "
+
+    return(FALSE)
+},
 
 getLabel=function() {
     ":\n\nGets the label associated with this shape.
@@ -42,9 +48,6 @@ getLabel=function() {
     return(.self$.label)
 },
 
-# Get color {{3
-################################################################################
-
 getColor=function() {
     ":\n\nGets the color associated with this shape.
     \nReturned value: The color name as a string.
@@ -52,9 +55,6 @@ getColor=function() {
 
     return(.self$.color)
 },
-
-# Get RGB color {{3
-################################################################################
 
 getRgbColor=function(alpha=255) {
     ":\n\nGets the RGB color associated with this shape.
@@ -68,9 +68,6 @@ getRgbColor=function(alpha=255) {
 
     return(c)
 },
-
-# Draw {{3
-################################################################################
 
 draw=function() {
     ":\n\nDraw the shape on the current image.

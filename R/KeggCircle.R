@@ -52,6 +52,19 @@ initialize=function(x, y, r, ...) {
     .self$.r <- as.integer(r)
 },
 
+equals=function(other) {
+    # Overrides super class' method.
+    
+    eq <- FALSE
+    
+    if (methods::is(other, "KeggCircle")) {
+        eq <- .self$.x == other$.x && .self$.y == other$.y &&
+            .self$.r == other$.r
+    }
+ 
+    return(eq)
+},
+
 getX=function() {
     ":\n\nGet the X coordinate.
     \nReturned value: The X coordinate.

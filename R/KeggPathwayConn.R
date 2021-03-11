@@ -271,8 +271,16 @@ extractPathwayMapShapes=function(id, color2ids) {
                                 NULL)
 
                     # Append new shape to list
-                    if ( ! is.null(s))
-                        shapes <- c(shapes, list(s))
+                    if ( ! is.null(s)) {
+                        is_new <- TRUE
+                        for (shape in shapes)
+                            if (shape$equals(s)) {
+                                is_new <- FALSE
+                                break
+                            }
+                        if (is_new)
+                            shapes <- c(shapes, list(s))
+                    }
                 }
             }
         }

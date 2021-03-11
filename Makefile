@@ -18,15 +18,6 @@ ifndef BIODB_CACHE_DIRECTORY
 export BIODB_CACHE_DIRECTORY=$(PWD)/cache
 endif
 
-# Set testthat reporter
-ifndef TESTTHAT_REPORTER
-ifdef VIM
-TESTTHAT_REPORTER=summary
-else
-TESTTHAT_REPORTER=progress
-endif
-endif
-
 PKG_VERSION=$(shell grep '^Version:' DESCRIPTION | sed 's/^Version: //')
 GIT_VERSION=$(shell git describe --tags | sed 's/^v\([0-9.]*\)[a-z]*.*$$/\1/')
 ZIPPED_PKG=biodbKegg_$(PKG_VERSION).tar.gz
@@ -37,6 +28,15 @@ $(info "BIODB_CACHE_READ_ONLY=$(BIODB_CACHE_READ_ONLY)")
 $(info "PKG_VERSION=$(PKG_VERSION)")
 
 RFLAGS=--slave --no-restore
+
+# Set testthat reporter
+ifndef TESTTHAT_REPORTER
+ifdef VIM
+TESTTHAT_REPORTER=summary
+else
+TESTTHAT_REPORTER=progress
+endif
+endif
 
 # Set test file filter
 ifndef TEST_FILE
@@ -69,7 +69,11 @@ bioc.check: clean.vignettes $(ZIPPED_PKG)
 	R $(RFLAGS) -e 'BiocCheck::BiocCheck("$(ZIPPED_PKG)", `new-package`=TRUE, `quit-with-status`=TRUE, `no-check-formatting`=TRUE)'
 
 test:
+ifdef VIM
+	R $(RFLAGS) -e "devtools::test('$(CURDIR)', filter=$(TEST_FILE), reporter=c('$(TESTTHAT_REPORTER)', 'fail'))" | sed 's!\([^/A-Za-z_-]\)\(test[^/A-Za-z][^/]\+\.R\)!\1tests/testthat/\2!'
+else
 	R $(RFLAGS) -e "devtools::test('$(CURDIR)', filter=$(TEST_FILE), reporter=c('$(TESTTHAT_REPORTER)', 'fail'))"
+endif
 
 win:
 	R $(RFLAGS) -e "devtools::check_win_devel('$(CURDIR)')"

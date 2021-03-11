@@ -45,6 +45,19 @@ initialize=function(left, top, bottom, right, ...) {
     .self$.bottom   <- as.integer(bottom)
 },
 
+equals=function(other) {
+    # Overrides super class' method.
+    
+    eq <- FALSE
+    
+    if (methods::is(other, "KeggRect")) {
+        eq <- .self$.left == other$.left && .self$.right == other$.right &&
+            .self$.top == other$.top && .self$.bottom == other$.bottom
+    }
+ 
+    return(eq)
+},
+
 draw=function() {
     # Overrides super class' method.
 
