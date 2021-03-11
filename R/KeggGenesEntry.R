@@ -55,8 +55,8 @@ initialize=function(...) {
     sequence <- paste(lines[2:length(lines)], collapse='')
     if (seq.length != nchar(sequence))
         .self$caution('Length of AA sequence (', nchar(sequence),
-                      ') is different from the stated length (', seq.length,
-                      '). In entry ', .self$getFieldValue('accession'), '.')
+            ') is different from the stated length (', seq.length,
+            '). In entry ', .self$getFieldValue('accession'), '.')
     .self$setFieldValue('aa.seq', sequence)
     .self$setFieldValue('aa.seq.length', seq.length)
 
@@ -66,8 +66,8 @@ initialize=function(...) {
     sequence <- paste(lines[2:length(lines)], collapse='')
     if (seq.length != nchar(sequence))
         .self$caution('Length of NT sequence (', nchar(sequence),
-                      ') is different from the stated length (', seq.length,
-                      '). In entry ', .self$getFieldValue('accession'), '.')
+            ') is different from the stated length (', seq.length,
+            '). In entry ', .self$getFieldValue('accession'), '.')
     .self$setFieldValue('nt.seq', sequence)
     .self$setFieldValue('nt.seq.length', seq.length)
 }

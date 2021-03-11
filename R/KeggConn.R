@@ -60,8 +60,8 @@ getEntryPageUrl=function(id) {
 },
 
 wsList=function(retfmt=c('plain', 'request', 'ids')) {
-    ":\n\nGets the full list of entry IDs. See http://www.kegg.jp/kegg/docs/keggapi.html for
-    details.
+    ":\n\nGets the full list of entry IDs. See
+    http://www.kegg.jp/kegg/docs/keggapi.html for details.
     \nretfmt: Use to set the format of the returned value. 'plain' will return
     the raw result from the server, as a character value. 'request' will return
     the request as it would have been sent, as a BiodbRequest object. 'ids' will
@@ -99,8 +99,8 @@ wsList=function(retfmt=c('plain', 'request', 'ids')) {
 },
 
 wsFind=function(query, retfmt=c('plain', 'request', 'parsed', 'ids')) {
-    ":\n\nSearches for entries. See http://www.kegg.jp/kegg/docs/keggapi.html for
-    details.
+    ":\n\nSearches for entries. See http://www.kegg.jp/kegg/docs/keggapi.html
+    for details.
     \nquery: The query to send to the database web service.
     \nretfmt: Use to set the format of the returned value. 'plain' will return
     the raw result from the server, as a character value. 'request' will return
@@ -114,7 +114,7 @@ wsFind=function(query, retfmt=c('plain', 'request', 'parsed', 'ids')) {
 
     # Build request
     u <- c(.self$getPropValSlot('urls', 'ws.url'), 'find', .self$.db.name,
-           query)
+        query)
     url <- BiodbUrl(url=u)
     request <- .self$makeRequest(url=url)
     if (retfmt == 'request')

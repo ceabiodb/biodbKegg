@@ -55,7 +55,7 @@ initialize=function(...) {
 },
 
 .parseMultilinesField=function(field, tag, parsed.content, strip.chars=' ',
-                               split.char=' ') {
+    split.char=' ') {
 
     # Get tag lines
     lines <- .self$.getTagLines(tag=tag, parsed.content=parsed.content)
@@ -65,7 +65,7 @@ initialize=function(...) {
         lines <- unlist(strsplit(lines, paste0(split.char, "+"), perl=TRUE))
 
     value <- sub(paste0('[', strip.chars, ']+$'), '',
-                 sub(paste0('^[', strip.chars, ']+'), '', lines))
+        sub(paste0('^[', strip.chars, ']+'), '', lines))
 
     # Set field value
     if (length(value) > 0)
@@ -73,7 +73,7 @@ initialize=function(...) {
 },
 
 .parseNames=function(parsed.content, strip.chars=' ;',
-                     split.char=NA_character_) {
+    split.char=NA_character_) {
 
     .self$.parseMultilinesField(field='name', tag='NAME',
                                 parsed.content=parsed.content,
@@ -82,7 +82,7 @@ initialize=function(...) {
 
 .parseOrthologyIds=function(parsed.content) {
     ids <- .self$.getTagLines(tag='ORTHOLOGY',
-                              parsed.content=parsed.content)
+        parsed.content=parsed.content)
     if (length(ids) > 0) {
         ids <- sub('^\\s*(K[0-9]+)\\s+.*$', '\\1', ids)
         .self$setFieldValue('kegg.orthology.id', ids)
@@ -91,7 +91,7 @@ initialize=function(...) {
 
 .parseModuleIds=function(parsed.content) {
     module.ids <- .self$.getTagLines(tag='MODULE',
-                                     parsed.content=parsed.content)
+        parsed.content=parsed.content)
     if (length(module.ids) > 0) {
         module.ids <- sub('^\\s*[A-Za-z_]*(M[0-9]+)\\s+.*$', '\\1', module.ids)
         .self$setFieldValue('kegg.module.id', module.ids)
@@ -100,7 +100,7 @@ initialize=function(...) {
 
 .parsePathwayIds=function(parsed.content) {
     pathway.ids <- .self$.getTagLines(tag='PATHWAY',
-                                      parsed.content=parsed.content)
+        parsed.content=parsed.content)
     if (length(pathway.ids) > 0) {
         pathway.ids <- sub('^\\s*([^ ]+)\\s+.*$', '\\1', pathway.ids)
         .self$setFieldValue('kegg.pathway.id', pathway.ids)
@@ -109,7 +109,7 @@ initialize=function(...) {
 
 .parseCompoundIds=function(parsed.content) {
     compound.ids <- .self$.getTagLines(tag='COMPOUND',
-                                       parsed.content=parsed.content)
+        parsed.content=parsed.content)
     if (length(compound.ids) > 0) {
         compound.ids <- sub('^\\s*(C[0-9]+)\\s+.*$', '\\1', compound.ids)
         .self$setFieldValue('kegg.compound.id', compound.ids)
@@ -156,7 +156,8 @@ initialize=function(...) {
 
         # Split Uniprot IDs
         if (.self$hasField('uniprot.id')) {
-            ids <- strsplit(.self$getFieldValue('uniprot.id'), ' +', perl=TRUE)[[1]]
+            ids <- strsplit(.self$getFieldValue('uniprot.id'),
+                            ' +', perl=TRUE)[[1]]
             .self$setFieldValue('uniprot.id', ids)
         }
     }
@@ -183,9 +184,8 @@ initialize=function(...) {
 .parseReactionIds=function(parsed.content) {
 
     rids <- c(.self$.getTagLines(tag='REACTION',
-                               parsed.content=parsed.content),
-             .self$.getTagLines(tag='ALL_REAC',
-                               parsed.content=parsed.content))
+        parsed.content=parsed.content), .self$.getTagLines(tag='ALL_REAC',
+        parsed.content=parsed.content))
     if (length(rids) > 0) {
         rids <- stringr::str_match_all(rids, '(^|[ +,])(R[0-9]+)')
         rids <- unlist(lapply(rids, function(x) x[,3]))

@@ -50,9 +50,8 @@ initialize=function(...) {
         }
         else
             .self$caution('Unable to parse equation "',
-                          .self$getFieldValue('equation'),
-                          '" of KEGG reaction ',
-                          .self$getFieldValue('accession'), '.')
+                .self$getFieldValue('equation'),
+                '" of KEGG reaction ', .self$getFieldValue('accession'), '.')
     }
 }
 

@@ -66,7 +66,7 @@ full.check: clean.vignettes $(ZIPPED_PKG)
 	R CMD check "$(ZIPPED_PKG)"
 
 bioc.check: clean.vignettes $(ZIPPED_PKG)
-	R $(RFLAGS) -e 'BiocCheck::BiocCheck("$(ZIPPED_PKG)", c("--new-package", "--quit-with-status", "--no-check-formatting"))'
+	R $(RFLAGS) -e 'BiocCheck::BiocCheck("$(ZIPPED_PKG)", `new-package`=TRUE, `quit-with-status`=TRUE, `no-check-formatting`=TRUE)'
 
 test:
 	R $(RFLAGS) -e "devtools::test('$(CURDIR)', filter=$(TEST_FILE), reporter=c('$(TESTTHAT_REPORTER)', 'fail'))"

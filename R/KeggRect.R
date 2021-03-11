@@ -24,7 +24,7 @@
 #' r <- KeggRect(left=10, top=10, bottom=20, right=30, color='yellow')
 #'
 #' # Draw a rectangle on current image
-#' \dontrun{
+#' \donttest{
 #' r$draw()
 #' }
 #'
@@ -49,7 +49,7 @@ draw=function() {
     # Overrides super class' method.
 
     rect(.self$.left, .self$.bottom, .self$.right, .self$.top,
-         col=.self$getRgbColor(alpha=127), border=NA)
+        col=.self$getRgbColor(alpha=127), border=NA)
 }
 
 ))

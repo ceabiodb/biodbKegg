@@ -85,7 +85,7 @@ getPathwayIds=function(id, org) {
                     # Filter out wrong pathways
                     kpc <- fact$getConn('kegg.pathway')
                     x <- kpc$makesRefToEntry(pws, db='kegg.enzyme',
-                                             oid=enz.id, recurse=TRUE)
+                        oid=enz.id, recurse=TRUE)
                     pws <- pws[x]
                 }
             }

@@ -39,7 +39,7 @@ initialize=function(...) {
         kmc <- .self$getBiodb()$getFactory()$getConn('kegg.module')
         module.ids <- .self$getFieldValue('kegg.module.id')
         makes_ref <- kmc$makesRefToEntry(module.ids, db=db, oid=oid,
-                                         any=TRUE, recurse=TRUE)
+            any=TRUE, recurse=TRUE)
     }
 
     return(makes_ref)

@@ -39,7 +39,7 @@ initialize=function(...) {
 },
 
 wsFindExactMass=function(mass=NA_real_, mass.min=NA_real_, mass.max=NA_real_,
-                         retfmt=c('plain', 'request', 'parsed', 'ids')) {
+    retfmt=c('plain', 'request', 'parsed', 'ids')) {
     ":\n\nSearches for entries by mass.
     You must either provide a single mass through `mass` parameter or provide a
     range through `mass.min` and `mass.max`.
@@ -47,7 +47,11 @@ wsFindExactMass=function(mass=NA_real_, mass.min=NA_real_, mass.max=NA_real_,
     \nmass: Single mass.
     \nmass.min: Minimal mass.
     \nmass.max: Maximal mass.
-    \nretfmt: Set the format to use for the returned value. 'plain' will return the raw results from the server, as a character value. 'request' will return the request as it would have been sent, as a BiodbRequest object. 'parsed' will return a data frame. 'ids' will return a character vector containing the IDs of the matching entries.
+    \nretfmt: Set the format to use for the returned value. 'plain' will return
+    the raw results from the server, as a character value. 'request' will
+    return the request as it would have been sent, as a BiodbRequest object.
+    'parsed' will return a data frame. 'ids' will return a character vector
+    containing the IDs of the matching entries.
     \nReturned value: Depending on `retfmt`.
     "
 
@@ -93,8 +97,8 @@ wsFindExactMass=function(mass=NA_real_, mass.min=NA_real_, mass.max=NA_real_,
 },
 
 wsFindMolecularWeight=function(mass=NA_real_, mass.min=NA_real_,
-                               mass.max=NA_real_,
-                               retfmt=c('plain', 'request', 'parsed', 'ids')) {
+    mass.max=NA_real_,
+    retfmt=c('plain', 'request', 'parsed', 'ids')) {
     ":\n\nSearches for entries by molecular mass.
     You must either provide a single mass through `mass` parameter or provide a
     range through `mass.min` and `mass.max`.
@@ -102,7 +106,11 @@ wsFindMolecularWeight=function(mass=NA_real_, mass.min=NA_real_,
     \nmass: Single mass.
     \nmass.min: Minimal mass.
     \nmass.max: Maximal mass.
-    \nretfmt: Set the format to use for the returned value. 'plain' will return the raw results from the server, as a character value. 'request' will return the request as it would have been sent, as a BiodbRequest object. 'parsed' will return a data frame. 'ids' will return a character vector containing the IDs of the matching entries.
+    \nretfmt: Set the format to use for the returned value. 'plain' will return
+    the raw results from the server, as a character value. 'request' will
+    return the request as it would have been sent, as a BiodbRequest object.
+    'parsed' will return a data frame. 'ids' will return a character vector
+    containing the IDs of the matching entries.
     \nReturned value: Depending on `retfmt`.
     "
 
@@ -179,12 +187,10 @@ searchCompound=function(name=NULL, mass=NULL, mass.field=NULL, mass.tol=0.01,
 
             if (mass.field == 'monoisotopic.mass')
                 mass.ids <- .self$wsFindExactMass(mass.min=mass.min,
-                                                  mass.max=mass.max,
-                                                  retfmt='ids')
+                    mass.max=mass.max, retfmt='ids')
             else
                 mass.ids <- .self$wsFindMolecularWeight(mass.min=mass.min,
-                                                        mass.max=mass.max,
-                                                        retfmt='ids')
+                    mass.max=mass.max, retfmt='ids')
             .self$debug('Got entry IDs ', paste(mass.ids, collapse=', '), '.')
             if ( ! is.null(mass.ids) && any(! is.na(mass.ids))) {
                 mass.ids <- sub('^cpd:', '', mass.ids)
@@ -243,7 +249,7 @@ getPathwayIdsPerCompound=function(id, org, limit=3) {
         # Send progress message
         i <- i + 1
         .self$progressMsg(msg='Retrieving pathways of compounds.', index=i,
-                          total=length(id), first=(i == 1))
+            total=length(id), first=(i == 1))
 
         # Get compound entry
         comp <- .self$getEntry(comp.id)
@@ -271,13 +277,13 @@ getPathwayIdsPerCompound=function(id, org, limit=3) {
             # Filter out wrong pathways
             kpc <- fac$getConn('kegg.pathway')
             pws <- pws[kpc$makesRefToEntry(pws, db='kegg.compound',
-                                           oid=comp.id, recurse=TRUE)]
+                oid=comp.id, recurse=TRUE)]
         }
 
         # Record found pathways
         if ( ! is.null(pws)) {
             if (limit > 0 && length(pws) > limit)
-                pws <- pws[1:limit]
+                pws <- pws[seq_len(limit)]
             pathways[[comp.id]] <- pws
         }
     }
@@ -309,12 +315,13 @@ getModuleIdsPerCompound=function(id, org, limit=3) {
     for (i in pwids) {
         # Retrieve pathway entries for this compound
         pw.entries <- pw$getEntry(i, nulls=FALSE, drop=FALSE)
-        modids <- lapply(pw.entries, function(e) e$getFieldValue('kegg.module.id'))
+        modids <- lapply(pw.entries,
+            function(e) e$getFieldValue('kegg.module.id'))
         modids <- unlist(modids)
         modids <- modids[ ! is.na(modids)]
         modids <- unique(modids)
         if (limit > 0 && length(modids) > limit)
-            modids <- modids[1:limit]
+            modids <- modids[seq_len(limit)]
         modules <- c(modules, list(modids))
     }
 
@@ -375,30 +382,24 @@ addInfo=function(x, id.col, org, limit=3, prefix='') {
         entries <- .self$getEntry(ids)
 
         # Add enzyme IDs and reaction IDs
-        enzids <- .self$getBiodb()$entriesFieldToVctOrLst(entries,
-                                                          field='kegg.enzyme.id',
-                                                          limit=limit)
+        ei <- .self$getBiodb()$entriesFieldToVctOrLst(entries,
+            field='kegg.enzyme.id', limit=limit)
         fields <- c('kegg.enzyme.id', 'kegg.reaction.id')
-        y <- .self$getBiodb()$entryIdsToDataframe(enzids, db='kegg.enzyme',
-                                                    limit=limit, fields=fields,
-                                                    own.id=TRUE)
+        y <- .self$getBiodb()$entryIdsToDataframe(ei, db='kegg.enzyme',
+            limit=limit, fields=fields, own.id=TRUE)
 
         # Add pathway info
         pwids <- .self$getPathwayIdsPerCompound(ids, org=org, limit=limit)
         fields <- c('kegg.pathway.id', 'name', 'pathway.class')
         df2 <- .self$getBiodb()$entryIdsToDataframe(pwids, db='kegg.pathway',
-                                                    limit=limit, fields=fields,
-                                                    own.id=TRUE,
-                                                    prefix='kegg.pathway.')
+            limit=limit, fields=fields, own.id=TRUE, prefix='kegg.pathway.')
         y <- cbind(y, df2)
 
         # Add module info
         modids <- .self$getModuleIdsPerCompound(ids, org=org, limit=limit)
         fields <- c('kegg.module.id', 'name')
         df3 <- .self$getBiodb()$entryIdsToDataframe(modids, db='kegg.module',
-                                                    limit=limit, fields=fields,
-                                                    own.id=TRUE,
-                                                    prefix='kegg.module.')
+            limit=limit, fields=fields, own.id=TRUE, prefix='kegg.module.')
         y <- cbind(y, df3)
 
         # Rename columns

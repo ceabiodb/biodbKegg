@@ -59,12 +59,10 @@ getReactions=function(id, drop=TRUE) {
             
             # Loop on all modules
             for (mod.id in path$getFieldValue('kegg.module.id')) {
-                
                 mod <- kegg.mod.conn$getEntry(mod.id)
                 if ( ! is.null(mod) && mod$hasField('kegg.reaction.id'))
-                    
                     react_ids <- c(react_ids,
-                                  mod$getFieldValue('kegg.reaction.id'))
+                        mod$getFieldValue('kegg.reaction.id'))
             }
         }
     }
@@ -76,8 +74,9 @@ getReactions=function(id, drop=TRUE) {
     reactions <- reactions[ ! vapply(reactions, is.null, FUN.VALUE=TRUE)]
 
     # Drop
-    if (drop && length(reactions) <= 1)
-        reactions <- if (length(reactions) == 1) reactions[[1]] else NULL
+    if (drop && length(reactions) <= 1) {
+        reactions <- (if (length(reactions) == 1) reactions[[1]] else NULL)
+    }
  
     return(reactions)
 },
@@ -181,7 +180,7 @@ getPathwayIgraph=function(id, directed=FALSE, drop=TRUE) {
 
             # Create igraph object
             graph[[n]] <- igraph::graph_from_data_frame(e, directed=directed,
-                                                       vertices <- v)
+                vertices <- v)
         }
     }
 
@@ -195,8 +194,11 @@ getPathwayIgraph=function(id, directed=FALSE, drop=TRUE) {
 getDecoratedGraphPicture=function(id, color2ids) {
     ":\n\nCreate a pathway graph picture, with some of its elements colorized.
     \nid: A KEGG pathway ID.
-    \ncolor2ids: A named list defining colors for entry IDs that are present on the graph. The names of the list are standard color names. The values are character vector of entry IDs.
-    \nReturned value: an image object or NULL if the package magick is not available.
+    \ncolor2ids: A named list defining colors for entry IDs that are present on
+    the graph. The names of the list are standard color names. The values are
+    character vector of entry IDs.
+    \nReturned value: an image object or NULL if the package magick is not
+    available.
     "
  
     pix <- NULL
@@ -224,7 +226,9 @@ getDecoratedGraphPicture=function(id, color2ids) {
 extractPathwayMapShapes=function(id, color2ids) {
     ":\n\nExtracts shapes from a pathway map image.
     \nid: A KEGG pathway ID.
-    \ncolor2ids: A named list defining colors for entry IDs that are present on the graph. The names of the list are standard color names. The values are character vector of entry IDs.
+    \ncolor2ids: A named list defining colors for entry IDs that are present on
+    the graph. The names of the list are standard color names. The values are
+    character vector of entry IDs.
     \nReturned value: A list of BiodbShape objects.
     "
 
@@ -240,14 +244,15 @@ extractPathwayMapShapes=function(id, color2ids) {
             eid <- gsub('\\.', '\\\\.', id)
 
 # <area shape="circle" coords="336,170,4" href="/dbget-bin/www_bget?C00089"
-#   title="C00089 (Sucrose)" onmouseover="popupTimer(&quot;C00089&quot;,
-#   &quot;C00089 (Sucrose)&quot;, &quot;#ffffff&quot;)" onmouseout="hideMapTn()">
+# title="C00089 (Sucrose)" onmouseover="popupTimer(&quot;C00089&quot;,
+# &quot;C00089 (Sucrose)&quot;, &quot;#ffffff&quot;)" onmouseout="hideMapTn()">
+#
 # <area shape="rect" coords="1015,505,1061,522"
-#   href="/dbget-bin/www_bget?K05992+K01208+3.2.1.133+R02112"
-#   title="K05992 (amyM), K01208 (cd), 3.2.1.133, R02112">
+# href="/dbget-bin/www_bget?K05992+K01208+3.2.1.133+R02112"
+# title="K05992 (amyM), K01208 (cd), 3.2.1.133, R02112">
             regex=paste0('shape="?([^" ]+)"?\\s+',
-                         'coords="?([^" ]+)"?\\s+.+',
-                         'title="([^"]+[ ,])?(', eid, ')[ ,][^"]*"')
+                'coords="?([^" ]+)"?\\s+.+',
+                'title="([^"]+[ ,])?(', eid, ')[ ,][^"]*"')
             g <- stringr::str_match_all(html, regex)[[1]]
             if (nrow(g) > 0) {
 
@@ -257,12 +262,12 @@ extractPathwayMapShapes=function(id, color2ids) {
                     c <- as.integer(strsplit(g[i, 3], ',')[[1]])
                     s <- switch(type,
                                 rect=KeggRect(label=g[i, 5],
-                                           color=color,
-                                           left=c[[1]], top=c[[2]],
-                                           right=c[[3]], bottom=c[[4]]),
+                                    color=color,
+                                    left=c[[1]], top=c[[2]],
+                                    right=c[[3]], bottom=c[[4]]),
                                 circle=KeggCircle(label=g[i, 5],
-                                             color=color, x=c[[1]],
-                                             y=c[[2]], r=c[[3]]),
+                                    color=color, x=c[[1]],
+                                    y=c[[2]], r=c[[3]]),
                                 NULL)
 
                     # Append new shape to list
@@ -283,9 +288,9 @@ extractPathwayMapShapes=function(id, color2ids) {
 
     # Build Request
     url=BiodbUrl(url=c(.self$getPropValSlot('urls', 'base.url'), 'kegg-bin',
-                           'show_pathway'),
-                   params=c(org_name='map', mapno=path_idx,
-                              mapscale='1.0', show_description='hide'))
+        'show_pathway'),
+        params=c(org_name='map', mapno=path_idx,
+        mapscale='1.0', show_description='hide'))
     request=.self$makeRequest(url=url)
 
     # Send request and get HTML page
@@ -305,14 +310,14 @@ extractPathwayMapShapes=function(id, color2ids) {
     img_file <- cache$getFilePath(cid, img_filename, 'png')
     if ( ! cache$fileExist(cid, img_filename, 'png')) {
         img_url <- stringr::str_match(html,
-                                      'src="([^"]+)"(\\s+.*)?\\s+(name|id)="pathwayimage"')
+            'src="([^"]+)"(\\s+.*)?\\s+(name|id)="pathwayimage"')
         if (is.na(img_url[1, 1]))
             .self$error('Impossible to find pathway image path inside',
-                        ' HTML page for pathway ID ', id, '.')
+                ' HTML page for pathway ID ', id, '.')
         u <- .self$getPropValSlot('urls', 'base.url')
         img_url <- BiodbUrl(url=c(u, img_url[1, 2]))
         .self$getBiodb()$getRequestScheduler()$downloadFile(url=img_url,
-                                                            dest.file=img_file)
+            dest.file=img_file)
     }
 
     return(magick::image_read(img_file))
@@ -335,18 +340,18 @@ extractPathwayMapShapes=function(id, color2ids) {
         # Create reaction edge
         rid=react$getFieldValue('accession')
         vert=rbind(vert,
-                     data.frame(name=rid, type='reaction', id=rid))
+            data.frame(name=rid, type='reaction', id=rid))
         edg=rbind(data.frame(from=subst, to=rid),
-                    data.frame(from=rid, to=prod))
+            data.frame(from=rid, to=prod))
         
         # Create reverse reaction edge
         if (directed) {
             rvid=paste(rid, 'rev', sep='_')
             vert=rbind(vert,
-                         data.frame(name=rvid, type='reaction',
-                                    id=rid))
+                data.frame(name=rvid, type='reaction',
+                id=rid))
             edg=rbind(edg, data.frame(from=prod, to=rvid),
-                        data.frame(from=rvid, to=subst))
+                data.frame(from=rvid, to=subst))
         }
         
         graph=list(edges=edg, vertices=vert)

@@ -29,7 +29,7 @@
 #' c1#getRadius()
 #'
 #' # Draw a circle on the current image
-#' \dontrun{
+#' \donttest{
 #' c1$draw()
 #' }
 #'

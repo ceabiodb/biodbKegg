@@ -39,7 +39,7 @@ initialize=function(...) {
         krc <- .self$getBiodb()$getFactory()$getConn('kegg.reaction')
         reaction.ids <- .self$getFieldValue('kegg.reaction.id')
         makes_ref <- krc$makesRefToEntry(reaction.ids, db=db, oid=oid,
-                                         any=TRUE, recurse=TRUE)
+            any=TRUE, recurse=TRUE)
     }
 
     return(makes_ref)

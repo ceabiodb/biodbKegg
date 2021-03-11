@@ -60,7 +60,7 @@ getPathwayIdsPerGene=function(id, org, limit=3) {
         # Send progress message
         i <- i + 1
         .self$progressMsg(msg='Retrieving pathways of genes.', index=i,
-                          total=length(id), first=(i == 1))
+            total=length(id), first=(i == 1))
 
         # Get gene entry
         gene <- .self$getEntry(gene.id)
@@ -81,7 +81,7 @@ getPathwayIdsPerGene=function(id, org, limit=3) {
         # Record found pathways
         if ( ! is.null(pws)) {
             if (limit > 0 && length(pws) > limit)
-                pws <- pws[1:limit]
+                pws <- pws[seq_len(limit)]
             pathways[[gene.id]] <- pws
         }
     }
