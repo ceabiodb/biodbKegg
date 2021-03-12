@@ -21,9 +21,7 @@ before_install:
     - R -e 'devtools::install_github("pkrog/biodb", ref="master", dependencies=TRUE, build_vignettes=FALSE)'
 
 script:
-    - make build
-    - make full.check || (cat /home/travis/build/pkrog/biodbKegg.Rcheck/tests/testthat.Rout.fail && false)
-    - make bioc.check
+    - make check
 
 after_success:
     - Rscript -e 'covr::codecov()'
