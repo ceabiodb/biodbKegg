@@ -15,7 +15,7 @@ export _R_S3_METHOD_REGISTRATION_NOTE_OVERWRITES_=no
 
 # Set cache folder
 ifndef BIODB_CACHE_DIRECTORY
-export BIODB_CACHE_DIRECTORY=$(PWD)/cache
+export BIODB_CACHE_DIRECTORY=$(CURDIR)/cache
 endif
 
 PKG_VERSION=$(shell grep '^Version:' DESCRIPTION | sed 's/^Version: //')

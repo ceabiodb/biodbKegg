@@ -1,6 +1,7 @@
 # biodbKegg
 
 [![Build Status](https://travis-ci.org/pkrog/biodbKegg.svg?branch=master)](https://travis-ci.org/pkrog/biodbKegg)
+[![Codecov test coverage](https://codecov.io/gh/pkrog/biodbKegg/branch/master/graph/badge.svg)](https://codecov.io/gh/pkrog/biodbKegg?branch=master)
 
 An R package for accessing [Kegg](https://www.kegg.jp/) online database, based on R package/framework [biodb](https://github.com/pkrog/biodb/).
 
