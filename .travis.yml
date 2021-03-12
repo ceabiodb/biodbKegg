@@ -10,6 +10,10 @@ notifications:
         recipients:
             - pierrick.roger@cea.fr
 
+branches:
+  only:
+    - master
+
 before_install:
     - sudo apt-get install -y libmagick++-dev
     - R -e 'install.packages("BiocManager");BiocManager::install("BiocCheck")'
@@ -17,7 +21,9 @@ before_install:
     - R -e 'devtools::install_github("pkrog/biodb", ref="master", dependencies=TRUE, build_vignettes=FALSE)'
 
 script:
-    - make test
     - make build
     - make full.check || (cat /home/travis/build/pkrog/biodbKegg.Rcheck/tests/testthat.Rout.fail && false)
     - make bioc.check
+
+after_success:
+    - Rscript -e 'covr::codecov()'
