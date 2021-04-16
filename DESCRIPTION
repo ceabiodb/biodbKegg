@@ -21,7 +21,8 @@ Suggests:
 	magick
 Imports:
 	methods,
-	biodb (>= 0.99.0)
+	biodb (>= 0.99.0),
+	chk
 RoxygenNote: 7.1.1
 Collate:
     'KeggShape.R'
