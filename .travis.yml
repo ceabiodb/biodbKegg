@@ -17,7 +17,7 @@ branches:
     - master
     
 before_install:
-  - [ -f travis_deps.sh ] && bash travis_deps.sh
+  - test -f travis_deps.sh && bash travis_deps.sh
   - R -e 'install.packages("BiocManager");BiocManager::install("BiocCheck")'
 
 script:
