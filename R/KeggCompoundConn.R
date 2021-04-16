@@ -27,6 +27,7 @@
 #' mybiodb$terminate()
 #'
 #' @include KeggConn.R
+#' @import chk
 #' @export KeggCompoundConn
 #' @exportClass KeggCompoundConn
 KeggCompoundConn <- methods::setRefClass("KeggCompoundConn",
@@ -155,42 +156,25 @@ wsFindMolecularWeight=function(mass=NA_real_, mass.min=NA_real_,
     return(results)
 },
 
-searchCompound=function(name=NULL, mass=NULL, mass.field=NULL, mass.tol=0.01,
-                        mass.tol.unit='plain', max.results=NA_integer_) {
-    # Overrides super class' method.
-
-    .self$.checkMassField(mass=mass, mass.field=mass.field)
+.doSearchForEntries=function(fields=NULL, max.results=0) {
 
     ids <- NULL
 
-    # Search by name
-    if ( ! is.null(name) && ! is.na(name))
-        ids <- .self$searchByName(name)
+    # Call super class' method to search by name
+    if ('name' %in% names(fields))
+        ids <- callSuper(fields=fields, max.results=max.results)
 
     # Search by mass
-    if ( ! is.null(mass)) {
-
-        mass.field <- .self$getBiodb()$getEntryFields()$getRealName(mass.field)
-
-        if ( ! mass.field %in% c('monoisotopic.mass' ,'molecular.mass'))
-            .self$caution('Mass field "', mass.field, '" is not handled.')
-
-        else {
-
-            if (mass.tol.unit == 'ppm') {
-                mass.min <- mass * (1 - mass.tol * 1e-6)
-                mass.max <- mass * (1 + mass.tol * 1e-6)
-            } else {
-                mass.min <- mass - mass.tol
-                mass.max <- mass + mass.tol
-            }
+    for (mass.field in c('monoisotopic.mass' ,'molecular.mass'))
+        if (mass.field %in% names(fields)) {
+            rng <- do.call(Range$new, fields[[mass.field]])
 
             if (mass.field == 'monoisotopic.mass')
-                mass.ids <- .self$wsFindExactMass(mass.min=mass.min,
-                    mass.max=mass.max, retfmt='ids')
+                mass.ids <- .self$wsFindExactMass(mass.min=rng$getMin(),
+                    mass.max=rng$getMax(), retfmt='ids')
             else
-                mass.ids <- .self$wsFindMolecularWeight(mass.min=mass.min,
-                    mass.max=mass.max, retfmt='ids')
+                mass.ids <- .self$wsFindMolecularWeight(mass.min=rng$getMin(),
+                    mass.max=rng$getMax(), retfmt='ids')
             .self$debug('Got entry IDs ', paste(mass.ids, collapse=', '), '.')
             if ( ! is.null(mass.ids) && any(! is.na(mass.ids))) {
                 mass.ids <- sub('^cpd:', '', mass.ids)
@@ -200,10 +184,13 @@ searchCompound=function(name=NULL, mass=NULL, mass.field=NULL, mass.tol=0.01,
                     ids <- ids[ids %in% mass.ids]
             }
         }
-    }
+
+    # Convert NULL to empty list
+    if (is.null(ids))
+        ids <- character()
 
     # Cut
-    if ( ! is.na(max.results) && max.results > 0 && max.results < length(ids))
+    if (max.results > 0 && max.results < length(ids))
         ids <- ids[seq_len(max.results)]
 
     return(ids)
@@ -367,10 +354,10 @@ addInfo=function(x, id.col, org, limit=3, prefix='') {
     KEGG identifiers and data.
     "
 
-    .self$.assertIs(x, 'data.frame')
+    chk::chk_is(x, 'data.frame')
 
     if (ncol(x) > 0) {
-        .self$.assertIs(id.col, 'character')
+        chk::chk_character(id.col, 'character')
         if ( ! id.col %in% colnames(x))
             .self$error('Column "', id.col,
                         '" was not found inside data frame.')
