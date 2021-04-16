@@ -139,10 +139,9 @@ wsFind=function(query, retfmt=c('plain', 'request', 'parsed', 'ids')) {
     return(results)
 },
 
-.doSearchForEntries=function(fields=NULL, max.results=NA_integer_) {
-    # Overrides super class' method.
+.doSearchForEntries=function(fields=NULL, max.results=0) {
 
-    ids <- NULL
+    ids <- character()
 
     # Search by name
     if ('name' %in% names(fields)) {
@@ -152,7 +151,7 @@ wsFind=function(query, retfmt=c('plain', 'request', 'parsed', 'ids')) {
     }
 
     # Cut
-    if ( ! is.na(max.results) && max.results > 0 && max.results < length(ids))
+    if (max.results > 0 && max.results < length(ids))
         ids <- ids[seq_len(max.results)]
 
     return(ids)

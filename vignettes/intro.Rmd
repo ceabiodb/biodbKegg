@@ -1,0 +1,76 @@
+---
+title: "An introduction to biodbKegg"
+author: "Pierrick Roger"
+date: "`r BiocStyle::doc_date()`"
+package: "`r BiocStyle::pkg_ver('biodbKegg')`"
+vignette: |
+  %\VignetteIndexEntry{Introduction to the biodbKegg package.}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+output:
+  BiocStyle::html_document:
+    toc: yes
+    toc_depth: 4
+    toc_float:
+      collapsed: false
+  BiocStyle::pdf_document: default
+---
+
+# Purpose
+
+biodbKegg is a *biodb* extension package that implements a connector to
+KEGG Compound database.
+
+# Initialization
+
+The first step in using *biodbKegg*, is to create an instance of the biodb
+class `Biodb` from the main *biodb* package. This is done by calling the
+constructor of the class:
+```{r, results='hide'}
+mybiodb <- biodb::Biodb()
+```
+During this step the configuration is set up, the cache system is initialized
+and extension packages are loaded.
+
+We will see at the end of this vignette that the *biodb* instance needs to be
+terminated with a call to the `terminate()` method.
+
+# Creating a connector to KEGG Compound database
+
+In *biodb* the connection to a database is handled by a connector instance that
+you can get from the factory.
+biodbKegg implements a connector to a remote database.
+Here is the code to instantiate a connector:
+```{r}
+conn <- mybiodb$getFactory()$createConn('kegg.compound')
+```
+
+# Accessing entries
+
+To retrieve entries, use:
+```{r}
+entries <- conn$getEntry(c('C00133', 'C00751'))
+entries
+```
+
+To convert a list of entries into a dataframe, run:
+```{r}
+x <- mybiodb$entriesToDataframe(entries)
+x
+```
+
+# Search for compounds of a certain mass
+
+```{r}
+ids <- conn$searchCompound(mass = 64, mass.tol = 2.0, max.results = 10)
+entries <- mybiodb$getFactory()$getEntry('kegg.compound', ids)
+```
+
+
+# Closing biodb instance
+
+When done with your *biodb* instance you have to terminate it, in order to
+ensure release of resources (file handles, database connection, etc):
+```{r}
+mybiodb$terminate()
+```
