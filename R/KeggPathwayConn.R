@@ -320,7 +320,7 @@ extractPathwayMapShapes=function(id, color2ids) {
         img_url <- stringr::str_match(html,
             'src="([^"]+)"(\\s+.*)?\\s+(name|id)="pathwayimage"')
         if (is.na(img_url[1, 1]))
-            .self$error('Impossible to find pathway image path inside',
+            biodb::error0('Impossible to find pathway image path inside',
                 ' HTML page for pathway ID ', id, '.')
         u <- .self$getPropValSlot('urls', 'base.url')
         img_url <- BiodbUrl(url=c(u, img_url[1, 2]))

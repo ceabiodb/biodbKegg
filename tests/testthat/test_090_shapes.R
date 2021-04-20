@@ -12,18 +12,15 @@ test.circle <- function(biodb) {
 	expect_is(circle, 'KeggCircle')
 }
 
-# Main
-################################################################
+# Set context
+biodb::testContext("Test shapes.")
 
 # Instantiate Biodb
-biodb <- biodb::createBiodbTestInstance(log='kegg_shapes_test.log', ack=TRUE)
+biodb <- biodb::createBiodbTestInstance(ack=TRUE)
 
 # Load package definitions
 defFile <- system.file("definitions.yml", package='biodbKegg')
 biodb$loadDefinitions(defFile)
-
-# Set context
-biodb::setTestContext(biodb, "Test shapes.")
 
 # Run tests
 biodb::testThat("We can create a rectangle object.", test.rect, biodb=biodb)

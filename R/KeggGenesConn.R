@@ -52,15 +52,15 @@ getPathwayIdsPerGene=function(id, org, limit=3) {
     fac <- .self$getBiodb()$getFactory()
 
     # Loop on all gene ids
-    i <- 0
+    prg <- biodb::Progress$new(biodb=.self$getBiodb(),
+                               msg='Retrieving pathways of genes.',
+                               total=length(id))
     for (gene.id in id) {
 
         pws <- NULL
 
         # Send progress message
-        i <- i + 1
-        .self$progressMsg(msg='Retrieving pathways of genes.', index=i,
-            total=length(id), first=(i == 1))
+        prg$increment()
 
         # Get gene entry
         gene <- .self$getEntry(gene.id)

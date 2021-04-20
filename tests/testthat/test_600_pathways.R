@@ -68,18 +68,15 @@ test_extractPathwayMapShapes <- function(conn) {
     }
 }
 
-# Main
-################################################################
+# Set context
+biodb::testContext("Test Kegg Pathway connector.")
 
 # Instantiate Biodb
-biodb <- biodb::createBiodbTestInstance(log='kegg_pathway_test.log', ack=TRUE)
+biodb <- biodb::createBiodbTestInstance(ack=TRUE)
 
 # Load package definitions
 file <- system.file("definitions.yml", package='biodbKegg')
 biodb$loadDefinitions(file)
-
-# Set context
-biodb::setTestContext(biodb, "Test Kegg Pathway connector.")
 
 # Create connector
 conn <- biodb$getFactory()$createConn('kegg.pathway')
