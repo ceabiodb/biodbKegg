@@ -1,6 +1,7 @@
 {
-	"accession": "map00053",
-	"name": "Ascorbate and aldarate metabolism",
-	"pathway.class": ["Metabolism", "Carbohydrate metabolism"],
-	"kegg.module.id": ["M00114", "M00129", "M00550"]
+  "accession": "map00053",
+  "name": "Ascorbate and aldarate metabolism",
+  "pathway.class": ["Metabolism", "Carbohydrate metabolism"],
+  "kegg.module.id": ["M00114", "M00129", "M00550"],
+  "kegg.pathway.id": "map00053"
 }

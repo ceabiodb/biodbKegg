@@ -1,7 +1,8 @@
 {
-	"accession": "1.1.1.54",
-	"name": "allyl-alcohol dehydrogenase",
-	"cas.id": "9028-58-4",
-	"expasy.enzyme.id": "1.1.1.54",
-	"kegg.reaction.id": "R03572"
+  "accession": "1.1.1.54",
+  "name": "allyl-alcohol dehydrogenase",
+  "expasy.enzyme.id": "1.1.1.54",
+  "cas.id": "9028-58-4",
+  "kegg.reaction.id": "R03572",
+  "kegg.enzyme.id": "1.1.1.54"
 }

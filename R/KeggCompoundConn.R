@@ -65,7 +65,7 @@ wsFindExactMass=function(mass=NA_real_, mass.min=NA_real_, mass.max=NA_real_,
     else if ( ! is.na(mass.min) && ! is.na(mass.max))
         umass <- paste(mass.min, mass.max, sep='-')
     else
-        .self$error('You need to specify either mass parameter or both',
+        biodb::error0('You need to specify either mass parameter or both',
                     ' mass.min and mass.max.')
     u <- c(u, umass, 'exact_mass')
     url <- BiodbUrl(url=u)$toString()
@@ -124,7 +124,7 @@ wsFindMolecularWeight=function(mass=NA_real_, mass.min=NA_real_,
     else if ( ! is.na(mass.min) && ! is.na(mass.max))
         umass <- paste(mass.min, mass.max, sep='-')
     else
-        .self$error('You need to specify either mass parameter or both',
+        biodb::error0('You need to specify either mass parameter or both',
                     ' mass.min and mass.max.')
     u <- c(u, umass, 'mol_weight')
     url <- BiodbUrl(url=u)$toString()
@@ -175,7 +175,7 @@ wsFindMolecularWeight=function(mass=NA_real_, mass.min=NA_real_,
             else
                 mass.ids <- .self$wsFindMolecularWeight(mass.min=rng$getMin(),
                     mass.max=rng$getMax(), retfmt='ids')
-            .self$debug('Got entry IDs ', paste(mass.ids, collapse=', '), '.')
+            biodb::logDebug('Got entry IDs %s.', paste(mass.ids, collapse=', '))
             if ( ! is.null(mass.ids) && any(! is.na(mass.ids))) {
                 mass.ids <- sub('^cpd:', '', mass.ids)
                 if (is.null(ids))
@@ -228,15 +228,15 @@ getPathwayIdsPerCompound=function(id, org, limit=3) {
     kegg.enz.conn <- fac$getConn('kegg.enzyme')
 
     # Loop on all compound ids
-    i <- 0
+    prg <- biodb::Progress$new(biodb=.self$getBiodb(),
+                               msg='Retrieving pathways of compounds.',
+                               total=length(id))
     for (comp.id in id) {
 
         pws <- NULL
 
         # Send progress message
-        i <- i + 1
-        .self$progressMsg(msg='Retrieving pathways of compounds.', index=i,
-            total=length(id), first=(i == 1))
+        prg$increment()
 
         # Get compound entry
         comp <- .self$getEntry(comp.id)
@@ -359,7 +359,7 @@ addInfo=function(x, id.col, org, limit=3, prefix='') {
     if (ncol(x) > 0) {
         chk::chk_character(id.col, 'character')
         if ( ! id.col %in% colnames(x))
-            .self$error('Column "', id.col,
+            biodb::error0('Column "', id.col,
                         '" was not found inside data frame.')
 
         # Get ids

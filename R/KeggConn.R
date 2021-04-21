@@ -42,7 +42,7 @@ initialize=function(db.name=NA_character_, db.abbrev=NA_character_, ...) {
 
     # Set name
     if (is.null(db.name) || is.na(db.name))
-        .self$message('error', "You must set a name for this KEGG database.")
+        biodb::error("You must set a name for this KEGG database.")
     .self$.db.name <- db.name
 
     # Set abbreviation

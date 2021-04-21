@@ -1,15 +1,12 @@
-# Main
-################################################################
+# Set context
+biodb::testContext("Test Kegg Module connector.")
 
 # Instantiate Biodb
-biodb <- biodb::createBiodbTestInstance(log='kegg_module_test.log', ack=TRUE)
+biodb <- biodb::createBiodbTestInstance(ack=TRUE)
 
 # Load package definitions
 file <- system.file("definitions.yml", package='biodbKegg')
 biodb$loadDefinitions(file)
-
-# Set context
-biodb::setTestContext(biodb, "Test Kegg Module connector.")
 
 # Create connector
 conn <- biodb$getFactory()$createConn('kegg.module')

@@ -56,18 +56,15 @@ test.addInfo <- function(conn) {
     y2 <- conn$addInfo(x2, id.col='ids', org='mmu')
 }
 
-# Main
-################################################################
+# Set context
+biodb::testContext("Test Kegg Enzyme connector.")
 
 # Instantiate Biodb
-biodb <- biodb::createBiodbTestInstance(log='kegg_enzyme_test.log', ack=TRUE)
+biodb <- biodb::createBiodbTestInstance(ack=TRUE)
 
 # Load package definitions
 file <- system.file("definitions.yml", package='biodbKegg')
 biodb$loadDefinitions(file)
-
-# Set context
-biodb::setTestContext(biodb, "Test Kegg Enzyme connector.")
 
 # Create connector
 conn <- biodb$getFactory()$createConn('kegg.enzyme')
