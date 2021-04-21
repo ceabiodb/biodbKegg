@@ -55,22 +55,14 @@ entries
 
 To convert a list of entries into a dataframe, run:
 ```{r}
-<<<<<<< HEAD
 x <- mybiodb$entriesToDataframe(entries, compute=FALSE)
-=======
-x <- mybiodb$entriesToDataframe(entries)
->>>>>>> 2a061b6 (Upgrade with ExtPackage.)
 x
 ```
 
 # Search for compounds of a certain mass
 
 ```{r}
-<<<<<<< HEAD
 ids <- conn$searchForEntries(list(monoisotopic.mass=list(value=64, delta=2.0)), max.results=10)
-=======
-ids <- conn$searchCompound(mass = 64, mass.tol = 2.0, max.results = 10)
->>>>>>> 2a061b6 (Upgrade with ExtPackage.)
 entries <- mybiodb$getFactory()$getEntry('kegg.compound', ids)
 ```
 
