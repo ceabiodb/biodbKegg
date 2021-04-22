@@ -54,7 +54,7 @@ getEntryPageUrl=function(id) {
 
     u <- c(.self$getPropValSlot('urls', 'entry.page.url'), 'www_bget')
     p <- .self$.completeEntryId(id)
-    fct <- function(x) BiodbUrl(url=u, params=p)$toString()
+    fct <- function(x) BiodbUrl$new(url=u, params=p)$toString()
 
     return(vapply(id, fct, FUN.VALUE=''))
 },
@@ -77,7 +77,7 @@ wsList=function(retfmt=c('plain', 'request', 'ids')) {
 
     # Build request
     u <- c(.self$getPropValSlot('urls', 'ws.url'), 'list', .self$.db.name)
-    url <- BiodbUrl(url=u)
+    url <- BiodbUrl$new(url=u)
     request <- .self$makeRequest(url=url)
     if (retfmt == 'request')
         return(request)
@@ -115,7 +115,7 @@ wsFind=function(query, retfmt=c('plain', 'request', 'parsed', 'ids')) {
     # Build request
     u <- c(.self$getPropValSlot('urls', 'ws.url'), 'find', .self$.db.name,
         query)
-    url <- BiodbUrl(url=u)
+    url <- BiodbUrl$new(url=u)
     request <- .self$makeRequest(url=url)
     if (retfmt == 'request')
         return(request)
@@ -169,7 +169,7 @@ wsFind=function(query, retfmt=c('plain', 'request', 'parsed', 'ids')) {
 
     fct <- function(x) {
         u <- c(.self$getPropValSlot('urls', 'ws.url'), 'get', x)
-        BiodbUrl(url=u)$toString()
+        BiodbUrl$new(url=u)$toString()
     }
 
     return(vapply(id, fct, FUN.VALUE=''))

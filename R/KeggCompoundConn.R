@@ -68,8 +68,8 @@ wsFindExactMass=function(mass=NA_real_, mass.min=NA_real_, mass.max=NA_real_,
         biodb::error0('You need to specify either mass parameter or both',
                     ' mass.min and mass.max.')
     u <- c(u, umass, 'exact_mass')
-    url <- BiodbUrl(url=u)$toString()
-    request <- .self$makeRequest(method='get', url=BiodbUrl(url=url))
+    url <- BiodbUrl$new(url=u)$toString()
+    request <- .self$makeRequest(method='get', url=BiodbUrl$new(url=url))
     if (retfmt == 'request')
         return(request)
 
@@ -127,8 +127,8 @@ wsFindMolecularWeight=function(mass=NA_real_, mass.min=NA_real_,
         biodb::error0('You need to specify either mass parameter or both',
                     ' mass.min and mass.max.')
     u <- c(u, umass, 'mol_weight')
-    url <- BiodbUrl(url=u)$toString()
-    request <- .self$makeRequest(method='get', url=BiodbUrl(url=url))
+    url <- BiodbUrl$new(url=u)$toString()
+    request <- .self$makeRequest(method='get', url=BiodbUrl$new(url=url))
     if (retfmt == 'request')
         return(request)
 
@@ -202,7 +202,7 @@ getEntryImageUrl=function(id) {
     fct <- function(x) {
         bu <- .self$getPropValSlot('urls', 'base.url')
         u <- c(bu, 'Fig', 'compound', paste(x, 'gif', sep='.'))
-        BiodbUrl(url=u)$toString()
+        BiodbUrl$new(url=u)$toString()
     }
 
     return(vapply(id, fct, FUN.VALUE=''))
