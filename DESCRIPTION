@@ -18,7 +18,8 @@ Suggests:
 	knitr,
 	rmarkdown,
 	igraph,
-	magick
+	magick,
+	lgr
 Imports:
 	methods,
 	biodb (>= 0.99.0),
