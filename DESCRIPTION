@@ -22,7 +22,7 @@ Suggests:
 	lgr
 Imports:
 	methods,
-	biodb (>= 0.99.0),
+	biodb (>= 0.99.8),
 	chk
 RoxygenNote: 7.1.1
 Collate:
