@@ -9,8 +9,9 @@ biodbKegg_*.tar.gz
 biodbKegg_*.tgz
 biodbKegg.Rcheck
 cache
+cache*
+check.Renviron
 doc
-man
 Meta
 src-i386
 src-x64
