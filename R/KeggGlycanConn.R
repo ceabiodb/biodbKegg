@@ -38,14 +38,6 @@ initialize=function(...) {
     if ('name' %in% names(fields))
         ids <- callSuper(fields=fields, max.results=max.results)
 
-    # Convert NULL to empty list
-    if (is.null(ids))
-        ids <- character()
-
-    # Cut
-    if (max.results > 0 && max.results < length(ids))
-        ids <- ids[seq_len(max.results)]
-
     return(ids)
 },
 
