@@ -32,7 +32,7 @@ Returned value: A vector of KEGG pathway IDs.
 
 \examples{
 # Create an instance with default settings:
-mybiodb <- biodb::Biodb()
+mybiodb <- biodb::newInst()
 
 # Get connector
 conn <- mybiodb$getFactory()$createConn('kegg.enzyme')

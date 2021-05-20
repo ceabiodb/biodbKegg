@@ -58,6 +58,23 @@ databases:
       entry.page.url: https://www.genome.jp/dbget-bin
       ws.url: http://rest.kegg.jp/
 
+
+# KEGG Glycan {{{2
+################################################################################
+  kegg.glycan:
+    entry.content.type: txt
+    name: KEGG Glycan
+    parsing.expr:
+      accession: ^ENTRY\s+(\S+)\s+Glycan
+      molecular.mass: ^MASS\s+(\S+) .*$
+      glycan.composition: ^COMPOSITION\s+(\S+)$
+    scheduler.n: 3
+    searchable.fields:
+        - name
+    urls:
+      base.url: https://www.kegg.jp/
+      entry.page.url: https://www.genome.jp/dbget-bin
+      ws.url: http://rest.kegg.jp/
 # KEGG Module {{{2
 ################################################################################
   kegg.module:
@@ -126,6 +143,9 @@ databases:
 
 fields:
 
+  glycan.composition:
+    description: The composition of a glycan.
+
   kegg.organism.code:
     description: The 3-4 characters organism code used un KEGG.
 
@@ -159,6 +179,13 @@ fields:
 
   kegg.genes.id:
     description: KEGG Genes ID
+    case.insensitive: true
+    forbids.duplicates: true
+    type: id
+    card: many
+
+  kegg.glycan.id:
+    description: KEGG Glycan ID
     case.insensitive: true
     forbids.duplicates: true
     type: id

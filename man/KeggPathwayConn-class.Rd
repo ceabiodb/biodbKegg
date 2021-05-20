@@ -110,7 +110,7 @@ Returned value: A list of KEGG reaction objects.
 
 \examples{
 # Create an instance with default settings:
-mybiodb <- biodb::Biodb()
+mybiodb <- biodb::newInst()
 
 # Get connector
 conn=mybiodb$getFactory()$createConn('kegg.pathway')

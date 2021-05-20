@@ -11,7 +11,7 @@ This is the abstract entry class for all KEGG entry classes.
 
 \examples{
 # Create an instance with default settings:
-mybiodb <- biodb::Biodb()
+mybiodb <- biodb::newInst()
 
 # Create a connector
 conn <- mybiodb$getFactory()$createConn('kegg.compound')

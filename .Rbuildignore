@@ -18,6 +18,7 @@
 ^LICENSE$
 ^Makefile$
 ^Meta$
+^R_front$
 ^scripts$
 ^tests/dockerfiles$
 ^tests/testthat/_snaps$
