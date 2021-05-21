@@ -132,8 +132,11 @@ wsFind=function(query, retfmt=c('plain', 'request', 'parsed', 'ids')) {
         close(readtc)
         results <- df
 
-        if (retfmt == 'ids')
+        if (retfmt == 'ids') {
             results <- results[[1]]
+            if ( ! is.na(.self$.db.abbrev) && nchar(.self$.db.abbrev) > 0)
+                results <- sub('^[^:]*:', '', results)
+        }
     }
 
     return(results)
@@ -144,11 +147,8 @@ wsFind=function(query, retfmt=c('plain', 'request', 'parsed', 'ids')) {
     ids <- character()
 
     # Search by name
-    if ('name' %in% names(fields)) {
+    if ('name' %in% names(fields))
         ids <- .self$wsFind(fields[['name']], retfmt='ids')
-        if ( ! is.na(.self$.db.abbrev) && nchar(.self$.db.abbrev) > 0)
-            ids <- sub('^[^:]*:', '', ids)
-    }
 
     return(ids)
 },
