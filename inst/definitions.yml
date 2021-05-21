@@ -68,6 +68,13 @@ databases:
       accession: ^ENTRY\s+(\S+)\s+Glycan
       molecular.mass: ^MASS\s+(\S+) .*$
       glycan.composition: ^COMPOSITION\s+(\S+)$
+      ref.index: ^REFERENCE\s+(\d+)\s+.*$
+      ref.accession: ^REFERENCE\s+\d+\s+\[(.*)\]$
+      ref.authors: ^\s+AUTHORS\s+(.*)$
+      ref.title: ^\s+TITLE\s+(.*)$
+      ref.journal: ^\s+JOURNAL\s+(.*)$
+      ref.doi: ^\s+(DOI:.*)$
+      ncbi.pubmed.id: ^REFERENCE\s+\d+\s+\[(PMID:.*)\]$
     scheduler.n: 3
     searchable.fields:
         - name
@@ -160,6 +167,53 @@ fields:
     class: integer
     description: Length of the amino acids sequence.
 
+# Reference fields {{{2
+################################################################################
+
+  ref.index:
+    type: ref
+    dataFrameGroup: ref
+    description: Indices of references inside the entry.
+    card: many
+
+  ref.accession:
+    type: ref
+    dataFrameGroup: ref
+    description: Accession numbers of references.
+    card: many
+
+  ref.authors:
+    type: ref
+    dataFrameGroup: ref
+    description: Authors of references.
+    card: many
+
+  ref.title:
+    type: ref
+    dataFrameGroup: ref
+    description: Titles of references.
+    card: many
+
+  ref.journal:
+    type: ref
+    dataFrameGroup: ref
+    description: Journals of references.
+    card: many
+
+  ref.doi:
+    type: ref
+    dataFrameGroup: ref
+    description: DOIs of references.
+    card: many
+    
+  references:
+    alias: ref
+    class: data.frame
+    description: References table.
+    virtual: true
+    virtual.group.by.type: ref
+
+
 # Database IDs {{{2
 ################################################################################
 
@@ -221,6 +275,13 @@ fields:
 
   lipidmaps.structure.id:
     description: LIPID MAPS Structure ID
+    case.insensitive: true
+    forbids.duplicates: true
+    type: id
+    card: many
+
+  ncbi.pubmed.id:
+    description: NCBI PubMed ID
     case.insensitive: true
     forbids.duplicates: true
     type: id

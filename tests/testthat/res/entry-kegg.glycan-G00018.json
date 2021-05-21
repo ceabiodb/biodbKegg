@@ -6,5 +6,12 @@
   "kegg.enzyme.id": "2.4.99.1",
   "kegg.pathway.id": ["map00510", "map01100"],
   "kegg.module.id": "M00075",
-  "kegg.orthology.id": "K00778"
+  "kegg.orthology.id": "K00778",
+  "ref.index": ["1", "2"],
+  "ref.accession": ["PMID:7592613", "PMID:12054586"],
+  "ref.authors": ["Dell A, Morris HR, Easton RL, Panico M, Patankar M, Oehniger S, Koistinen R, Koistinen H, Seppala M, Clark GF.", "Olczak M, Watorek W."],
+  "ref.title": ["Structural analysis of the oligosaccharides derived from glycodelin, a human glycoprotein with potent immunosuppressive and contraceptive activities.", "Structural analysis of N-glycans from human neutrophil azurocidin."],
+  "ref.journal": ["J Biol Chem 270:24116-26 (1995)", "Biochem Biophys Res Commun 293:213-9 (2002)"],
+  "ref.doi": ["DOI:10.1074/jbc.270.41.24116", "DOI:10.1016/S0006-291X(02)00201-2"],
+  "ncbi.pubmed.id": ["PMID:7592613", "PMID:12054586"]
 }
