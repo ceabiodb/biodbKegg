@@ -1,0 +1,10 @@
+{
+  "accession": "G00018",
+  "name": "DS 3",
+  "molecular.mass": 2352.2,
+  "kegg.reaction.id": "R05990",
+  "kegg.enzyme.id": "2.4.99.1",
+  "kegg.pathway.id": ["map00510", "map01100"],
+  "kegg.module.id": "M00075",
+  "kegg.orthology.id": "K00778"
+}

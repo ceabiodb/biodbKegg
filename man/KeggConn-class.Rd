@@ -62,7 +62,7 @@ Returned value: Depending on `retfmt`.
 
 \examples{
 # Create an instance with default settings:
-mybiodb <- biodb::Biodb()
+mybiodb <- biodb::newInst()
 
 # Create a connector to a KEGG database
 conn <- mybiodb$getFactory()$createConn('kegg.compound')

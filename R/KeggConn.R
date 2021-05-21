@@ -150,10 +150,6 @@ wsFind=function(query, retfmt=c('plain', 'request', 'parsed', 'ids')) {
             ids <- sub('^[^:]*:', '', ids)
     }
 
-    # Cut
-    if (max.results > 0 && max.results < length(ids))
-        ids <- ids[seq_len(max.results)]
-
     return(ids)
 },
 

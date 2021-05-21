@@ -185,14 +185,6 @@ wsFindMolecularWeight=function(mass=NA_real_, mass.min=NA_real_,
             }
         }
 
-    # Convert NULL to empty list
-    if (is.null(ids))
-        ids <- character()
-
-    # Cut
-    if (max.results > 0 && max.results < length(ids))
-        ids <- ids[seq_len(max.results)]
-
     return(ids)
 },
 

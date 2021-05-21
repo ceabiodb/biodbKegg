@@ -5,7 +5,7 @@ Authors@R: c(person("Pierrick", "Roger", email = "pierrick.roger@cea.fr", role =
 Description: The biodbKegg library is an extension of the biodb framework package that provides access to the KEGG databases Compound, Enzyme, Genes, Module, Orthology and Reaction. It allows to retrieve entries by their accession numbers, and run some web services like "find", "list" and "findExactMass".  Some functions for navigating along the pathways have also been implemented.
 biocViews: Software, Infrastructure, DataImport, Pathways, KEGG
 Depends:
-    R (>= 4.0)
+    R (>= 4.1)
 License: AGPL-3
 Encoding: UTF-8
 LazyData: true
@@ -22,7 +22,7 @@ Suggests:
 	lgr
 Imports:
 	methods,
-	biodb (>= 0.99.8),
+	biodb (>= 1.0.1),
 	chk
 RoxygenNote: 7.1.1
 Collate:
@@ -36,6 +36,8 @@ Collate:
     'KeggEnzymeEntry.R'
     'KeggGenesConn.R'
     'KeggGenesEntry.R'
+    'KeggGlycanConn.R'
+    'KeggGlycanEntry.R'
     'KeggModuleConn.R'
     'KeggModuleEntry.R'
     'KeggOrthologyConn.R'
