@@ -29,27 +29,27 @@ test.kegg.compound.wsFind <- function(db) {
 test.kegg.compound.wsFindExactMass <- function(db) {
 
 	# Test single mass
-	results <- db$wsFindExactMass(mass = 174.05)
+	results <- db$wsFindExactMass(mass=174.05)
 	expect_true( ! is.null(results))
 	expect_true( ! is.na(results))
 	expect_true(is.character(results))
-	readtc <- textConnection(results, "r", local = TRUE)
-	df <- read.table(readtc, sep = "\t", quote = '', stringsAsFactors = FALSE)
+	readtc <- textConnection(results, "r", local=TRUE)
+	df <- read.table(readtc, sep="\t", quote='', stringsAsFactors=FALSE)
 	expect_true(nrow(df) > 1)
 
 	# Test data frame
-	df.2 <- db$wsFindExactMass(mass = 174.05, retfmt = 'parsed')
+	df.2 <- db$wsFindExactMass(mass=174.05, retfmt='parsed')
 	expect_true(identical(df, df.2))
 
 	# Test IDs
-	ids <- db$wsFindExactMass(mass = 174.05, retfmt = 'ids')
+	ids <- db$wsFindExactMass(mass=174.05, retfmt='ids')
 	expect_true( ! is.null(ids))
 	expect_true( all(! is.na(ids)))
 	expect_true(is.character(ids))
 	expect_true(identical(df[[1]], ids))
 
 	# Test mass range
-	ids <- db$wsFindExactMass(mass.min = 174, mass.max = 174.35, retfmt = 'ids')
+	ids <- db$wsFindExactMass(mass.min=174, mass.max=174.35, retfmt='ids')
 	expect_true( ! is.null(ids))
 	expect_true( all(! is.na(ids)))
 	expect_true(is.character(ids))

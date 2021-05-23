@@ -30,17 +30,6 @@ initialize=function(...) {
     callSuper(db.name='glycan', db.abbrev='gl', ...)
 },
 
-.doSearchForEntries=function(fields=NULL, max.results=0) {
-
-    ids <- NULL
-
-    # Call super class' method to search by name
-    if ('name' %in% names(fields))
-        ids <- callSuper(fields=fields, max.results=max.results)
-
-    return(ids)
-},
-
 getEntryImageUrl=function(id) {
     # Overrides super class' method.
 

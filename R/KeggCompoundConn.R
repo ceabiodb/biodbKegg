@@ -39,8 +39,7 @@ initialize=function(...) {
     callSuper(db.name='compound', db.abbrev='cpd', ...)
 },
 
-wsFindExactMass=function(mass=NA_real_, mass.min=NA_real_, mass.max=NA_real_,
-    retfmt=c('plain', 'request', 'parsed', 'ids')) {
+wsFindExactMass=function(mass=NULL, mass.min=NULL, mass.max=NULL, ...) {
     ":\n\nSearches for entries by mass.
     You must either provide a single mass through `mass` parameter or provide a
     range through `mass.min` and `mass.max`.
@@ -48,58 +47,20 @@ wsFindExactMass=function(mass=NA_real_, mass.min=NA_real_, mass.max=NA_real_,
     \nmass: Single mass.
     \nmass.min: Minimal mass.
     \nmass.max: Maximal mass.
-    \nretfmt: Set the format to use for the returned value. 'plain' will return
-    the raw results from the server, as a character value. 'request' will
-    return the request as it would have been sent, as a BiodbRequest object.
-    'parsed' will return a data frame. 'ids' will return a character vector
-    containing the IDs of the matching entries.
-    \nReturned value: Depending on `retfmt`.
+    \n...: parameters passed to KeggConn::wsFind().
+    \nReturned value: See KeggConn::wsFind().
     "
 
-    retfmt <- match.arg(retfmt)
-
-    # Build request
-    u <- c(.self$getPropValSlot('urls', 'ws.url'), 'find', .self$.db.name)
-    if ( ! is.na(mass))
-        umass <- mass
-    else if ( ! is.na(mass.min) && ! is.na(mass.max))
-        umass <- paste(mass.min, mass.max, sep='-')
-    else
+    lifecycle::deprecate_soft('1.0.0', "wsFindExactMass()", "wsFind()")
+    query <- if ( ! is.null(mass.min) && ! is.null(mass.max))
+        paste(mass.min, mass.max, sep='-') else mass
+    if (is.null(query))
         biodb::error0('You need to specify either mass parameter or both',
                     ' mass.min and mass.max.')
-    u <- c(u, umass, 'exact_mass')
-    url <- BiodbUrl$new(url=u)$toString()
-    request <- .self$makeRequest(method='get', url=BiodbUrl$new(url=url))
-    if (retfmt == 'request')
-        return(request)
-
-    # Send request
-    results <- .self$getBiodb()$getRequestScheduler()$sendRequest(request)
-
-    # Parse results
-    if (retfmt != 'plain') {
-
-        # Parse
-        if (length(grep('^[[:space:]]*$', results, perl=TRUE)) == 0) {
-            readtc <- textConnection(results, "r", local=TRUE)
-            df <- read.table(readtc, sep="\t", quote='', stringsAsFactors=FALSE)
-            close(readtc)
-            results <- df
-        } else {
-            results <- data.frame()
-        }
-
-        # Get IDs
-        if (retfmt == 'ids')
-            results <- if (ncol(results) > 0) results[[1]] else character()
-    }
-
-    return(results)
+    return(.self$wsFind(query=query, option='exact_mass', ...))
 },
 
-wsFindMolecularWeight=function(mass=NA_real_, mass.min=NA_real_,
-    mass.max=NA_real_,
-    retfmt=c('plain', 'request', 'parsed', 'ids')) {
+wsFindMolecularWeight=function(mass=NULL, mass.min=NULL, mass.max=NULL, ...) {
     ":\n\nSearches for entries by molecular mass.
     You must either provide a single mass through `mass` parameter or provide a
     range through `mass.min` and `mass.max`.
@@ -107,85 +68,17 @@ wsFindMolecularWeight=function(mass=NA_real_, mass.min=NA_real_,
     \nmass: Single mass.
     \nmass.min: Minimal mass.
     \nmass.max: Maximal mass.
-    \nretfmt: Set the format to use for the returned value. 'plain' will return
-    the raw results from the server, as a character value. 'request' will
-    return the request as it would have been sent, as a BiodbRequest object.
-    'parsed' will return a data frame. 'ids' will return a character vector
-    containing the IDs of the matching entries.
-    \nReturned value: Depending on `retfmt`.
+    \n...: parameters passed to KeggConn::wsFind().
+    \nReturned value: See KeggConn::wsFind().
     "
 
-    retfmt <- match.arg(retfmt)
-
-    # Build request
-    u <- c(.self$getPropValSlot('urls', 'ws.url'), 'find', .self$.db.name)
-    if ( ! is.na(mass))
-        umass <- mass
-    else if ( ! is.na(mass.min) && ! is.na(mass.max))
-        umass <- paste(mass.min, mass.max, sep='-')
-    else
+    lifecycle::deprecate_soft('1.0.0', "wsFindMolecularWeight()", "wsFind()")
+    query <- if ( ! is.null(mass.min) && ! is.null(mass.max))
+        paste(mass.min, mass.max, sep='-') else mass
+    if (is.null(query))
         biodb::error0('You need to specify either mass parameter or both',
                     ' mass.min and mass.max.')
-    u <- c(u, umass, 'mol_weight')
-    url <- BiodbUrl$new(url=u)$toString()
-    request <- .self$makeRequest(method='get', url=BiodbUrl$new(url=url))
-    if (retfmt == 'request')
-        return(request)
-
-    # Send request
-    results <- .self$getBiodb()$getRequestScheduler()$sendRequest(request)
-
-    # Parse results
-    if (retfmt != 'plain') {
-
-        # Parse
-        if (length(grep('^[[:space:]]*$', results, perl=TRUE)) == 0) {
-            readtc <- textConnection(results, "r", local=TRUE)
-            df <- read.table(readtc, sep="\t", quote='', stringsAsFactors=FALSE)
-            close(readtc)
-            results <- df
-        } else {
-            results <- data.frame()
-        }
-
-        # Get IDs
-        if (retfmt == 'ids')
-            results <- if (ncol(results) > 0) results[[1]] else character()
-    }
-
-    return(results)
-},
-
-.doSearchForEntries=function(fields=NULL, max.results=0) {
-
-    ids <- NULL
-
-    # Call super class' method to search by name
-    if ('name' %in% names(fields))
-        ids <- callSuper(fields=fields, max.results=max.results)
-
-    # Search by mass
-    for (mass.field in c('monoisotopic.mass' ,'molecular.mass'))
-        if (mass.field %in% names(fields)) {
-            rng <- do.call(Range$new, fields[[mass.field]])
-
-            if (mass.field == 'monoisotopic.mass')
-                mass.ids <- .self$wsFindExactMass(mass.min=rng$getMin(),
-                    mass.max=rng$getMax(), retfmt='ids')
-            else
-                mass.ids <- .self$wsFindMolecularWeight(mass.min=rng$getMin(),
-                    mass.max=rng$getMax(), retfmt='ids')
-            biodb::logDebug('Got entry IDs %s.', paste(mass.ids, collapse=', '))
-            if ( ! is.null(mass.ids) && any(! is.na(mass.ids))) {
-                mass.ids <- sub('^cpd:', '', mass.ids)
-                if (is.null(ids))
-                    ids <- mass.ids
-                else
-                    ids <- ids[ids %in% mass.ids]
-            }
-        }
-
-    return(ids)
+    return(.self$wsFind(query=query, option='mol_weight', ...))
 },
 
 getEntryImageUrl=function(id) {
