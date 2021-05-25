@@ -28,6 +28,7 @@
 #'
 #' @include KeggConn.R
 #' @import chk
+#' @import lifecycle
 #' @export KeggCompoundConn
 #' @exportClass KeggCompoundConn
 KeggCompoundConn <- methods::setRefClass("KeggCompoundConn",
