@@ -30,12 +30,25 @@ entry.id: A character vector with the IDs of entries to retrieve.
 Returned value: A list of BiodbUrl objects, the same length as `entry.id`.
     }
 
-\item{\code{wsFind(query, retfmt = c("plain", "request", "parsed", "ids"))}}{:
+\item{\code{wsFind(
+  query,
+  option = c("NONE", "formula", "exact_mass", "mol_weight", "nop"),
+  retfmt = c("plain", "request", "parsed", "ids", "ids.no.prefix")
+)}}{:
 
 Searches for entries. See http://www.kegg.jp/kegg/docs/keggapi.html
     for details.
     
-query: The query to send to the database web service.
+query: The query to send to the database web service. When searching by
+    mass (i.e.: 'option' parameter set to either 'exact_mass' or 'mol_weight'),
+    this query field must be set to either an exact (i.e.: 174.05) or a range
+    (i.e.: '250-260').
+    
+option: Set this parameter to 'NONE' for querying on fields 'ENTRY',
+    'NAME', 'DESCRIPTION', 'COMPOSITION', 'DEFINITION' and 'ORTHOLOGY'. See
+    http://www.kegg.jp/kegg/docs/keggapi.htm for an exact list of fields that
+    are searched for each database, and also for other possible values of this
+    'option' paramater.
     
 retfmt: Use to set the format of the returned value. 'plain' will return
     the raw result from the server, as a character value. 'request' will return

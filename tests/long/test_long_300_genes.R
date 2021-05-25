@@ -12,7 +12,7 @@ biodb$loadDefinitions(defFile)
 conn <- biodb$getFactory()$createConn('kegg.genes')
 
 # Run generic tests
-biodb::runGenericTests(conn, short=FALSE, long=TRUE, list(max.results=1))
+biodb::runGenericTests(conn, short=FALSE, long=TRUE, list(max.results=20))
 
 # Terminate Biodb
 biodb$terminate()

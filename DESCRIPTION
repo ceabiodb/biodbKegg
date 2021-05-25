@@ -22,8 +22,9 @@ Suggests:
 	lgr
 Imports:
 	methods,
-	biodb (>= 1.0.1),
-	chk
+	biodb (>= 1.0.2),
+	chk,
+	lifecycle
 RoxygenNote: 7.1.1
 Collate:
     'KeggShape.R'

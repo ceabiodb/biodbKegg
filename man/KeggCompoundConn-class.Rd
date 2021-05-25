@@ -103,12 +103,7 @@ limit: The maximum number of modules IDs to retrieve for each compound.
 Returned value: A named list of KEGG pathway ID vectors, where the names
     of the list are the compound IDs.}
 
-\item{\code{wsFindExactMass(
-  mass = NA_real_,
-  mass.min = NA_real_,
-  mass.max = NA_real_,
-  retfmt = c("plain", "request", "parsed", "ids")
-)}}{:
+\item{\code{wsFindExactMass(mass = NULL, mass.min = NULL, mass.max = NULL, ...)}}{:
 
 Searches for entries by mass.
     You must either provide a single mass through `mass` parameter or provide a
@@ -121,21 +116,12 @@ mass.min: Minimal mass.
     
 mass.max: Maximal mass.
     
-retfmt: Set the format to use for the returned value. 'plain' will return
-    the raw results from the server, as a character value. 'request' will
-    return the request as it would have been sent, as a BiodbRequest object.
-    'parsed' will return a data frame. 'ids' will return a character vector
-    containing the IDs of the matching entries.
+...: parameters passed to KeggConn::wsFind().
     
-Returned value: Depending on `retfmt`.
+Returned value: See KeggConn::wsFind().
     }
 
-\item{\code{wsFindMolecularWeight(
-  mass = NA_real_,
-  mass.min = NA_real_,
-  mass.max = NA_real_,
-  retfmt = c("plain", "request", "parsed", "ids")
-)}}{:
+\item{\code{wsFindMolecularWeight(mass = NULL, mass.min = NULL, mass.max = NULL, ...)}}{:
 
 Searches for entries by molecular mass.
     You must either provide a single mass through `mass` parameter or provide a
@@ -148,13 +134,9 @@ mass.min: Minimal mass.
     
 mass.max: Maximal mass.
     
-retfmt: Set the format to use for the returned value. 'plain' will return
-    the raw results from the server, as a character value. 'request' will
-    return the request as it would have been sent, as a BiodbRequest object.
-    'parsed' will return a data frame. 'ids' will return a character vector
-    containing the IDs of the matching entries.
+...: parameters passed to KeggConn::wsFind().
     
-Returned value: Depending on `retfmt`.
+Returned value: See KeggConn::wsFind().
     }
 }}
 
