@@ -82,7 +82,9 @@ biodb$loadDefinitions(file)
 conn <- biodb$getFactory()$createConn('kegg.pathway')
 
 # Run tests
-biodb::runGenericTests(conn)
+biodb::runGenericTests(conn,
+    opt=list(skip.searchable.fields=c('ref.accession', 'ref.authors', 'ref.doi',
+        'ref.journal', 'ref.title')))
 biodb::testThat('getReactions() works correctly.',
           test_kegg_pathway_getReactions, conn=conn)
 biodb::testThat('buildPathwayGraph() works correctly.',

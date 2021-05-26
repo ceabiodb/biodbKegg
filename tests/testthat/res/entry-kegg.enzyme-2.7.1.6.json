@@ -1,6 +1,13 @@
 {
   "accession": "2.7.1.6",
   "name": ["galactokinase", "galactokinase (phosphorylating)", "ATP:D-galactose-1-phosphotransferase"],
+  "ref.index": ["1", "2", "3", "4", "5", "6"],
+  "ref.accession": ["PMID:13058412", "PMID:14426659", "PMID:16748546", "PMID:12816414", "PMID:14596685", "PMID:15590630"],
+  "ref.authors": ["CARDINI CE, LELOIR LF.", "NEUFELD EF, FEINGOLD DS, HASSID WZ.", "Wilkinson JF.", "Yang J, Fu X, Jia Q, Shen J, Biggins JB, Jiang J, Zhao J, Schmidt JJ, Wang PG, Thorson JS", "Timson DJ, Reece RJ", "Thoden JB, Timson DJ, Reece RJ, Holden HM"],
+  "ref.title": ["Enzymic phosphorylation of galactosamine and galactose.", "Phosphorylation of D-galactose and L-arabinose by extracts from Phaseolus aureus seedlings.", "The pathway of the adaptive fermentation of galactose by yeast.", "Studies on the substrate specificity of Escherichia coli galactokinase.", "Sugar recognition by human galactokinase.", "Molecular structure of human galactokinase: implications for type II galactosemia."],
+  "ref.journal": ["Arch Biochem Biophys 45:55-64 (1953)", "J Biol Chem 235:906-9 (1960)", "Biochem J 44:460-7 (1949)", "Org Lett 5:2223-6 (2003)", "BMC Biochem 4:16 (2003)", "J Biol Chem 280:9662-70 (2005)"],
+  "ref.doi": ["DOI:10.1016/0003-9861(53)90404-4", "DOI:10.1042/bj0440460", "DOI:10.1021/ol034642d", "DOI:10.1186/1471-2091-4-16", "DOI:10.1074/jbc.M412916200"],
+  "ncbi.pubmed.id": ["PMID:13058412", "PMID:14426659", "PMID:16748546", "PMID:12816414", "PMID:14596685", "PMID:15590630"],
   "expasy.enzyme.id": "2.7.1.6",
   "cas.id": "9030-53-9",
   "kegg.pathway.id": ["ec00052", "ec00520", "ec01100"],

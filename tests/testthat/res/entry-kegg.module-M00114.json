@@ -1,6 +1,10 @@
 {
   "accession": "M00114",
   "name": "Ascorbate biosynthesis, plants, fructose-6P => ascorbate",
+  "ref.authors": "Linster CL, Gomez TA, Christensen KC, Adler LN, Young BD, Brenner C, Clarke SG.",
+  "ref.title": "Arabidopsis VTC2 Encodes a GDP-L-Galactose Phosphorylase, the Last Unknown Enzyme in the Smirnoff-Wheeler Pathway to Ascorbic Acid in Plants.",
+  "ref.journal": "J Biol Chem 282:18879-85 (2007)",
+  "ref.doi": "DOI:10.1074/jbc.M702094200",
   "kegg.compound.id": ["C05345", "C00275", "C00636", "C00096", "C02280", "C15926", "C01825", "C01115", "C00072"],
   "kegg.reaction.id": ["R01819", "R01818", "R00885", "R00889", "R07678", "R07674", "R07675", "R00640"],
   "kegg.pathway.id": ["map00051", "map00053", "map01240", "map01100", "map01110"],

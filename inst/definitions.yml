@@ -33,10 +33,22 @@ databases:
     name: KEGG Enzyme
     parsing.expr:
       accession: ^ENTRY\s+EC (\S+)\s+Enzyme
+      ref.index: ^REFERENCE\s+(\d+)\s+.*$
+      ref.accession: ^REFERENCE\s+\d+\s+\[(.*)\]$
+      ref.authors: ^\s+AUTHORS\s+(.*)$
+      ref.title: ^\s+TITLE\s+(.*)$
+      ref.journal: ^\s+JOURNAL\s+(.*)$
+      ref.doi: ^\s+(DOI:.*)$
+      ncbi.pubmed.id: ^REFERENCE\s+\d+\s+\[(PMID:.*)\]$
     scheduler.n: 3
     searchable.fields:
         - accession
         - name
+        - ref.accession
+        - ref.authors
+        - ref.doi
+        - ref.journal
+        - ref.title
     urls:
       base.url: https://www.kegg.jp/
       entry.page.url: https://www.genome.jp/dbget-bin
@@ -100,10 +112,22 @@ databases:
     name: KEGG Module
     parsing.expr:
       accession: ^ENTRY\s+(\S+)\s+Pathway
+      ref.index: ^REFERENCE\s+(\d+)\s+.*$
+      ref.accession: ^REFERENCE\s+\d+\s+\[(.*)\]$
+      ref.authors: ^\s+AUTHORS\s+(.*)$
+      ref.title: ^\s+TITLE\s+(.*)$
+      ref.journal: ^\s+JOURNAL\s+(.*)$
+      ref.doi: ^\s+(DOI:.*)$
+      ncbi.pubmed.id: ^REFERENCE\s+\d+\s+\[(PMID:.*)\]$
     scheduler.n: 3
     searchable.fields:
         - accession
         - name
+        - ref.accession
+        - ref.authors
+        - ref.doi
+        - ref.journal
+        - ref.title
     urls:
       base.url: https://www.kegg.jp/
       entry.page.url: https://www.genome.jp/dbget-bin
@@ -118,10 +142,22 @@ databases:
     parsing.expr:
       accession: ^ENTRY\s+(\S+)\s+KO
       description: ^DEFINITION\s+(\S+)\s*$
+      ref.index: ^REFERENCE\s+(\d+)\s+.*$
+      ref.accession: ^REFERENCE\s+\d+\s+\[(.*)\]$
+      ref.authors: ^\s+AUTHORS\s+(.*)$
+      ref.title: ^\s+TITLE\s+(.*)$
+      ref.journal: ^\s+JOURNAL\s+(.*)$
+      ref.doi: ^\s+(DOI:.*)$
+      ncbi.pubmed.id: ^REFERENCE\s+\d+\s+\[(PMID:.*)\]$
     scheduler.n: 3
     searchable.fields:
         - accession
         - name
+        - ref.accession
+        - ref.authors
+        - ref.doi
+        - ref.journal
+        - ref.title
     urls:
       base.url: https://www.kegg.jp/
       entry.page.url: https://www.genome.jp/dbget-bin
@@ -134,10 +170,22 @@ databases:
     name: KEGG Pathway
     parsing.expr:
       accession: ^ENTRY\s+(\S+)\s+Pathway
+      ref.index: ^REFERENCE\s+(\d+)\s+.*$
+      ref.accession: ^REFERENCE\s+\d+\s+\[(.*)\]$
+      ref.authors: ^\s+AUTHORS\s+(.*)$
+      ref.title: ^\s+TITLE\s+(.*)$
+      ref.journal: ^\s+JOURNAL\s+(.*)$
+      ref.doi: ^\s+(DOI:.*)$
+      ncbi.pubmed.id: ^REFERENCE\s+\d+\s+\[(PMID:.*)\]$
     scheduler.n: 3
     searchable.fields:
         - accession
         - name
+        - ref.accession
+        - ref.authors
+        - ref.doi
+        - ref.journal
+        - ref.title
     urls:
       base.url: https://www.kegg.jp/
       entry.page.url: https://www.genome.jp/dbget-bin
