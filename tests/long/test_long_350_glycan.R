@@ -1,5 +1,5 @@
 # Set test context
-biodb::testContext("KEGG Genes long tests")
+biodb::testContext("KEGG Glycan long tests")
 
 # Instantiate Biodb
 biodb <- biodb::createBiodbTestInstance(ack=TRUE)
@@ -9,10 +9,10 @@ defFile <- system.file("definitions.yml", package='biodbKegg')
 biodb$loadDefinitions(defFile)
 
 # Create connector
-conn <- biodb$getFactory()$createConn('kegg.genes')
+conn <- biodb$getFactory()$createConn('kegg.glycan')
 
 # Run generic tests
-biodb::runGenericTests(conn, short=FALSE, long=TRUE, opt=list(max.results=20))
+biodb::runGenericTests(conn, short=FALSE, long=TRUE, opt=list(max.results=3))
 
 # Terminate Biodb
 biodb$terminate()

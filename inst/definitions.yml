@@ -83,6 +83,7 @@ databases:
         - accession
         - composition
         - name
+        - ref.title
     urls:
       base.url: https://www.kegg.jp/
       entry.page.url: https://www.genome.jp/dbget-bin

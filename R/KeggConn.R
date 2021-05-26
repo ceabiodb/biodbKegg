@@ -164,6 +164,11 @@ wsFind=function(query,
 
     ids <- NULL
 
+    # Add wide search for fields that are not searchable with the web service,
+    # a filtering will be done later on these non-searchable fields.
+    if (all(names(fields) %in% 'ref.title'))
+        fields$accession <- 'G' # Get all entries
+
     # Search by text field 
     for (text.field in c('accession', 'name', 'composition', 'description'))
         if (text.field %in% names(fields)) {
@@ -199,6 +204,37 @@ wsFind=function(query,
             if ( ! is.null(mass.ids) && any( ! is.na(mass.ids)))
                 ids <- (if (is.null(ids)) mass.ids else ids[ids %in% mass.ids])
         }
+    }
+
+    # Filter on references
+    if ('ref.title' %in% names(fields) && ! is.null(ids)) {
+
+        biodb::logInfo0("KEGG is not searchable by field 'ref.title', but we",
+            " will run locally a filtering on all possible entries.")
+        filtered.ids <- character()
+
+        # Loop on all IDs
+        prg <- biodb::Progress$new(biodb=.self$getBiodb(),
+            msg="Filtering found entries on field 'ref.title'.",
+            total=length(ids))
+        for (id in ids) {
+
+            # Get entry and test its content
+            entry <- .self$getEntry(id)
+            if ( ! is.null(entry) && entry$hasField('ref.title')) {
+                value <- entry$getFieldValue('ref.title')
+                if (length(grep(fields[['ref.title']], value, fixed=TRUE)) > 0)
+                    filtered.ids <- c(filtered.ids, id)
+            }
+
+            # Send progress message
+            prg$increment()
+
+            # Cut if we already get enough IDs
+            if (max.results > 0 && length(filtered.ids) >= max.results)
+                break
+        }
+        ids <- filtered.ids
     }
 
     return(ids)

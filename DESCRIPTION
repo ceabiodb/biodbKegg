@@ -22,7 +22,7 @@ Suggests:
 	lgr
 Imports:
 	methods,
-	biodb (>= 1.0.2),
+	biodb (>= 1.0.3),
 	chk,
 	lifecycle
 RoxygenNote: 7.1.1
