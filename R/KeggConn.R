@@ -223,7 +223,8 @@ wsFind=function(query,
             entry <- .self$getEntry(id)
             if ( ! is.null(entry) && entry$hasField('ref.title')) {
                 value <- entry$getFieldValue('ref.title')
-                if (length(grep(fields[['ref.title']], value, fixed=TRUE)) > 0)
+                if (length(grep(fields[['ref.title']], value,
+                    ignore.case=TRUE)) > 0)
                     filtered.ids <- c(filtered.ids, id)
             }
 
