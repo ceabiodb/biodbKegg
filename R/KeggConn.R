@@ -163,10 +163,12 @@ wsFind=function(query,
 .doSearchForEntries=function(fields=NULL, max.results=0) {
 
     ids <- NULL
+    ref.fields <- c('ref.title', 'ref.accession', 'ref.authors', 'ref.journal',
+        'ref.doi')
 
     # Add wide search for fields that are not searchable with the web service,
     # a filtering will be done later on these non-searchable fields.
-    if (all(names(fields) %in% 'ref.title'))
+    if (all(names(fields) %in% ref.fields))
         fields$accession <- 'G' # Get all entries
 
     # Search by text field 
@@ -207,24 +209,36 @@ wsFind=function(query,
     }
 
     # Filter on references
-    if ('ref.title' %in% names(fields) && ! is.null(ids)) {
+    if (any(ref.fields %in% names(fields)) && ! is.null(ids)) {
 
-        biodb::logInfo0("KEGG is not searchable by field 'ref.title', but we",
-            " will run locally a filtering on all possible entries.")
+        ref.fields <- ref.fields[ref.fields %in% names(fields)]
+        biodb::logInfo0("KEGG is not searchable by field(s) ",
+            paste(ref.fields, collapse=", "),
+            ", but we will run locally a filtering on all possible entries.")
         filtered.ids <- character()
 
         # Loop on all IDs
         prg <- biodb::Progress$new(biodb=.self$getBiodb(),
-            msg="Filtering found entries on field 'ref.title'.",
+            msg=paste0("Filtering ", length(ids), " found entries on field(s) ",
+                paste(ref.fields, collapse=", ")),
             total=length(ids))
         for (id in ids) {
 
-            # Get entry and test its content
+            # Get entry
             entry <- .self$getEntry(id)
-            if ( ! is.null(entry) && entry$hasField('ref.title')) {
-                value <- entry$getFieldValue('ref.title')
-                if (length(grep(fields[['ref.title']], value,
-                    ignore.case=TRUE)) > 0)
+
+            # Match fields
+            if ( ! is.null(entry)) {
+                all.fields.match <- TRUE
+                for (ref.field in ref.fields)
+                    if ( ! entry$hasField(ref.field) ||
+                        length(grep(tolower(fields[[ref.field]]),
+                            tolower(entry$getFieldValue(ref.field)),
+                            fixed=TRUE)) == 0) {
+                        all.fields.match <- FALSE
+                        break
+                    }
+                if (all.fields.match)
                     filtered.ids <- c(filtered.ids, id)
             }
 

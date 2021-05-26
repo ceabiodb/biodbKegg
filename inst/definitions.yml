@@ -83,6 +83,10 @@ databases:
         - accession
         - composition
         - name
+        - ref.accession
+        - ref.authors
+        - ref.doi
+        - ref.journal
         - ref.title
     urls:
       base.url: https://www.kegg.jp/

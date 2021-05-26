@@ -12,7 +12,9 @@ biodb$loadDefinitions(file)
 conn <- biodb$getFactory()$createConn('kegg.glycan')
 
 # Run tests
-biodb::runGenericTests(conn, opt=list(skip.searchable.fields='ref.title'))
+biodb::runGenericTests(conn,
+    opt=list(skip.searchable.fields=c('ref.accession', 'ref.authors', 'ref.doi',
+        'ref.journal', 'ref.title')))
 
 # Terminate Biodb
 biodb$terminate()
