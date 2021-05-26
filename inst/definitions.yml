@@ -17,6 +17,7 @@ databases:
       molecular.weight: ^MOL_WEIGHT\s+(\S+)$
     scheduler.n: 3
     searchable.fields:
+        - accession
         - name
         - monoisotopic.mass
         - molecular.mass
@@ -34,6 +35,7 @@ databases:
       accession: ^ENTRY\s+EC (\S+)\s+Enzyme
     scheduler.n: 3
     searchable.fields:
+        - accession
         - name
     urls:
       base.url: https://www.kegg.jp/
@@ -52,12 +54,13 @@ databases:
       organism: ^ORGANISM\s+\S+\s+(.*)$
     scheduler.n: 3
     searchable.fields:
+        - accession
+        - description
         - name
     urls:
       base.url: https://www.kegg.jp/
       entry.page.url: https://www.genome.jp/dbget-bin
       ws.url: http://rest.kegg.jp/
-
 
 # KEGG Glycan {{{2
 ################################################################################
@@ -77,13 +80,14 @@ databases:
       ncbi.pubmed.id: ^REFERENCE\s+\d+\s+\[(PMID:.*)\]$
     scheduler.n: 3
     searchable.fields:
-        - name
         - accession
         - composition
+        - name
     urls:
       base.url: https://www.kegg.jp/
       entry.page.url: https://www.genome.jp/dbget-bin
       ws.url: http://rest.kegg.jp/
+
 # KEGG Module {{{2
 ################################################################################
   kegg.module:
@@ -93,6 +97,7 @@ databases:
       accession: ^ENTRY\s+(\S+)\s+Pathway
     scheduler.n: 3
     searchable.fields:
+        - accession
         - name
     urls:
       base.url: https://www.kegg.jp/
@@ -110,6 +115,7 @@ databases:
       description: ^DEFINITION\s+(\S+)\s*$
     scheduler.n: 3
     searchable.fields:
+        - accession
         - name
     urls:
       base.url: https://www.kegg.jp/
@@ -125,6 +131,7 @@ databases:
       accession: ^ENTRY\s+(\S+)\s+Pathway
     scheduler.n: 3
     searchable.fields:
+        - accession
         - name
     urls:
       base.url: https://www.kegg.jp/
@@ -141,6 +148,8 @@ databases:
       equation: ^EQUATION\s+(.+)\s*$
     scheduler.n: 3
     searchable.fields:
+        - accession
+        - description
         - name
     urls:
       base.url: https://www.kegg.jp/
