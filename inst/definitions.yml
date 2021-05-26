@@ -78,6 +78,8 @@ databases:
     scheduler.n: 3
     searchable.fields:
         - name
+        - accession
+        - composition
     urls:
       base.url: https://www.kegg.jp/
       entry.page.url: https://www.genome.jp/dbget-bin

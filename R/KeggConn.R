@@ -109,7 +109,7 @@ wsFind=function(query,
     (i.e.: '250-260').
     \noption: Set this parameter to 'NONE' for querying on fields 'ENTRY',
     'NAME', 'DESCRIPTION', 'COMPOSITION', 'DEFINITION' and 'ORTHOLOGY'. See
-    http://www.kegg.jp/kegg/docs/keggapi.htm for an exact list of fields that
+    http://www.kegg.jp/kegg/docs/keggapi.html for an exact list of fields that
     are searched for each database, and also for other possible values of this
     'option' paramater.
     \nretfmt: Use to set the format of the returned value. 'plain' will return
@@ -120,6 +120,7 @@ wsFind=function(query,
     \nReturned value: Depending on `retfmt`.
     "
 
+    chk::chk_string(query)
     retfmt <- match.arg(retfmt)
     option <- match.arg(option)
 
@@ -163,9 +164,19 @@ wsFind=function(query,
 
     ids <- NULL
 
-    # Search by name
-    if ('name' %in% names(fields))
-        ids <- .self$wsFind(fields[['name']], retfmt='ids.no.prefix')
+    # Search by text field 
+    for (text.field in c('accession', 'name', 'composition', 'description'))
+        if (text.field %in% names(fields)) {
+            chk::chk_character(fields[[text.field]])
+            chk::chk_length(fields[[text.field]], 1)
+            if ( ! is.na(fields[[text.field]])) {
+                text.ids <- .self$wsFind(fields[[text.field]],
+                    retfmt='ids.no.prefix')
+                if ( ! is.null(text.ids) && any( ! is.na(text.ids)))
+                    ids <- (if (is.null(ids)) text.ids else
+                        ids[ids %in% text.ids])
+            }
+        }
 
     # Search by mass
     for (mass.field in c('monoisotopic.mass' ,'molecular.mass')) {
@@ -185,12 +196,8 @@ wsFind=function(query,
                 retfmt='ids.no.prefix')
 
             # Merge IDs
-            if ( ! is.null(mass.ids) && any( ! is.na(mass.ids))) {
-                if (is.null(ids))
-                    ids <- mass.ids
-                else
-                    ids <- ids[ids %in% mass.ids]
-            }
+            if ( ! is.null(mass.ids) && any( ! is.na(mass.ids)))
+                ids <- (if (is.null(ids)) mass.ids else ids[ids %in% mass.ids])
         }
     }
 

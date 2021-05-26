@@ -54,7 +54,7 @@ wsFindExactMass=function(mass=NULL, mass.min=NULL, mass.max=NULL, ...) {
 
     lifecycle::deprecate_soft('1.0.0', "wsFindExactMass()", "wsFind()")
     query <- if ( ! is.null(mass.min) && ! is.null(mass.max))
-        paste(mass.min, mass.max, sep='-') else mass
+        paste(mass.min, mass.max, sep='-') else as.character(mass)
     if (is.null(query))
         biodb::error0('You need to specify either mass parameter or both',
                     ' mass.min and mass.max.')
@@ -75,7 +75,7 @@ wsFindMolecularWeight=function(mass=NULL, mass.min=NULL, mass.max=NULL, ...) {
 
     lifecycle::deprecate_soft('1.0.0', "wsFindMolecularWeight()", "wsFind()")
     query <- if ( ! is.null(mass.min) && ! is.null(mass.max))
-        paste(mass.min, mass.max, sep='-') else mass
+        paste(mass.min, mass.max, sep='-') else as.character(mass)
     if (is.null(query))
         biodb::error0('You need to specify either mass parameter or both',
                     ' mass.min and mass.max.')
