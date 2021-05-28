@@ -44,11 +44,6 @@ databases:
     searchable.fields:
         - accession
         - name
-        - ref.accession
-        - ref.authors
-        - ref.doi
-        - ref.journal
-        - ref.title
     urls:
       base.url: https://www.kegg.jp/
       entry.page.url: https://www.genome.jp/dbget-bin
@@ -123,11 +118,6 @@ databases:
     searchable.fields:
         - accession
         - name
-        - ref.accession
-        - ref.authors
-        - ref.doi
-        - ref.journal
-        - ref.title
     urls:
       base.url: https://www.kegg.jp/
       entry.page.url: https://www.genome.jp/dbget-bin
@@ -153,11 +143,6 @@ databases:
     searchable.fields:
         - accession
         - name
-        - ref.accession
-        - ref.authors
-        - ref.doi
-        - ref.journal
-        - ref.title
     urls:
       base.url: https://www.kegg.jp/
       entry.page.url: https://www.genome.jp/dbget-bin
@@ -181,11 +166,6 @@ databases:
     searchable.fields:
         - accession
         - name
-        - ref.accession
-        - ref.authors
-        - ref.doi
-        - ref.journal
-        - ref.title
     urls:
       base.url: https://www.kegg.jp/
       entry.page.url: https://www.genome.jp/dbget-bin

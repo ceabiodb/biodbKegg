@@ -30,7 +30,7 @@ KeggReactionConn <- methods::setRefClass("KeggReactionConn",
 methods=list(
 
 initialize=function(...) {
-    callSuper(db.name='reaction', db.abbrev='rn', ...)
+    callSuper(db.name='reaction', db.abbrev='rn', accession.prefix='R', ...)
 }
 
 ))

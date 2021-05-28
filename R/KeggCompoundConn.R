@@ -37,7 +37,7 @@ KeggCompoundConn <- methods::setRefClass("KeggCompoundConn",
 methods=list(
 
 initialize=function(...) {
-    callSuper(db.name='compound', db.abbrev='cpd', ...)
+    callSuper(db.name='compound', db.abbrev='cpd', accession.prefix='C', ...)
 },
 
 wsFindExactMass=function(mass=NULL, mass.min=NULL, mass.max=NULL, ...) {

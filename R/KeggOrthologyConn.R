@@ -30,7 +30,7 @@ KeggOrthologyConn <- methods::setRefClass("KeggOrthologyConn",
 methods=list(
 
 initialize=function(...) {
-    callSuper(db.name='orthology', db.abbrev='ko', ...)
+    callSuper(db.name='orthology', db.abbrev='ko', accession.prefix='K', ...)
 }
 
 ))

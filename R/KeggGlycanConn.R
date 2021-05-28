@@ -27,7 +27,7 @@ KeggGlycanConn <- methods::setRefClass("KeggGlycanConn",
 methods=list(
 
 initialize=function(...) {
-    callSuper(db.name='glycan', db.abbrev='gl', ...)
+    callSuper(db.name='glycan', db.abbrev='gl', accession.prefix='G', ...)
 },
 
 getEntryImageUrl=function(id) {

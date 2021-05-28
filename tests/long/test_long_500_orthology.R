@@ -12,7 +12,7 @@ biodb$loadDefinitions(defFile)
 conn <- biodb$getFactory()$createConn('kegg.orthology')
 
 # Run generic tests
-biodb::runGenericTests(conn, short=FALSE, long=TRUE, list(max.results=1))
+biodb::runGenericTests(conn, short=FALSE, long=TRUE, list(max.results=10))
 
 # Terminate Biodb
 biodb$terminate()

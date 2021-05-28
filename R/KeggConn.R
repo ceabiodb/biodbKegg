@@ -30,23 +30,23 @@ KeggConn <- methods::setRefClass("KeggConn",
     contains="BiodbRemotedbConn",
     fields=list(
         .db.name="character",
-        .db.abbrev="character"
+        .db.abbrev="character",
+        .accession.prefix="character"
     ),
 
 methods=list(
 
-initialize=function(db.name=NA_character_, db.abbrev=NA_character_, ...) {
+initialize=function(db.name=NA_character_, db.abbrev=NA_character_,
+    accession.prefix=NA_character_, ...) {
 
     callSuper(...)
     .self$.abstractClass('KeggConn')
+    chk::chk_string(db.name)
 
-    # Set name
-    if (is.null(db.name) || is.na(db.name))
-        biodb::error("You must set a name for this KEGG database.")
+    # Set members
     .self$.db.name <- db.name
-
-    # Set abbreviation
     .self$.db.abbrev <- db.abbrev
+    .self$.accession.prefix <- accession.prefix
 },
 
 getEntryPageUrl=function(id) {
@@ -168,8 +168,13 @@ wsFind=function(query,
 
     # Add wide search for fields that are not searchable with the web service,
     # a filtering will be done later on these non-searchable fields.
-    if (all(names(fields) %in% ref.fields))
-        fields$accession <- 'G' # Get all entries
+    if (all(names(fields) %in% ref.fields) &&
+        # Test if at least one value is: NOT NULL, NOT NA, NOT EMPTY STRING
+        ! all(vapply(ref.fields, is.null, FUN.VALUE=TRUE) | is.na(ref.fields)
+        | (ref.fields == '')))
+        fields$accession <- switch(.self$.db.name,
+            enzyme='.',
+            .self$.accession.prefix)
 
     # Search by text field 
     for (text.field in c('accession', 'name', 'composition', 'description'))
