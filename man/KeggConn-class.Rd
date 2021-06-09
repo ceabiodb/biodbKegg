@@ -46,7 +46,7 @@ query: The query to send to the database web service. When searching by
     
 option: Set this parameter to 'NONE' for querying on fields 'ENTRY',
     'NAME', 'DESCRIPTION', 'COMPOSITION', 'DEFINITION' and 'ORTHOLOGY'. See
-    http://www.kegg.jp/kegg/docs/keggapi.htm for an exact list of fields that
+    http://www.kegg.jp/kegg/docs/keggapi.html for an exact list of fields that
     are searched for each database, and also for other possible values of this
     'option' paramater.
     

@@ -4,5 +4,8 @@
   "expasy.enzyme.id": "1.1.1.165",
   "cas.id": "54576-94-2",
   "kegg.reaction.id": "R03963",
-  "kegg.enzyme.id": "1.1.1.165"
+  "kegg.enzyme.id": "1.1.1.165",
+  "ref.authors": "Miyoshi, T., Sato, H. and Harada, T.",
+  "ref.title": "Purification and characterization of 2-alkyne-1-ol dehydrogenase induced by 2-butene-1,4-diol in Fusarium merismoides B11.",
+  "ref.journal": "Biochim Biophys Acta 358:231-239 (1974)"
 }

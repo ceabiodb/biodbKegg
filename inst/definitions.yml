@@ -17,6 +17,7 @@ databases:
       molecular.weight: ^MOL_WEIGHT\s+(\S+)$
     scheduler.n: 3
     searchable.fields:
+        - accession
         - name
         - monoisotopic.mass
         - molecular.mass
@@ -32,8 +33,16 @@ databases:
     name: KEGG Enzyme
     parsing.expr:
       accession: ^ENTRY\s+EC (\S+)\s+Enzyme
+      ref.index: ^REFERENCE\s+(\d+)\s+.*$
+      ref.accession: ^REFERENCE\s+\d+\s+\[(.*)\]$
+      ref.authors: ^\s+AUTHORS\s+(.*)$
+      ref.title: ^\s+TITLE\s+(.*)$
+      ref.journal: ^\s+JOURNAL\s+(.*)$
+      ref.doi: ^\s+(DOI:.*)$
+      ncbi.pubmed.id: ^REFERENCE\s+\d+\s+\[(PMID:.*)\]$
     scheduler.n: 3
     searchable.fields:
+        - accession
         - name
     urls:
       base.url: https://www.kegg.jp/
@@ -52,12 +61,13 @@ databases:
       organism: ^ORGANISM\s+\S+\s+(.*)$
     scheduler.n: 3
     searchable.fields:
+        - accession
+        - description
         - name
     urls:
       base.url: https://www.kegg.jp/
       entry.page.url: https://www.genome.jp/dbget-bin
       ws.url: http://rest.kegg.jp/
-
 
 # KEGG Glycan {{{2
 ################################################################################
@@ -68,13 +78,28 @@ databases:
       accession: ^ENTRY\s+(\S+)\s+Glycan
       molecular.mass: ^MASS\s+(\S+) .*$
       glycan.composition: ^COMPOSITION\s+(\S+)$
+      ref.index: ^REFERENCE\s+(\d+)\s+.*$
+      ref.accession: ^REFERENCE\s+\d+\s+\[(.*)\]$
+      ref.authors: ^\s+AUTHORS\s+(.*)$
+      ref.title: ^\s+TITLE\s+(.*)$
+      ref.journal: ^\s+JOURNAL\s+(.*)$
+      ref.doi: ^\s+(DOI:.*)$
+      ncbi.pubmed.id: ^REFERENCE\s+\d+\s+\[(PMID:.*)\]$
     scheduler.n: 3
     searchable.fields:
+        - accession
+        - composition
         - name
+        - ref.accession
+        - ref.authors
+        - ref.doi
+        - ref.journal
+        - ref.title
     urls:
       base.url: https://www.kegg.jp/
       entry.page.url: https://www.genome.jp/dbget-bin
       ws.url: http://rest.kegg.jp/
+
 # KEGG Module {{{2
 ################################################################################
   kegg.module:
@@ -82,8 +107,16 @@ databases:
     name: KEGG Module
     parsing.expr:
       accession: ^ENTRY\s+(\S+)\s+Pathway
+      ref.index: ^REFERENCE\s+(\d+)\s+.*$
+      ref.accession: ^REFERENCE\s+\d+\s+\[(.*)\]$
+      ref.authors: ^\s+AUTHORS\s+(.*)$
+      ref.title: ^\s+TITLE\s+(.*)$
+      ref.journal: ^\s+JOURNAL\s+(.*)$
+      ref.doi: ^\s+(DOI:.*)$
+      ncbi.pubmed.id: ^REFERENCE\s+\d+\s+\[(PMID:.*)\]$
     scheduler.n: 3
     searchable.fields:
+        - accession
         - name
     urls:
       base.url: https://www.kegg.jp/
@@ -99,8 +132,16 @@ databases:
     parsing.expr:
       accession: ^ENTRY\s+(\S+)\s+KO
       description: ^DEFINITION\s+(\S+)\s*$
+      ref.index: ^REFERENCE\s+(\d+)\s+.*$
+      ref.accession: ^REFERENCE\s+\d+\s+\[(.*)\]$
+      ref.authors: ^\s+AUTHORS\s+(.*)$
+      ref.title: ^\s+TITLE\s+(.*)$
+      ref.journal: ^\s+JOURNAL\s+(.*)$
+      ref.doi: ^\s+(DOI:.*)$
+      ncbi.pubmed.id: ^REFERENCE\s+\d+\s+\[(PMID:.*)\]$
     scheduler.n: 3
     searchable.fields:
+        - accession
         - name
     urls:
       base.url: https://www.kegg.jp/
@@ -114,8 +155,16 @@ databases:
     name: KEGG Pathway
     parsing.expr:
       accession: ^ENTRY\s+(\S+)\s+Pathway
+      ref.index: ^REFERENCE\s+(\d+)\s+.*$
+      ref.accession: ^REFERENCE\s+\d+\s+\[(.*)\]$
+      ref.authors: ^\s+AUTHORS\s+(.*)$
+      ref.title: ^\s+TITLE\s+(.*)$
+      ref.journal: ^\s+JOURNAL\s+(.*)$
+      ref.doi: ^\s+(DOI:.*)$
+      ncbi.pubmed.id: ^REFERENCE\s+\d+\s+\[(PMID:.*)\]$
     scheduler.n: 3
     searchable.fields:
+        - accession
         - name
     urls:
       base.url: https://www.kegg.jp/
@@ -132,6 +181,8 @@ databases:
       equation: ^EQUATION\s+(.+)\s*$
     scheduler.n: 3
     searchable.fields:
+        - accession
+        - description
         - name
     urls:
       base.url: https://www.kegg.jp/
@@ -159,6 +210,53 @@ fields:
     - length
     class: integer
     description: Length of the amino acids sequence.
+
+# Reference fields {{{2
+################################################################################
+
+  ref.index:
+    type: ref
+    dataFrameGroup: ref
+    description: Indices of references inside the entry.
+    card: many
+
+  ref.accession:
+    type: ref
+    dataFrameGroup: ref
+    description: Accession numbers of references.
+    card: many
+
+  ref.authors:
+    type: ref
+    dataFrameGroup: ref
+    description: Authors of references.
+    card: many
+
+  ref.title:
+    type: ref
+    dataFrameGroup: ref
+    description: Titles of references.
+    card: many
+
+  ref.journal:
+    type: ref
+    dataFrameGroup: ref
+    description: Journals of references.
+    card: many
+
+  ref.doi:
+    type: ref
+    dataFrameGroup: ref
+    description: DOIs of references.
+    card: many
+    
+  references:
+    alias: ref
+    class: data.frame
+    description: References table.
+    virtual: true
+    virtual.group.by.type: ref
+
 
 # Database IDs {{{2
 ################################################################################
@@ -221,6 +319,13 @@ fields:
 
   lipidmaps.structure.id:
     description: LIPID MAPS Structure ID
+    case.insensitive: true
+    forbids.duplicates: true
+    type: id
+    card: many
+
+  ncbi.pubmed.id:
+    description: NCBI PubMed ID
     case.insensitive: true
     forbids.duplicates: true
     type: id

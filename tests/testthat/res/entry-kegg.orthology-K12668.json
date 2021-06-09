@@ -1,6 +1,10 @@
 {
   "accession": "K12668",
   "name": ["OST2", "DAD1"],
+  "ref.authors": "Chavan M, Yan A, Lennarz WJ",
+  "ref.title": "Subunits of the translocon interact with components of the oligosaccharyl transferase complex.",
+  "ref.journal": "J Biol Chem 280:22917-24 (2005)",
+  "ref.doi": "DOI:10.1074/jbc.M502858200",
   "kegg.reaction.id": "R05976",
   "kegg.pathway.id": ["ko00510", "ko00513", "ko01100", "ko04141"],
   "kegg.module.id": "M00072",

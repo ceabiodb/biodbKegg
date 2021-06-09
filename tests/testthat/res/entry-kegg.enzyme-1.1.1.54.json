@@ -1,6 +1,9 @@
 {
   "accession": "1.1.1.54",
   "name": "allyl-alcohol dehydrogenase",
+  "ref.authors": "Otsuka, K.",
+  "ref.title": "Triphosphopyridine nucleotide-allyl and -ethyl alcohol dehydrogenases from Escherichia coli.",
+  "ref.journal": "J Gen Appl Microbiol 4:211-215 (1958)",
   "expasy.enzyme.id": "1.1.1.54",
   "cas.id": "9028-58-4",
   "kegg.reaction.id": "R03572",

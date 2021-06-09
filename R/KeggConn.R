@@ -30,23 +30,23 @@ KeggConn <- methods::setRefClass("KeggConn",
     contains="BiodbRemotedbConn",
     fields=list(
         .db.name="character",
-        .db.abbrev="character"
+        .db.abbrev="character",
+        .accession.prefix="character"
     ),
 
 methods=list(
 
-initialize=function(db.name=NA_character_, db.abbrev=NA_character_, ...) {
+initialize=function(db.name=NA_character_, db.abbrev=NA_character_,
+    accession.prefix=NA_character_, ...) {
 
     callSuper(...)
     .self$.abstractClass('KeggConn')
+    chk::chk_string(db.name)
 
-    # Set name
-    if (is.null(db.name) || is.na(db.name))
-        biodb::error("You must set a name for this KEGG database.")
+    # Set members
     .self$.db.name <- db.name
-
-    # Set abbreviation
     .self$.db.abbrev <- db.abbrev
+    .self$.accession.prefix <- accession.prefix
 },
 
 getEntryPageUrl=function(id) {
@@ -109,7 +109,7 @@ wsFind=function(query,
     (i.e.: '250-260').
     \noption: Set this parameter to 'NONE' for querying on fields 'ENTRY',
     'NAME', 'DESCRIPTION', 'COMPOSITION', 'DEFINITION' and 'ORTHOLOGY'. See
-    http://www.kegg.jp/kegg/docs/keggapi.htm for an exact list of fields that
+    http://www.kegg.jp/kegg/docs/keggapi.html for an exact list of fields that
     are searched for each database, and also for other possible values of this
     'option' paramater.
     \nretfmt: Use to set the format of the returned value. 'plain' will return
@@ -120,6 +120,7 @@ wsFind=function(query,
     \nReturned value: Depending on `retfmt`.
     "
 
+    chk::chk_string(query)
     retfmt <- match.arg(retfmt)
     option <- match.arg(option)
 
@@ -162,10 +163,32 @@ wsFind=function(query,
 .doSearchForEntries=function(fields=NULL, max.results=0) {
 
     ids <- NULL
+    ref.fields <- c('ref.title', 'ref.accession', 'ref.authors', 'ref.journal',
+        'ref.doi')
 
-    # Search by name
-    if ('name' %in% names(fields))
-        ids <- .self$wsFind(fields[['name']], retfmt='ids.no.prefix')
+    # Add wide search for fields that are not searchable with the web service,
+    # a filtering will be done later on these non-searchable fields.
+    if (all(names(fields) %in% ref.fields) &&
+        # Test if at least one value is: NOT NULL, NOT NA, NOT EMPTY STRING
+        ! all(vapply(ref.fields, is.null, FUN.VALUE=TRUE) | is.na(ref.fields)
+        | (ref.fields == '')))
+        fields$accession <- switch(.self$.db.name,
+            enzyme='.',
+            .self$.accession.prefix)
+
+    # Search by text field 
+    for (text.field in c('accession', 'name', 'composition', 'description'))
+        if (text.field %in% names(fields)) {
+            chk::chk_character(fields[[text.field]])
+            chk::chk_length(fields[[text.field]], 1)
+            if ( ! is.na(fields[[text.field]])) {
+                text.ids <- .self$wsFind(fields[[text.field]],
+                    retfmt='ids.no.prefix')
+                if ( ! is.null(text.ids) && any( ! is.na(text.ids)))
+                    ids <- (if (is.null(ids)) text.ids else
+                        ids[ids %in% text.ids])
+            }
+        }
 
     # Search by mass
     for (mass.field in c('monoisotopic.mass' ,'molecular.mass')) {
@@ -185,13 +208,53 @@ wsFind=function(query,
                 retfmt='ids.no.prefix')
 
             # Merge IDs
-            if ( ! is.null(mass.ids) && any( ! is.na(mass.ids))) {
-                if (is.null(ids))
-                    ids <- mass.ids
-                else
-                    ids <- ids[ids %in% mass.ids]
-            }
+            if ( ! is.null(mass.ids) && any( ! is.na(mass.ids)))
+                ids <- (if (is.null(ids)) mass.ids else ids[ids %in% mass.ids])
         }
+    }
+
+    # Filter on references
+    if (any(ref.fields %in% names(fields)) && ! is.null(ids)) {
+
+        ref.fields <- ref.fields[ref.fields %in% names(fields)]
+        biodb::logInfo0("KEGG is not searchable by field(s) ",
+            paste(ref.fields, collapse=", "),
+            ", but we will run locally a filtering on all possible entries.")
+        filtered.ids <- character()
+
+        # Loop on all IDs
+        prg <- biodb::Progress$new(biodb=.self$getBiodb(),
+            msg=paste0("Filtering ", length(ids), " found entries on field(s) ",
+                paste(ref.fields, collapse=", ")),
+            total=length(ids))
+        for (id in ids) {
+
+            # Get entry
+            entry <- .self$getEntry(id)
+
+            # Match fields
+            if ( ! is.null(entry)) {
+                all.fields.match <- TRUE
+                for (ref.field in ref.fields)
+                    if ( ! entry$hasField(ref.field) ||
+                        length(grep(tolower(fields[[ref.field]]),
+                            tolower(entry$getFieldValue(ref.field)),
+                            fixed=TRUE)) == 0) {
+                        all.fields.match <- FALSE
+                        break
+                    }
+                if (all.fields.match)
+                    filtered.ids <- c(filtered.ids, id)
+            }
+
+            # Send progress message
+            prg$increment()
+
+            # Cut if we already get enough IDs
+            if (max.results > 0 && length(filtered.ids) >= max.results)
+                break
+        }
+        ids <- filtered.ids
     }
 
     return(ids)

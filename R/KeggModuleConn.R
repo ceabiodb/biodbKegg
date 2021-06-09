@@ -30,7 +30,7 @@ KeggModuleConn <- methods::setRefClass("KeggModuleConn",
 methods=list(
 
 initialize=function(...) {
-    callSuper(db.name='module', db.abbrev='md', ...)
+    callSuper(db.name='module', db.abbrev='md', accession.prefix='M', ...)
 }
 
 ))

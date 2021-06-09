@@ -70,7 +70,9 @@ biodb$loadDefinitions(file)
 conn <- biodb$getFactory()$createConn('kegg.enzyme')
 
 # Run tests
-biodb::runGenericTests(conn)
+biodb::runGenericTests(conn,
+    opt=list(skip.searchable.fields=c('ref.accession', 'ref.authors', 'ref.doi',
+        'ref.journal', 'ref.title')))
 biodb::testThat('getPathwayIds() works correctly.',
           test.kegg.enzyme.getPathwayIds, conn=conn)
 biodb::testThat('issue 340 is corrected.',
