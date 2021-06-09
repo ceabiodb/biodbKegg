@@ -12,6 +12,7 @@ cache
 cache*
 check.Renviron
 doc
+longtests/*/output
 Meta
 src-i386
 src-x64
