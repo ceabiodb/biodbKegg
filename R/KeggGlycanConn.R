@@ -18,29 +18,31 @@
 #' mybiodb$terminate()
 #'
 #' @include KeggConn.R
+#' @import R6
 #' @import chk
-#' @export KeggGlycanConn
-#' @exportClass KeggGlycanConn
-KeggGlycanConn <- methods::setRefClass("KeggGlycanConn",
-    contains=c("KeggConn"),
+#' @export
+KeggGlycanConn <- R6::R6Class("KeggGlycanConn",
+inherit=KeggConn,
 
-methods=list(
+
+public=list(
 
 initialize=function(...) {
-    callSuper(db.name='glycan', db.abbrev='gl', accession.prefix='G', ...)
+    super$initialize(db.name='glycan', db.abbrev='gl', accession.prefix='G', ...)
 },
 
 getEntryImageUrl=function(id) {
     # Overrides super class' method.
 
     fct <- function(x) {
-        bu <- .self$getPropValSlot('urls', 'base.url')
+        bu <- self$getPropValSlot('urls', 'base.url')
         u <- c(bu, 'Fig', 'glycan', paste(x, 'gif', sep='.'))
         BiodbUrl$new(url=u)$toString()
     }
 
     return(vapply(id, fct, FUN.VALUE=''))
 }
+),
 
+private=list(
 ))
-

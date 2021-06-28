@@ -17,33 +17,34 @@
 #' mybiodb$terminate()
 #'
 #' @include KeggEntry.R
-#' @export KeggOrthologyEntry
-#' @exportClass KeggOrthologyEntry
-KeggOrthologyEntry <- methods::setRefClass("KeggOrthologyEntry",
-    contains='KeggEntry',
+#' @export
+KeggOrthologyEntry <- R6::R6Class("KeggOrthologyEntry",
+inherit=KeggEntry,
 
-methods=list(
+
+public=list(
 
 initialize=function(...) {
-    callSuper(...)
-},
+    super$initialize(...)
+}
+),
 
-.parseFieldsStep2=function(parsed.content) {
+private=list(
+parseFieldsStep2=function(parsed.content) {
 
     # Name
-    .self$.parseNames(parsed.content, strip.chars=' ', split.char=',')
+    private$parseNames(parsed.content, strip.chars=' ', split.char=',')
 
     # Parse DB links
-    .self$.parseDbLinks(parsed.content)
+    private$parseDbLinks(parsed.content)
 
     # Pathway
-    .self$.parsePathwayIds(parsed.content)
+    private$parsePathwayIds(parsed.content)
 
     # Modules
-    .self$.parseModuleIds(parsed.content)
+    private$parseModuleIds(parsed.content)
 
     # Genes
-    .self$.parseGenesIds(parsed.content)
+    private$parseGenesIds(parsed.content)
 }
-
 ))

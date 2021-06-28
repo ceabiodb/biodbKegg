@@ -21,38 +21,39 @@
 #' # Terminate instance.
 #' mybiodb$terminate()
 #'
+#' @import R6
 #' @include KeggConn.R
-#' @export KeggGenesConn
-#' @exportClass KeggGenesConn
-KeggGenesConn <- methods::setRefClass("KeggGenesConn",
-    contains=c("KeggConn"),
+#' @export
+KeggGenesConn <- R6::R6Class("KeggGenesConn",
+inherit=KeggConn,
 
-methods=list(
+
+public=list(
 
 initialize=function(...) {
-    callSuper(db.name='genes', ...)
+    super$initialize(db.name='genes', ...)
 },
 
+#' @description
+#' Gets organism pathways for each gene. This method retrieves for
+#'     each gene the KEGG pathways of the organism in which the gene is
+#'     involved.
+#' @param id A character vector of KEGG Gene IDs.
+#' @param org The organism in which to search for pathways, as a KEGG organism code
+#'     (3-4 letters code, like 'hsa', 'mmu', ...). See
+#' @param https //www.genome.jp/kegg/catalog/org_list.html for a complete list of KEGG
+#'     organism codes.
+#' @param limit The maximum number of modules IDs to retrieve for each gene.
+#'     Set to 0 to disable.
+#' @return A named list of KEGG pathway ID vectors, where the names
+#'     of the list are the gene IDs."
 getPathwayIdsPerGene=function(id, org, limit=3) {
-    ":\n\nGets organism pathways for each gene. This method retrieves for
-    each gene the KEGG pathways of the organism in which the gene is
-    involved.
-    \nid: A character vector of KEGG Gene IDs.
-    \norg: The organism in which to search for pathways, as a KEGG organism code
-    (3-4 letters code, like 'hsa', 'mmu', ...). See
-    https://www.genome.jp/kegg/catalog/org_list.html for a complete list of KEGG
-    organism codes.
-    \nlimit: The maximum number of modules IDs to retrieve for each gene.
-    Set to 0 to disable.
-    \nReturned value: A named list of KEGG pathway ID vectors, where the names
-    of the list are the gene IDs."
-
     pathways <- list()
 
-    fac <- .self$getBiodb()$getFactory()
+    fac <- self$getBiodb()$getFactory()
 
     # Loop on all gene ids
-    prg <- biodb::Progress$new(biodb=.self$getBiodb(),
+    prg <- biodb::Progress$new(biodb=self$getBiodb(),
                                msg='Retrieving pathways of genes.',
                                total=length(id))
     for (gene.id in id) {
@@ -63,7 +64,7 @@ getPathwayIdsPerGene=function(id, org, limit=3) {
         prg$increment()
 
         # Get gene entry
-        gene <- .self$getEntry(gene.id)
+        gene <- self$getEntry(gene.id)
         if (is.null(gene))
             next
 
@@ -88,21 +89,24 @@ getPathwayIdsPerGene=function(id, org, limit=3) {
 
     return(pathways)
 },
-getPathwayIds=function(id, org) {
-    ":\n\nGets organism pathways. This method retrieves KEGG pathways of the
-    specified organism in which the genes are involved.
-    \nid: A character vector of KEGG Genes IDs.
-    \norg: The organism in which to search for pathways, as a KEGG organism code
-    (3-4 letters code, like 'hsa', 'mmu', ...). See
-    https://www.genome.jp/kegg/catalog/org_list.html for a complete list of KEGG
-    organism codes.
-    \nReturned value: A vector of KEGG pathway IDs.
-    "
 
-    pathways <- .self$getPathwayIdsPerGene(id=id, org=org)
+#' @description
+#' Gets organism pathways. This method retrieves KEGG pathways of the
+#'     specified organism in which the genes are involved.
+#' @param id A character vector of KEGG Genes IDs.
+#' @param org The organism in which to search for pathways, as a KEGG organism code
+#'     (3-4 letters code, like 'hsa', 'mmu', ...). See
+#' @param https //www.genome.jp/kegg/catalog/org_list.html for a complete list of KEGG
+#'     organism codes.
+#' @return A vector of KEGG pathway IDs.
+getPathwayIds=function(id, org) {
+
+    pathways <- self$getPathwayIdsPerGene(id=id, org=org)
     pathways <- unique(unlist(pathways, use.names=FALSE))
 
     return(pathways)
 }
+),
 
+private=list(
 ))

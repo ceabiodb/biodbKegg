@@ -17,42 +17,43 @@
 #' mybiodb$terminate()
 #'
 #' @include KeggEntry.R
-#' @export KeggReactionEntry
-#' @exportClass KeggReactionEntry
-KeggReactionEntry <- methods::setRefClass("KeggReactionEntry",
-    contains='KeggEntry',
+#' @export
+KeggReactionEntry <- R6::R6Class("KeggReactionEntry",
+inherit=KeggEntry,
 
-methods=list(
+
+public=list(
 
 initialize=function(...) {
 
-    callSuper(...)
-},
+    super$initialize(...)
+}
+),
 
-.parseFieldsStep2=function(parsed.content) {
+private=list(
+parseFieldsStep2=function(parsed.content) {
 
     # Name
-    .self$.parseNames(parsed.content)
+    private$parseNames(parsed.content)
 
     # Other KEGG IDs
-    .self$.parseMultilinesField(field='kegg.enzyme.id', tag='ENZYME',
+    private$parseMultilinesField(field='kegg.enzyme.id', tag='ENZYME',
                                 parsed.content=parsed.content)
-    .self$.parsePathwayIds(parsed.content=parsed.content)
-    .self$.parseModuleIds(parsed.content)
+    private$parsePathwayIds(parsed.content=parsed.content)
+    private$parseModuleIds(parsed.content)
 
     # Parse subtrates and products
-    if (.self$hasField('equation')) {
-        s <- gsub(' ', '', .self$getFieldValue('equation')) # Remove spaces
+    if (self$hasField('equation')) {
+        s <- gsub(' ', '', self$getFieldValue('equation')) # Remove spaces
         s <- strsplit(strsplit(s, '<=>')[[1]], '\\+')
         if (length(s) == 2) {
-            .self$setFieldValue('substrates', s[[1]])
-            .self$setFieldValue('products', s[[2]])
+            self$setFieldValue('substrates', s[[1]])
+            self$setFieldValue('products', s[[2]])
         }
         else
-            .self$caution('Unable to parse equation "',
-                .self$getFieldValue('equation'),
-                '" of KEGG reaction ', .self$getFieldValue('accession'), '.')
+            self$caution('Unable to parse equation "',
+                self$getFieldValue('equation'),
+                '" of KEGG reaction ', self$getFieldValue('accession'), '.')
     }
 }
-
 ))

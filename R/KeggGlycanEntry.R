@@ -16,31 +16,32 @@
 #' mybiodb$terminate()
 #'
 #' @include KeggEntry.R
-#' @export KeggGlycanEntry
-#' @exportClass KeggGlycanEntry
-KeggGlycanEntry <- methods::setRefClass("KeggGlycanEntry",
-    contains='KeggEntry',
+#' @export
+KeggGlycanEntry <- R6::R6Class("KeggGlycanEntry",
+inherit=KeggEntry,
 
-methods=list(
+
+public=list(
 
 initialize=function(...) {
 
-    callSuper(...)
-},
+    super$initialize(...)
+}
+),
 
-.parseFieldsStep2=function(parsed.content) {
+private=list(
+parseFieldsStep2=function(parsed.content) {
 
     # Name
-    .self$.parseNames(parsed.content)
+    private$parseNames(parsed.content)
 
     # Other KEGG IDs
-    .self$.parseMultilinesField(field='kegg.reaction.id', tag='REACTION',
+    private$parseMultilinesField(field='kegg.reaction.id', tag='REACTION',
                                 parsed.content=parsed.content)
-    .self$.parseMultilinesField(field='kegg.enzyme.id',   tag='ENZYME',
+    private$parseMultilinesField(field='kegg.enzyme.id',   tag='ENZYME',
                                 parsed.content=parsed.content)
-    .self$.parsePathwayIds(parsed.content=parsed.content)
-    .self$.parseModuleIds(parsed.content)
-    .self$.parseOrthologyIds(parsed.content=parsed.content)
+    private$parsePathwayIds(parsed.content=parsed.content)
+    private$parseModuleIds(parsed.content)
+    private$parseOrthologyIds(parsed.content=parsed.content)
 }
-
 ))

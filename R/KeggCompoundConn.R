@@ -29,28 +29,28 @@
 #' @include KeggConn.R
 #' @import chk
 #' @import lifecycle
-#' @export KeggCompoundConn
-#' @exportClass KeggCompoundConn
-KeggCompoundConn <- methods::setRefClass("KeggCompoundConn",
-    contains=c("KeggConn", "BiodbCompounddbConn"),
+#' @export
+KeggCompoundConn <- R6::R6Class("KeggCompoundConn",
+inherit=KeggConn,
 
-methods=list(
+public=list(
 
 initialize=function(...) {
-    callSuper(db.name='compound', db.abbrev='cpd', accession.prefix='C', ...)
+    super$initialize(db.name='compound', db.abbrev='cpd', accession.prefix='C',
+        ...)
 },
 
+#' @description
+#' Searches for entries by mass.
+#'     You must either provide a single mass through `mass` parameter or provide a
+#'     range through `mass.min` and `mass.max`.
+#' @param See http //www.kegg.jp/kegg/docs/keggapi.html for details.
+#' @param mass Single mass.
+#' @param mass.min Minimal mass.
+#' @param mass.max Maximal mass.
+#' @param ... parameters passed to KeggConn::wsFind().
+#' @return wsFind().
 wsFindExactMass=function(mass=NULL, mass.min=NULL, mass.max=NULL, ...) {
-    ":\n\nSearches for entries by mass.
-    You must either provide a single mass through `mass` parameter or provide a
-    range through `mass.min` and `mass.max`.
-    See http://www.kegg.jp/kegg/docs/keggapi.html for details.
-    \nmass: Single mass.
-    \nmass.min: Minimal mass.
-    \nmass.max: Maximal mass.
-    \n...: parameters passed to KeggConn::wsFind().
-    \nReturned value: See KeggConn::wsFind().
-    "
 
     lifecycle::deprecate_soft('1.0.0', "wsFindExactMass()", "wsFind()")
     query <- if ( ! is.null(mass.min) && ! is.null(mass.max))
@@ -58,20 +58,20 @@ wsFindExactMass=function(mass=NULL, mass.min=NULL, mass.max=NULL, ...) {
     if (is.null(query))
         biodb::error0('You need to specify either mass parameter or both',
                     ' mass.min and mass.max.')
-    return(.self$wsFind(query=query, option='exact_mass', ...))
+    return(self$wsFind(query=query, option='exact_mass', ...))
 },
 
+#' @description
+#' Searches for entries by molecular mass.
+#'     You must either provide a single mass through `mass` parameter or provide a
+#'     range through `mass.min` and `mass.max`.
+#' @param See http //www.kegg.jp/kegg/docs/keggapi.html for details.
+#' @param mass Single mass.
+#' @param mass.min Minimal mass.
+#' @param mass.max Maximal mass.
+#' @param ... parameters passed to KeggConn::wsFind().
+#' @return wsFind().
 wsFindMolecularWeight=function(mass=NULL, mass.min=NULL, mass.max=NULL, ...) {
-    ":\n\nSearches for entries by molecular mass.
-    You must either provide a single mass through `mass` parameter or provide a
-    range through `mass.min` and `mass.max`.
-    See http://www.kegg.jp/kegg/docs/keggapi.html for details.
-    \nmass: Single mass.
-    \nmass.min: Minimal mass.
-    \nmass.max: Maximal mass.
-    \n...: parameters passed to KeggConn::wsFind().
-    \nReturned value: See KeggConn::wsFind().
-    "
 
     lifecycle::deprecate_soft('1.0.0', "wsFindMolecularWeight()", "wsFind()")
     query <- if ( ! is.null(mass.min) && ! is.null(mass.max))
@@ -79,14 +79,14 @@ wsFindMolecularWeight=function(mass=NULL, mass.min=NULL, mass.max=NULL, ...) {
     if (is.null(query))
         biodb::error0('You need to specify either mass parameter or both',
                     ' mass.min and mass.max.')
-    return(.self$wsFind(query=query, option='mol_weight', ...))
+    return(self$wsFind(query=query, option='mol_weight', ...))
 },
 
 getEntryImageUrl=function(id) {
     # Overrides super class' method.
 
     fct <- function(x) {
-        bu <- .self$getPropValSlot('urls', 'base.url')
+        bu <- self$getPropValSlot('urls', 'base.url')
         u <- c(bu, 'Fig', 'compound', paste(x, 'gif', sep='.'))
         BiodbUrl$new(url=u)$toString()
     }
@@ -94,27 +94,27 @@ getEntryImageUrl=function(id) {
     return(vapply(id, fct, FUN.VALUE=''))
 },
 
+#' @description
+#' Gets organism pathways for each compound. This method retrieves for
+#'     each compound the KEGG pathways of the organism in which the compound is
+#'     involved.
+#' @param id A character vector of KEGG Compound IDs.
+#' @param org The organism in which to search for pathways, as a KEGG organism code
+#'     (3-4 letters code, like 'hsa', 'mmu', ...). See
+#' @param https //www.genome.jp/kegg/catalog/org_list.html for a complete list of KEGG
+#'     organism codes.
+#' @param limit The maximum number of modules IDs to retrieve for each compound.
+#'     Set to 0 to disable.
+#' @return A named list of KEGG pathway ID vectors, where the names
+#'     of the list are the compound IDs."
 getPathwayIdsPerCompound=function(id, org, limit=3) {
-    ":\n\nGets organism pathways for each compound. This method retrieves for
-    each compound the KEGG pathways of the organism in which the compound is
-    involved.
-    \nid: A character vector of KEGG Compound IDs.
-    \norg: The organism in which to search for pathways, as a KEGG organism code
-    (3-4 letters code, like 'hsa', 'mmu', ...). See
-    https://www.genome.jp/kegg/catalog/org_list.html for a complete list of KEGG
-    organism codes.
-    \nlimit: The maximum number of modules IDs to retrieve for each compound.
-    Set to 0 to disable.
-    \nReturned value: A named list of KEGG pathway ID vectors, where the names
-    of the list are the compound IDs."
-
     pathways <- list()
 
-    fac <- .self$getBiodb()$getFactory()
+    fac <- self$getBiodb()$getFactory()
     kegg.enz.conn <- fac$getConn('kegg.enzyme')
 
     # Loop on all compound ids
-    prg <- biodb::Progress$new(biodb=.self$getBiodb(),
+    prg <- biodb::Progress$new(biodb=self$getBiodb(),
                                msg='Retrieving pathways of compounds.',
                                total=length(id))
     for (comp.id in id) {
@@ -125,7 +125,7 @@ getPathwayIdsPerCompound=function(id, org, limit=3) {
         prg$increment()
 
         # Get compound entry
-        comp <- .self$getEntry(comp.id)
+        comp <- self$getEntry(comp.id)
         if (is.null(comp))
             next
 
@@ -164,25 +164,25 @@ getPathwayIdsPerCompound=function(id, org, limit=3) {
     return(pathways)
 },
 
+#' @description
+#' Gets organism modules for each compound. This method retrieves for
+#'     each compound the KEGG modules of the organism in which the compound is
+#'     involved.
+#' @param id A character vector of KEGG Compound IDs.
+#' @param org The organism in which to search for modules, as a KEGG organism code
+#'     (3-4 letters code, like 'hsa', 'mmu', ...). See
+#' @param https //www.genome.jp/kegg/catalog/org_list.html for a complete list of KEGG
+#'     organism codes.
+#' @param limit The maximum number of modules IDs to retrieve for each compound.
+#'     Set to 0 to disable.
+#' @return A named list of KEGG module ID vectors, where the names
+#'     of the list are the compound IDs."
 getModuleIdsPerCompound=function(id, org, limit=3) {
-    ":\n\nGets organism modules for each compound. This method retrieves for
-    each compound the KEGG modules of the organism in which the compound is
-    involved.
-    \nid: A character vector of KEGG Compound IDs.
-    \norg: The organism in which to search for modules, as a KEGG organism code
-    (3-4 letters code, like 'hsa', 'mmu', ...). See
-    https://www.genome.jp/kegg/catalog/org_list.html for a complete list of KEGG
-    organism codes.
-    \nlimit: The maximum number of modules IDs to retrieve for each compound.
-    Set to 0 to disable.
-    \nReturned value: A named list of KEGG module ID vectors, where the names
-    of the list are the compound IDs."
-
     modules <- list()
-    pw <- .self$getBiodb()$getFactory()$getConn('kegg.pathway')
+    pw <- self$getBiodb()$getFactory()$getConn('kegg.pathway')
 
     # Get pathway IDs
-    pwids <- .self$getPathwayIdsPerCompound(id=id, org=org)
+    pwids <- self$getPathwayIdsPerCompound(id=id, org=org)
 
     # Loop on all compounds
     for (i in pwids) {
@@ -205,40 +205,40 @@ getModuleIdsPerCompound=function(id, org, limit=3) {
     return(modules)
 },
 
+#' @description
+#' Gets organism pathways. This method retrieves KEGG pathways of the
+#'     specified organism in which the compounds are involved.
+#' @param id A character vector of KEGG Compound IDs.
+#' @param org The organism in which to search for pathways, as a KEGG organism code
+#'     (3-4 letters code, like 'hsa', 'mmu', ...). See
+#' @param https //www.genome.jp/kegg/catalog/org_list.html for a complete list of KEGG
+#'     organism codes.
+#' @return A vector of KEGG pathway IDs.
 getPathwayIds=function(id, org) {
-    ":\n\nGets organism pathways. This method retrieves KEGG pathways of the
-    specified organism in which the compounds are involved.
-    \nid: A character vector of KEGG Compound IDs.
-    \norg: The organism in which to search for pathways, as a KEGG organism code
-    (3-4 letters code, like 'hsa', 'mmu', ...). See
-    https://www.genome.jp/kegg/catalog/org_list.html for a complete list of KEGG
-    organism codes.
-    \nReturned value: A vector of KEGG pathway IDs.
-    "
 
-    pathways <- .self$getPathwayIdsPerCompound(id=id, org=org)
+    pathways <- self$getPathwayIdsPerCompound(id=id, org=org)
     pathways <- unique(unlist(pathways, use.names=FALSE))
 
     return(pathways)
 },
 
+#' @description
+#' Add informations (as new column appended to the end) to an existing
+#'     data frame containing a column of KEGG Compound IDs.
+#' @param x A data frame containing at least one column with Biodb entry IDs
+#'     identified by the parameter `id.col`.
+#' @param id.col The name of the column containing IDs inside the input data frame.
+#' @param org The organism in which to search for pathways, as a KEGG organism code
+#'     (3-4 letters code, like 'hsa', 'mmu', ...). See
+#' @param https //www.genome.jp/kegg/catalog/org_list.html for a complete list of KEGG
+#'     organism codes.
+#' @param limit This is the maximum number of values obtained for each ID, for
+#'     every column added, in case multiple values are obtained. Set to 0 to get
+#'     all values.
+#' @param prefix Insert a prefix at the start of name of all new columns.
+#' @return A data frame containing `x` and new columns appended with
+#'     KEGG identifiers and data.
 addInfo=function(x, id.col, org, limit=3, prefix='') {
-    ":\n\nAdd informations (as new column appended to the end) to an existing
-    data frame containing a column of KEGG Compound IDs.
-    \nx: A data frame containing at least one column with Biodb entry IDs
-    identified by the parameter `id.col`.
-    \nid.col: The name of the column containing IDs inside the input data frame.
-    \norg: The organism in which to search for pathways, as a KEGG organism code
-    (3-4 letters code, like 'hsa', 'mmu', ...). See
-    https://www.genome.jp/kegg/catalog/org_list.html for a complete list of KEGG
-    organism codes.
-    \nlimit: This is the maximum number of values obtained for each ID, for
-    every column added, in case multiple values are obtained. Set to 0 to get
-    all values.
-    \nprefix: Insert a prefix at the start of name of all new columns.
-    \nReturned value: A data frame containing `x` and new columns appended with
-    KEGG identifiers and data.
-    "
 
     chk::chk_is(x, 'data.frame')
 
@@ -252,26 +252,26 @@ addInfo=function(x, id.col, org, limit=3, prefix='') {
         ids <- as.character(x[[id.col]])
 
         # Get entries
-        entries <- .self$getEntry(ids)
+        entries <- self$getEntry(ids)
 
         # Add enzyme IDs and reaction IDs
-        ei <- .self$getBiodb()$entriesFieldToVctOrLst(entries,
+        ei <- self$getBiodb()$entriesFieldToVctOrLst(entries,
             field='kegg.enzyme.id', limit=limit)
         fields <- c('kegg.enzyme.id', 'kegg.reaction.id')
-        y <- .self$getBiodb()$entryIdsToDataframe(ei, db='kegg.enzyme',
+        y <- self$getBiodb()$entryIdsToDataframe(ei, db='kegg.enzyme',
             limit=limit, fields=fields, own.id=TRUE)
 
         # Add pathway info
-        pwids <- .self$getPathwayIdsPerCompound(ids, org=org, limit=limit)
+        pwids <- self$getPathwayIdsPerCompound(ids, org=org, limit=limit)
         fields <- c('kegg.pathway.id', 'name', 'pathway.class')
-        df2 <- .self$getBiodb()$entryIdsToDataframe(pwids, db='kegg.pathway',
+        df2 <- self$getBiodb()$entryIdsToDataframe(pwids, db='kegg.pathway',
             limit=limit, fields=fields, own.id=TRUE, prefix='kegg.pathway.')
         y <- cbind(y, df2)
 
         # Add module info
-        modids <- .self$getModuleIdsPerCompound(ids, org=org, limit=limit)
+        modids <- self$getModuleIdsPerCompound(ids, org=org, limit=limit)
         fields <- c('kegg.module.id', 'name')
-        df3 <- .self$getBiodb()$entryIdsToDataframe(modids, db='kegg.module',
+        df3 <- self$getBiodb()$entryIdsToDataframe(modids, db='kegg.module',
             limit=limit, fields=fields, own.id=TRUE, prefix='kegg.module.')
         y <- cbind(y, df3)
 
@@ -285,6 +285,7 @@ addInfo=function(x, id.col, org, limit=3, prefix='') {
 
     return(x)
 }
+),
 
+private=list(
 ))
-

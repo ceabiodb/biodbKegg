@@ -22,15 +22,17 @@
 #' @seealso \code{\link{KeggConn}}.
 #'
 #' @include KeggConn.R
-#' @export KeggModuleConn
-#' @exportClass KeggModuleConn
-KeggModuleConn <- methods::setRefClass("KeggModuleConn",
-    contains=c("KeggConn"),
+#' @export
+KeggModuleConn <- R6::R6Class("KeggModuleConn",
+inherit=KeggConn,
 
-methods=list(
+
+public=list(
 
 initialize=function(...) {
-    callSuper(db.name='module', db.abbrev='md', accession.prefix='M', ...)
+    super$initialize(db.name='module', db.abbrev='md', accession.prefix='M', ...)
 }
+),
 
+private=list(
 ))

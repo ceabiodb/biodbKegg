@@ -15,19 +15,22 @@
 #' # Terminate instance.
 #' mybiodb$terminate()
 #'
-#' @export KeggEntry
-#' @exportClass KeggEntry
-KeggEntry=methods::setRefClass("KeggEntry",
-    contains='BiodbTxtEntry',
+#' @import R6
+#' @export
+KeggEntry=R6::R6Class("KeggEntry",
+inherit=BiodbTxtEntry,
 
-methods=list(
+
+public=list(
 
 initialize=function(...) {
 
-    callSuper(...)
-},
+    super$initialize(...)
+}
+),
 
-.getTagLines=function(tag, parsed.content) {
+private=list(
+getTagLines=function(tag, parsed.content) {
 
     lines <- character()
 
@@ -54,11 +57,11 @@ initialize=function(...) {
     return(lines)
 },
 
-.parseMultilinesField=function(field, tag, parsed.content, strip.chars=' ',
+parseMultilinesField=function(field, tag, parsed.content, strip.chars=' ',
     split.char=' ') {
 
     # Get tag lines
-    lines <- .self$.getTagLines(tag=tag, parsed.content=parsed.content)
+    lines <- private$getTagLines(tag=tag, parsed.content=parsed.content)
 
     # Split on character
     if ( ! is.na(split.char))
@@ -69,54 +72,54 @@ initialize=function(...) {
 
     # Set field value
     if (length(value) > 0)
-        .self$setFieldValue(field, value)
+        self$setFieldValue(field, value)
 },
 
-.parseNames=function(parsed.content, strip.chars=' ;',
+parseNames=function(parsed.content, strip.chars=' ;',
     split.char=NA_character_) {
 
-    .self$.parseMultilinesField(field='name', tag='NAME',
+    private$parseMultilinesField(field='name', tag='NAME',
                                 parsed.content=parsed.content,
                                 strip.chars=strip.chars, split.char=split.char)
 },
 
-.parseOrthologyIds=function(parsed.content) {
-    ids <- .self$.getTagLines(tag='ORTHOLOGY',
+parseOrthologyIds=function(parsed.content) {
+    ids <- private$getTagLines(tag='ORTHOLOGY',
         parsed.content=parsed.content)
     if (length(ids) > 0) {
         ids <- sub('^\\s*(K[0-9]+)\\s+.*$', '\\1', ids)
-        .self$setFieldValue('kegg.orthology.id', ids)
+        self$setFieldValue('kegg.orthology.id', ids)
     }
 },
 
-.parseModuleIds=function(parsed.content) {
-    module.ids <- .self$.getTagLines(tag='MODULE',
+parseModuleIds=function(parsed.content) {
+    module.ids <- private$getTagLines(tag='MODULE',
         parsed.content=parsed.content)
     if (length(module.ids) > 0) {
         module.ids <- sub('^\\s*[A-Za-z_]*(M[0-9]+)\\s+.*$', '\\1', module.ids)
-        .self$setFieldValue('kegg.module.id', module.ids)
+        self$setFieldValue('kegg.module.id', module.ids)
     }
 },
 
-.parsePathwayIds=function(parsed.content) {
-    pathway.ids <- .self$.getTagLines(tag='PATHWAY',
+parsePathwayIds=function(parsed.content) {
+    pathway.ids <- private$getTagLines(tag='PATHWAY',
         parsed.content=parsed.content)
     if (length(pathway.ids) > 0) {
         pathway.ids <- sub('^\\s*([^ ]+)\\s+.*$', '\\1', pathway.ids)
-        .self$setFieldValue('kegg.pathway.id', pathway.ids)
+        self$setFieldValue('kegg.pathway.id', pathway.ids)
     }
 },
 
-.parseCompoundIds=function(parsed.content) {
-    compound.ids <- .self$.getTagLines(tag='COMPOUND',
+parseCompoundIds=function(parsed.content) {
+    compound.ids <- private$getTagLines(tag='COMPOUND',
         parsed.content=parsed.content)
     if (length(compound.ids) > 0) {
         compound.ids <- sub('^\\s*(C[0-9]+)\\s+.*$', '\\1', compound.ids)
-        .self$setFieldValue('kegg.compound.id', compound.ids)
+        self$setFieldValue('kegg.compound.id', compound.ids)
     }
 },
 
-.parseDbLinks=function(parsed.content) {
+parseDbLinks=function(parsed.content) {
 
     abbrev_to_db <- c(
         RN='kegg.reaction.id',
@@ -130,7 +133,7 @@ initialize=function(...) {
     )
 
     # Extract DB links
-    dblinks <- .self$.getTagLines(tag='DBLINKS', parsed.content=parsed.content)
+    dblinks <- private$getTagLines(tag='DBLINKS', parsed.content=parsed.content)
 
     if (length(dblinks) > 0) {
 
@@ -152,20 +155,20 @@ initialize=function(...) {
 
         # Set fields
         for (i in seq_along(lnks[[1]]))
-            .self$setFieldValue(lnks[i, 'dbid'], lnks[i, 'id'])
+            self$setFieldValue(lnks[i, 'dbid'], lnks[i, 'id'])
 
         # Split Uniprot IDs
-        if (.self$hasField('uniprot.id')) {
-            ids <- strsplit(.self$getFieldValue('uniprot.id'),
+        if (self$hasField('uniprot.id')) {
+            ids <- strsplit(self$getFieldValue('uniprot.id'),
                             ' +', perl=TRUE)[[1]]
-            .self$setFieldValue('uniprot.id', ids)
+            self$setFieldValue('uniprot.id', ids)
         }
     }
 },
 
-.parseGenesIds=function(parsed.content) {
+parseGenesIds=function(parsed.content) {
 
-    lines <- .self$.getTagLines(tag='GENES', parsed.content=parsed.content)
+    lines <- private$getTagLines(tag='GENES', parsed.content=parsed.content)
 
     if (length(lines) > 0) {
         genes.ids <- character()
@@ -177,20 +180,19 @@ initialize=function(...) {
             fct <- function(gene) paste(org[[i]], gene, sep=':')
             genes.ids <- c(genes.ids, vapply(ids, fct, FUN.VALUE=''))
         }
-        .self$setFieldValue('kegg.genes.id', genes.ids)
+        self$setFieldValue('kegg.genes.id', genes.ids)
     }
 },
 
-.parseReactionIds=function(parsed.content) {
+parseReactionIds=function(parsed.content) {
 
-    rids <- c(.self$.getTagLines(tag='REACTION',
-        parsed.content=parsed.content), .self$.getTagLines(tag='ALL_REAC',
+    rids <- c(private$getTagLines(tag='REACTION',
+        parsed.content=parsed.content), private$getTagLines(tag='ALL_REAC',
         parsed.content=parsed.content))
     if (length(rids) > 0) {
         rids <- stringr::str_match_all(rids, '(^|[ +,])(R[0-9]+)')
         rids <- unlist(lapply(rids, function(x) x[,3]))
-        .self$setFieldValue('kegg.reaction.id', rids)
+        self$setFieldValue('kegg.reaction.id', rids)
     }
 }
-
 ))

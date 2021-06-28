@@ -12,69 +12,70 @@
 #'
 #' @examples
 #' # Create a circle instance
-#' c <- KeggCircle(x=12, y=5, r=3, label='MyCircle')
+#' c <- KeggCircle$new(x=12, y=5, r=3, label='MyCircle')
 #'
 #' # Create a rectangle instance
-#' r <- KeggRect(left=10, top=10, bottom=20, right=30, color='yellow')
+#' r <- KeggRect$new(left=10, top=10, bottom=20, right=30, color='yellow')
 #'
-#' @export KeggShape
-#' @exportClass KeggShape
-KeggShape <- methods::setRefClass('KeggShape',
-    fields=list(.label='character',
-                .color='character'),
+#' @import R6
+#' @export
+KeggShape <- R6::R6Class('KeggShape',
 
-methods=list(
+public=list(
 
-initialize=function(label=NA_character_,
-                    color=NA_character_) {
-    .self$.label <- label
-    .self$.color <- color
+initialize=function(label=NA_character_, color=NA_character_) {
+    private$label <- label
+    private$color <- color
 },
 
+#' @description
+#' Test if this shape is the same as another.
+#' @param other The other shape to compare with.
+#' @return TRUE or FALSE.
 equals=function(other) {
-    "\n\nTest if this shape is the same as another.
-    \nother: The other shape to compare with.
-    \nReturned value: TRUE or FALSE.
-    "
 
     return(FALSE)
 },
 
+#' @description
+#' Gets the label associated with this shape.
+#' @return The label.
 getLabel=function() {
-    ":\n\nGets the label associated with this shape.
-    \nReturned value: The label.
-    "
 
-    return(.self$.label)
+    return(private$label)
 },
 
+#' @description
+#' Gets the color associated with this shape.
+#' @return The color name as a string.
 getColor=function() {
-    ":\n\nGets the color associated with this shape.
-    \nReturned value: The color name as a string.
-    "
 
-    return(.self$.color)
+    return(private$color)
 },
 
+#' @description
+#' Gets the RGB color associated with this shape.
+#' @param alpha The value to use for the alpha channel when building the RGB color
+#'     object.
+#' @return The color as an RGB color object.
 getRgbColor=function(alpha=255) {
-    ":\n\nGets the RGB color associated with this shape.
-    \nalpha: The value to use for the alpha channel when building the RGB color
-    object.
-    \nReturned value: The color as an RGB color object.
-    "
 
-    c <- col2rgb(.self$.color)
+    c <- col2rgb(private$color)
     c <- rgb(c[1,], c[2,], c[3,], alpha, maxColorValue=255)
 
     return(c)
 },
 
+#' @description
+#' Draw the shape on the current image.
+#' @return None.
 draw=function() {
-    ":\n\nDraw the shape on the current image.
-    \nReturned value: None.
-    "
 
     invisible()
 }
+),
 
+private=list(
+    label=NULL,
+    color=NULL
 ))

@@ -25,36 +25,35 @@
 #' mybiodb$terminate()
 #'
 #' @include KeggConn.R
-#' @export KeggPathwayConn
-#' @exportClass KeggPathwayConn
-KeggPathwayConn <- methods::setRefClass("KeggPathwayConn",
-    contains=c("KeggConn"),
+#' @export
+KeggPathwayConn <- R6::R6Class("KeggPathwayConn",
+inherit=KeggConn,
 
-methods=list(
+public=list(
 
 initialize=function(...) {
-    callSuper(db.name='pathway', db.abbrev='path', ...)
+    super$initialize(db.name='pathway', db.abbrev='path', ...)
 },
 
+#' @description
+#' Retrieves all reactions part of a KEGG pathway. Connects to
+#'     KEGG databases, and walk through all pathways submitted, and
+#'     their modules, to find all reactions they are composed of.
+#' @param id A character vector of entry IDs.
+#' @param drop If set to TRUE, returns a single KEGG reaction object
+#'     instead of a list, if the list contains only one element.
+#' @return A list of KEGG reaction objects.
 getReactions=function(id, drop=TRUE) {
-    ":\n\nRetrieves all reactions part of a KEGG pathway. Connects to
-    KEGG databases, and walk through all pathways submitted, and
-    their modules, to find all reactions they are composed of.
-    \nid: A character vector of entry IDs.
-    \ndrop: If set to TRUE, returns a single KEGG reaction object
-    instead of a list, if the list contains only one element.
-    \nReturned value: A list of KEGG reaction objects.
-    "
 
     reactions <- list()
     react_ids <- character()
     
-    kegg.mod.conn <- .self$getBiodb()$getFactory()$getConn('kegg.module')
+    kegg.mod.conn <- self$getBiodb()$getFactory()$getConn('kegg.module')
     
     # Loop on all Pathway IDs
     for (path.id in id) {
         
-        path <- .self$getEntry(path.id)
+        path <- self$getEntry(path.id)
         if ( ! is.null(path) && path$hasField('kegg.module.id')) {
             
             # Loop on all modules
@@ -69,7 +68,7 @@ getReactions=function(id, drop=TRUE) {
     
     react_ids <- unique(react_ids)
     
-    kegg.react.conn <- .self$getBiodb()$getFactory()$getConn('kegg.reaction')
+    kegg.react.conn <- self$getBiodb()$getFactory()$getConn('kegg.reaction')
     reactions <- kegg.react.conn$getEntry(react_ids, drop=FALSE)
     reactions <- reactions[ ! vapply(reactions, is.null, FUN.VALUE=TRUE)]
 
@@ -81,24 +80,24 @@ getReactions=function(id, drop=TRUE) {
     return(reactions)
 },
 
+#' @description
+#' Takes a list of pathways IDs and converts them to the
+#'     specified organism, filtering out the ones that do not exist in
+#'     KEGG.
+#' @param id A character vector of entry IDs.
+#' @param org The organism in which to search for pathways, as a KEGG organism code
+#'     (3-4 letters code, like 'hsa', 'mmu', ...). See
+#' @param https //www.genome.jp/kegg/catalog/org_list.html for a complete list of KEGG
+#'     organism codes.
+#' @return A character vector, the same length as `id`,
+#'     containing the converted IDs.
 convertToOrgPathways=function(id, org) {
-    ":\n\nTakes a list of pathways IDs and converts them to the
-    specified organism, filtering out the ones that do not exist in
-    KEGG.
-    \nid: A character vector of entry IDs.
-    \norg: The organism in which to search for pathways, as a KEGG organism code
-    (3-4 letters code, like 'hsa', 'mmu', ...). See
-    https://www.genome.jp/kegg/catalog/org_list.html for a complete list of KEGG
-    organism codes.
-    \nReturned value: A character vector, the same length as `id`,
-    containing the converted IDs.
-    "
 
     # Set organism code in IDs
     id <- sub('^[^0-9]+', org, id)
 
     # Get entries to check existence
-    entries <- .self$getEntry(id, drop=FALSE)
+    entries <- self$getEntry(id, drop=FALSE)
 
     # Filter out non existing entries
     id <- id[ ! vapply(entries, is.null, FUN.VALUE=TRUE)]
@@ -106,19 +105,19 @@ convertToOrgPathways=function(id, org) {
     return(id)
 },
 
+#' @description
+#' Builds a pathway graph in the form of two tables of
+#'     vertices and edges, using KEGG database.
+#' @param id A character vector of KEGG pathway entry IDs.
+#' @param directed If set to TRUE, use available direction information
+#'     to create directed edges, duplicating if necessary the vertices.
+#' @param drop If set to TRUE and the output list contains only one
+#'     element, then the returned value is a single list of two data
+#'     frames.
+#' @return A named list whose
+#'     names are the pathway IDs, and values are lists containing two data frames
+#'     named vertices and edges.
 buildPathwayGraph=function(id, directed=FALSE, drop=TRUE) {
-    ":\n\nBuilds a pathway graph in the form of two tables of
-    vertices and edges, using KEGG database.
-    \nid: A character vector of KEGG pathway entry IDs.
-    \ndirected: If set to TRUE, use available direction information
-    to create directed edges, duplicating if necessary the vertices.
-    \ndrop: If set to TRUE and the output list contains only one
-    element, then the returned value is a single list of two data
-    frames.
-    \nReturned value: A named list whose
-    names are the pathway IDs, and values are lists containing two data frames
-    named vertices and edges.
-    "
 
     graph <- list()
 
@@ -129,8 +128,8 @@ buildPathwayGraph=function(id, directed=FALSE, drop=TRUE) {
         vert <- NULL
 
         # Loop on all reactions
-        for (react in .self$getReactions(id)) {
-            g <- .self$.buildReactionGraph(react, directed)
+        for (react in self$getReactions(id)) {
+            g <- private$buildReactionGraph(react, directed)
             if ( ! is.null(g)) {
                 edg <- rbind(edg, g$edges)
                 vert <- rbind(vert, g$vertices)
@@ -153,23 +152,23 @@ buildPathwayGraph=function(id, directed=FALSE, drop=TRUE) {
     return(graph)
 },
 
+#' @description
+#' Builds a pathway graph, as an igraph object, using KEGG database.
+#' @param id A character vector of KEGG pathway entry IDs.
+#' @param directed If set to TRUE, use available direction information
+#'     to create directed edges, duplicating if necessary the vertices.
+#' @param drop If set to TRUE and the output list contains only one
+#'     element, then the returned value is a single igraph object.
+#' @return A list of igraph objects, or an empty list if
+#'     the igraph library is not available.
 getPathwayIgraph=function(id, directed=FALSE, drop=TRUE) {
-    ":\n\nBuilds a pathway graph, as an igraph object, using KEGG database.
-    \nid: A character vector of KEGG pathway entry IDs.
-    \ndirected: If set to TRUE, use available direction information
-    to create directed edges, duplicating if necessary the vertices.
-    \ndrop: If set to TRUE and the output list contains only one
-    element, then the returned value is a single igraph object.
-    \nReturned value: A list of igraph objects, or an empty list if
-    the igraph library is not available.
-    "
 
     graph <- list()
  
     if (require('igraph', quietly=TRUE, warn.conflicts=FALSE)) {
         detach('package:igraph') # Force using namespace.
         
-        g <- .self$buildPathwayGraph(id=id, directed=directed, drop=FALSE)
+        g <- self$buildPathwayGraph(id=id, directed=directed, drop=FALSE)
         for (n in names(g)) {
             
             # Get edges and vertices
@@ -191,15 +190,15 @@ getPathwayIgraph=function(id, directed=FALSE, drop=TRUE) {
     return(graph)
 },
 
+#' @description
+#' Create a pathway graph picture, with some of its elements colorized.
+#' @param id A KEGG pathway ID.
+#' @param color2ids A named list defining colors for entry IDs that are present on
+#'     the graph. The names of the list are standard color names. The values are
+#'     character vector of entry IDs.
+#' @return an image object or NULL if the package magick is not
+#'     available.
 getDecoratedGraphPicture=function(id, color2ids) {
-    ":\n\nCreate a pathway graph picture, with some of its elements colorized.
-    \nid: A KEGG pathway ID.
-    \ncolor2ids: A named list defining colors for entry IDs that are present on
-    the graph. The names of the list are standard color names. The values are
-    character vector of entry IDs.
-    \nReturned value: an image object or NULL if the package magick is not
-    available.
-    "
  
     pix <- NULL
     
@@ -207,10 +206,10 @@ getDecoratedGraphPicture=function(id, color2ids) {
         detach('package:magick') # Force using namespace.
         
         # Get image
-        pix <- .self$.getPathwayImage(id)
+        pix <- private$getPathwayImage(id)
         
         # Extract shapes
-        shapes <- .self$extractPathwayMapShapes(id=id, color2ids=color2ids)
+        shapes <- self$extractPathwayMapShapes(id=id, color2ids=color2ids)
         
         # Draw shapes
         dev <- magick::image_draw(pix)
@@ -223,18 +222,18 @@ getDecoratedGraphPicture=function(id, color2ids) {
     return(pix)
 },
 
+#' @description
+#' Extracts shapes from a pathway map image.
+#' @param id A KEGG pathway ID.
+#' @param color2ids A named list defining colors for entry IDs that are present on
+#'     the graph. The names of the list are standard color names. The values are
+#'     character vector of entry IDs.
+#' @return A list of BiodbShape objects.
 extractPathwayMapShapes=function(id, color2ids) {
-    ":\n\nExtracts shapes from a pathway map image.
-    \nid: A KEGG pathway ID.
-    \ncolor2ids: A named list defining colors for entry IDs that are present on
-    the graph. The names of the list are standard color names. The values are
-    character vector of entry IDs.
-    \nReturned value: A list of BiodbShape objects.
-    "
 
     shapes <- list()
 
-    html <- .self$.getPathwayHtml(id)
+    html <- private$getPathwayHtml(id)
 
     for (color in names(color2ids)) {
 
@@ -261,11 +260,11 @@ extractPathwayMapShapes=function(id, color2ids) {
                     type <- g[i, 2]
                     c <- as.integer(strsplit(g[i, 3], ',')[[1]])
                     s <- switch(type,
-                                rect=KeggRect(label=g[i, 5],
+                                rect=KeggRect$new(label=g[i, 5],
                                     color=color,
                                     left=c[[1]], top=c[[2]],
                                     right=c[[3]], bottom=c[[4]]),
-                                circle=KeggCircle(label=g[i, 5],
+                                circle=KeggCircle$new(label=g[i, 5],
                                     color=color, x=c[[1]],
                                     y=c[[2]], r=c[[3]]),
                                 NULL)
@@ -287,34 +286,36 @@ extractPathwayMapShapes=function(id, color2ids) {
     }
 
     return(shapes)
-},
+}
+),
 
-.getPathwayHtml=function(id) {
+private=list(
+getPathwayHtml=function(id) {
 
     # Extract pathway number
     path_idx <- sub('^[^0-9]+', '', id)
 
     # Build Request
-    url=BiodbUrl$new(url=c(.self$getPropValSlot('urls', 'base.url'), 'kegg-bin',
+    url=BiodbUrl$new(url=c(self$getPropValSlot('urls', 'base.url'), 'kegg-bin',
         'show_pathway'),
         params=c(org_name='map', mapno=path_idx,
         mapscale='1.0', show_description='hide'))
-    request=.self$makeRequest(url=url)
+    request=self$makeRequest(url=url)
 
     # Send request and get HTML page
-    html=.self$getBiodb()$getRequestScheduler()$sendRequest(request)
+    html=self$getBiodb()$getRequestScheduler()$sendRequest(request)
 
     return(html)
 },
 
-.getPathwayImage=function(id) {
+getPathwayImage=function(id) {
 
-    html <- .self$.getPathwayHtml(id)
+    html <- private$getPathwayHtml(id)
     path_idx <- sub('^[^0-9]+', '', id)
 
-    cache <- .self$getBiodb()$getPersistentCache()
+    cache <- self$getBiodb()$getPersistentCache()
     img_filename <- paste0('pathwaymap-', path_idx)
-    cid <- .self$getCacheId()
+    cid <- self$getCacheId()
     img_file <- cache$getFilePath(cid, img_filename, 'png')
     if ( ! cache$fileExist(cid, img_filename, 'png')) {
         img_url <- stringr::str_match(html,
@@ -322,16 +323,16 @@ extractPathwayMapShapes=function(id, color2ids) {
         if (is.na(img_url[1, 1]))
             biodb::error0('Impossible to find pathway image path inside',
                 ' HTML page for pathway ID ', id, '.')
-        u <- .self$getPropValSlot('urls', 'base.url')
+        u <- self$getPropValSlot('urls', 'base.url')
         img_url <- BiodbUrl$new(url=c(u, img_url[1, 2]))
-        .self$getBiodb()$getRequestScheduler()$downloadFile(url=img_url,
+        self$getBiodb()$getRequestScheduler()$downloadFile(url=img_url,
             dest.file=img_file)
     }
 
     return(magick::image_read(img_file))
 },
 
-.buildReactionGraph=function(react, directed) {
+buildReactionGraph=function(react, directed) {
 
     graph <- NULL
     
@@ -367,5 +368,4 @@ extractPathwayMapShapes=function(id, color2ids) {
     
     return(graph)
 }
-
 ))
