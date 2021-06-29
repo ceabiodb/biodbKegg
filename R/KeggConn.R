@@ -35,7 +35,7 @@ initialize=function(db.name=NA_character_, db.abbrev=NA_character_,
     accession.prefix=NA_character_, ...) {
 
     super$initialize(...)
-    private$abstractClass('KeggConn')
+    biodb::abstractClass('KeggConn', self)
     chk::chk_string(db.name)
 
     # Set members
@@ -111,7 +111,8 @@ wsList=function(retfmt=c('plain', 'request', 'ids')) {
 #'     will return a data frame. 'ids' will return a character vector containing
 #'     the IDs of the matching entries.
 #' @return Depending on `retfmt`.
-wsFind=function(query, option=c('NONE', 'formula', 'exact_mass', 'mol_weight', 'nop'), retfmt=c('plain', 'request', 'parsed', 'ids', 'ids.no.prefix')) {
+wsFind=function(query, option=c('NONE', 'formula', 'exact_mass', 'mol_weight',
+    'nop'), retfmt=c('plain', 'request', 'parsed', 'ids', 'ids.no.prefix')) {
 
     chk::chk_string(query)
     retfmt <- match.arg(retfmt)

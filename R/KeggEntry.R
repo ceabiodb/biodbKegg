@@ -24,8 +24,8 @@ inherit=BiodbTxtEntry,
 public=list(
 
 initialize=function(...) {
-
     super$initialize(...)
+    biodb::abstractClass('KeggEntry', self)
 }
 ),
 

@@ -46,8 +46,10 @@ equals=function(other) {
     eq <- FALSE
     
     if (methods::is(other, "KeggRect")) {
-        eq <- private$left == other$.left && private$right == other$.right &&
-            private$top == other$.top && private$bottom == other$.bottom
+        eq <- private$left == other$.__enclos_env__$private$left &&
+            private$right == other$.__enclos_env__$private$right &&
+            private$top == other$.__enclos_env__$private$top &&
+            private$bottom == other$.__enclos_env__$private$bottom
     }
  
     return(eq)

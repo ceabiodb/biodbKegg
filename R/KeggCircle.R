@@ -54,8 +54,9 @@ equals=function(other) {
     eq <- FALSE
     
     if (methods::is(other, "KeggCircle")) {
-        eq <- private$x == other$.x && private$y == other$.y &&
-            private$r == other$.r
+        eq <- private$x == other$.__enclos_env__$private$x &&
+            private$y == other$.__enclos_env__$private$y &&
+            private$r == other$.__enclos_env__$private$r
     }
  
     return(eq)
