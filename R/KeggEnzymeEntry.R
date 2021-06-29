@@ -16,35 +16,36 @@
 #' # Terminate instance.
 #' mybiodb$terminate()
 #'
+#' @import R6
 #' @include KeggEntry.R
-#' @export KeggEnzymeEntry
-#' @exportClass KeggEnzymeEntry
-KeggEnzymeEntry <- methods::setRefClass("KeggEnzymeEntry",
-    contains='KeggEntry',
+#' @export
+KeggEnzymeEntry <- R6::R6Class("KeggEnzymeEntry",
+inherit=KeggEntry,
 
-methods=list(
+public=list(
 
 initialize=function(...) {
 
-    callSuper(...)
-},
+    super$initialize(...)
+}
+),
 
-.parseFieldsStep2=function(parsed.content) {
+private=list(
+parseFieldsStep2=function(parsed.content) {
 
     # Name
-    .self$.parseNames(parsed.content)
+    private$parseNames(parsed.content)
 
     # Parse DB links
-    .self$.parseDbLinks(parsed.content)
+    private$parseDbLinks(parsed.content)
 
     # Other KEGG IDs
-    .self$.parsePathwayIds(parsed.content=parsed.content)
+    private$parsePathwayIds(parsed.content=parsed.content)
 
     # Genes
-    .self$.parseGenesIds(parsed.content)
+    private$parseGenesIds(parsed.content)
 
     # Reactions (they can be set in ALL_REAC instead of DBLINKS
-    .self$.parseReactionIds(parsed.content)
+    private$parseReactionIds(parsed.content)
 }
-
 ))

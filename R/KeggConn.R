@@ -24,72 +24,67 @@
 #' # Terminate instance.
 #' mybiodb$terminate()
 #'
-#' @export KeggConn
-#' @exportClass KeggConn
-KeggConn <- methods::setRefClass("KeggConn",
-    contains="BiodbRemotedbConn",
-    fields=list(
-        .db.name="character",
-        .db.abbrev="character",
-        .accession.prefix="character"
-    ),
+#' @import R6
+#' @export
+KeggConn <- R6::R6Class("KeggConn",
+inherit=biodb::BiodbConn,
 
-methods=list(
+public=list(
 
 initialize=function(db.name=NA_character_, db.abbrev=NA_character_,
     accession.prefix=NA_character_, ...) {
 
-    callSuper(...)
-    .self$.abstractClass('KeggConn')
+    super$initialize(...)
+    biodb::abstractClass('KeggConn', self)
     chk::chk_string(db.name)
 
     # Set members
-    .self$.db.name <- db.name
-    .self$.db.abbrev <- db.abbrev
-    .self$.accession.prefix <- accession.prefix
+    private$db.name <- db.name
+    private$db.abbrev <- db.abbrev
+    private$accession.prefix <- accession.prefix
 },
 
 getEntryPageUrl=function(id) {
     # Overrides super class' method.
 
-    u <- c(.self$getPropValSlot('urls', 'entry.page.url'), 'www_bget')
-    p <- .self$.completeEntryId(id)
+    u <- c(self$getPropValSlot('urls', 'entry.page.url'), 'www_bget')
+    p <- private$completeEntryId(id)
     fct <- function(x) BiodbUrl$new(url=u, params=p)$toString()
 
     return(vapply(id, fct, FUN.VALUE=''))
 },
 
+#' @description
+#' Gets the full list of entry IDs. See
+#' @param http //www.kegg.jp/kegg/docs/keggapi.html for details.
+#' @param retfmt Use to set the format of the returned value. 'plain' will return
+#'     the raw result from the server, as a character value. 'request' will return
+#'     the request as it would have been sent, as a BiodbRequest object. 'ids' will
+#'     return a character vector containing entry IDs.
+#' @return Depending on `retfmt`.
 wsList=function(retfmt=c('plain', 'request', 'ids')) {
-    ":\n\nGets the full list of entry IDs. See
-    http://www.kegg.jp/kegg/docs/keggapi.html for details.
-    \nretfmt: Use to set the format of the returned value. 'plain' will return
-    the raw result from the server, as a character value. 'request' will return
-    the request as it would have been sent, as a BiodbRequest object. 'ids' will
-    return a character vector containing entry IDs.
-    \nReturned value: Depending on `retfmt`.
-    "
 
     # Not implemented for genes database
-    if (.self$.db.name == 'genes')
+    if (private$db.name == 'genes')
         return(character())
 
     retfmt <- match.arg(retfmt)
 
     # Build request
-    u <- c(.self$getPropValSlot('urls', 'ws.url'), 'list', .self$.db.name)
+    u <- c(self$getPropValSlot('urls', 'ws.url'), 'list', private$db.name)
     url <- BiodbUrl$new(url=u)
-    request <- .self$makeRequest(url=url)
+    request <- self$makeRequest(url=url)
     if (retfmt == 'request')
         return(request)
 
     # Send request
-    results <- .self$getBiodb()$getRequestScheduler()$sendRequest(request)
+    results <- self$getBiodb()$getRequestScheduler()$sendRequest(request)
 
     # Extract IDs
     if (retfmt == 'ids') {
         results <- strsplit(results, "\n")[[1]]
 
-        if ( ! is.na(.self$.db.abbrev) && nchar(.self$.db.abbrev) > 0)
+        if ( ! is.na(private$db.abbrev) && nchar(private$db.abbrev) > 0)
             results <- sub('^[^:]+:([^\\s]+)\\s.*$', '\\1', results, perl=TRUE)
         else
             results <- sub('^([^\\s]+)\\s.*$', '\\1', results, perl=TRUE)
@@ -98,43 +93,42 @@ wsList=function(retfmt=c('plain', 'request', 'ids')) {
     return(results)
 },
 
-wsFind=function(query,
-    option=c('NONE', 'formula', 'exact_mass', 'mol_weight', 'nop'),
-    retfmt=c('plain', 'request', 'parsed', 'ids', 'ids.no.prefix')) {
-    ":\n\nSearches for entries. See http://www.kegg.jp/kegg/docs/keggapi.html
-    for details.
-    \nquery: The query to send to the database web service. When searching by
-    mass (i.e.: 'option' parameter set to either 'exact_mass' or 'mol_weight'),
-    this query field must be set to either an exact (i.e.: 174.05) or a range
-    (i.e.: '250-260').
-    \noption: Set this parameter to 'NONE' for querying on fields 'ENTRY',
-    'NAME', 'DESCRIPTION', 'COMPOSITION', 'DEFINITION' and 'ORTHOLOGY'. See
-    http://www.kegg.jp/kegg/docs/keggapi.html for an exact list of fields that
-    are searched for each database, and also for other possible values of this
-    'option' paramater.
-    \nretfmt: Use to set the format of the returned value. 'plain' will return
-    the raw result from the server, as a character value. 'request' will return
-    the request as it would have been sent, as a BiodbRequest object. 'parsed'
-    will return a data frame. 'ids' will return a character vector containing
-    the IDs of the matching entries.
-    \nReturned value: Depending on `retfmt`.
-    "
+#' @description
+#' Searches for entries. See http://www.kegg.jp/kegg/docs/keggapi.html
+#'     for details.
+#' @param query The query to send to the database web service. When searching by
+#' @param mass (i.e. 'option' parameter set to either 'exact_mass' or 'mol_weight'),
+#' @param this query field must be set to either an exact (i.e. 174.05) or a range
+#' @param (i.e. '250-260').
+#' @param option Set this parameter to 'NONE' for querying on fields 'ENTRY',
+#'     'NAME', 'DESCRIPTION', 'COMPOSITION', 'DEFINITION' and 'ORTHOLOGY'. See
+#' @param http //www.kegg.jp/kegg/docs/keggapi.html for an exact list of fields that
+#'     are searched for each database, and also for other possible values of this
+#'     'option' paramater.
+#' @param retfmt Use to set the format of the returned value. 'plain' will return
+#'     the raw result from the server, as a character value. 'request' will return
+#'     the request as it would have been sent, as a BiodbRequest object. 'parsed'
+#'     will return a data frame. 'ids' will return a character vector containing
+#'     the IDs of the matching entries.
+#' @return Depending on `retfmt`.
+wsFind=function(query, option=c('NONE', 'formula', 'exact_mass', 'mol_weight',
+    'nop'), retfmt=c('plain', 'request', 'parsed', 'ids', 'ids.no.prefix')) {
 
     chk::chk_string(query)
     retfmt <- match.arg(retfmt)
     option <- match.arg(option)
 
     # Build request
-    u <- c(.self$getPropValSlot('urls', 'ws.url'), 'find', .self$.db.name,
+    u <- c(self$getPropValSlot('urls', 'ws.url'), 'find', private$db.name,
         query)
     if (option != 'NONE')
         u <- c(u, option) 
-    request <- .self$makeRequest(method='get', url=BiodbUrl$new(url=u))
+    request <- self$makeRequest(method='get', url=BiodbUrl$new(url=u))
     if (retfmt == 'request')
         return(request)
 
     # Send request
-    results <- .self$getBiodb()$getRequestScheduler()$sendRequest(request)
+    results <- self$getBiodb()$getRequestScheduler()$sendRequest(request)
 
     # Parse
     if (retfmt != 'plain') {
@@ -151,16 +145,22 @@ wsFind=function(query,
 
         if (retfmt %in% c('ids', 'ids.no.prefix')) {
             results <- if (ncol(results) > 0) results[[1]] else character()
-            if ( retfmt == 'ids.no.prefix' && ! is.na(.self$.db.abbrev)
-                && nchar(.self$.db.abbrev) > 0)
+            if ( retfmt == 'ids.no.prefix' && ! is.na(private$db.abbrev)
+                && nchar(private$db.abbrev) > 0)
                 results <- sub('^[^:]*:', '', results)
         }
     }
 
     return(results)
-},
+}
+),
 
-.doSearchForEntries=function(fields=NULL, max.results=0) {
+private=list(
+    db.name=NULL,
+    db.abbrev=NULL,
+    accession.prefix=NULL
+,
+doSearchForEntries=function(fields=NULL, max.results=0) {
 
     ids <- NULL
     ref.fields <- c('ref.title', 'ref.accession', 'ref.authors', 'ref.journal',
@@ -172,9 +172,9 @@ wsFind=function(query,
         # Test if at least one value is: NOT NULL, NOT NA, NOT EMPTY STRING
         ! all(vapply(ref.fields, is.null, FUN.VALUE=TRUE) | is.na(ref.fields)
         | (ref.fields == '')))
-        fields$accession <- switch(.self$.db.name,
+        fields$accession <- switch(private$db.name,
             enzyme='.',
-            .self$.accession.prefix)
+            private$accession.prefix)
 
     # Search by text field 
     for (text.field in c('accession', 'name', 'composition', 'description'))
@@ -182,7 +182,7 @@ wsFind=function(query,
             chk::chk_character(fields[[text.field]])
             chk::chk_length(fields[[text.field]], 1)
             if ( ! is.na(fields[[text.field]])) {
-                text.ids <- .self$wsFind(fields[[text.field]],
+                text.ids <- self$wsFind(fields[[text.field]],
                     retfmt='ids.no.prefix')
                 if ( ! is.null(text.ids) && any( ! is.na(text.ids)))
                     ids <- (if (is.null(ids)) text.ids else
@@ -195,16 +195,16 @@ wsFind=function(query,
         if (mass.field %in% names(fields)) {
 
             # Check database
-            if ( ! .self$.db.name %in% c('compound', 'drug'))
+            if ( ! private$db.name %in% c('compound', 'drug'))
                 biodb::warn("KEGG %s database is not searchable by mass.",
-                    .self$.db.name)
+                    private$db.name)
 
             # Call wsFind()
             rng <- do.call(Range$new, fields[[mass.field]])
             query <- paste(rng$getMin(), rng$getMax(), sep='-')
             option <- if (mass.field == 'monoisotopic.mass') 'exact_mass' else
                 'mol_weight'
-            mass.ids <- .self$wsFind(query=query, option=option,
+            mass.ids <- self$wsFind(query=query, option=option,
                 retfmt='ids.no.prefix')
 
             # Merge IDs
@@ -223,14 +223,14 @@ wsFind=function(query,
         filtered.ids <- character()
 
         # Loop on all IDs
-        prg <- biodb::Progress$new(biodb=.self$getBiodb(),
+        prg <- biodb::Progress$new(biodb=self$getBiodb(),
             msg=paste0("Filtering ", length(ids), " found entries on field(s) ",
                 paste(ref.fields, collapse=", ")),
             total=length(ids))
         for (id in ids) {
 
             # Get entry
-            entry <- .self$getEntry(id)
+            entry <- self$getEntry(id)
 
             # Match fields
             if ( ! is.null(entry)) {
@@ -260,30 +260,29 @@ wsFind=function(query,
     return(ids)
 },
 
-.completeEntryId=function(id) {
+completeEntryId=function(id) {
 
-    if ( ! is.na(.self$.db.abbrev) && nchar(.self$.db.abbrev) > 0)
-        id <- paste(.self$.db.abbrev, id, sep=':')
+    if ( ! is.na(private$db.abbrev) && nchar(private$db.abbrev) > 0)
+        id <- paste(private$db.abbrev, id, sep=':')
 
     return(id)
 },
 
-.doGetEntryContentRequest=function(id, concatenate=TRUE) {
+doGetEntryContentRequest=function(id, concatenate=TRUE) {
 
     fct <- function(x) {
-        u <- c(.self$getPropValSlot('urls', 'ws.url'), 'get', x)
+        u <- c(self$getPropValSlot('urls', 'ws.url'), 'get', x)
         BiodbUrl$new(url=u)$toString()
     }
 
     return(vapply(id, fct, FUN.VALUE=''))
 },
 
-.doGetEntryIds=function(max.results=NA_integer_) {
+doGetEntryIds=function(max.results=NA_integer_) {
 
     # Get IDs
-    ids <- .self$wsList(retfmt='ids')
+    ids <- self$wsList(retfmt='ids')
 
     return(ids)
 }
-
 ))

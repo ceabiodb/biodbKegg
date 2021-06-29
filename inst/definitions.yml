@@ -8,6 +8,8 @@ databases:
 # KEGG Compound {{{2
 ################################################################################
   kegg.compound:
+    remote: true
+    compound.db: true
     entry.content.type: txt
     name: KEGG Compound
     parsing.expr:
@@ -29,6 +31,7 @@ databases:
 # KEGG Enzyme {{{2
 ################################################################################
   kegg.enzyme:
+    remote: true
     entry.content.type: txt
     name: KEGG Enzyme
     parsing.expr:
@@ -52,6 +55,7 @@ databases:
 # KEGG Genes {{{2
 ################################################################################
   kegg.genes:
+    remote: true
     entry.content.type: txt
     name: KEGG Genes
     parsing.expr:
@@ -72,6 +76,7 @@ databases:
 # KEGG Glycan {{{2
 ################################################################################
   kegg.glycan:
+    remote: true
     entry.content.type: txt
     name: KEGG Glycan
     parsing.expr:
@@ -103,6 +108,7 @@ databases:
 # KEGG Module {{{2
 ################################################################################
   kegg.module:
+    remote: true
     entry.content.type: txt
     name: KEGG Module
     parsing.expr:
@@ -127,6 +133,7 @@ databases:
 ################################################################################
 
   kegg.orthology:
+    remote: true
     entry.content.type: txt
     name: KEGG Orthology
     parsing.expr:
@@ -151,6 +158,7 @@ databases:
 # KEGG Pathway {{{2
 ################################################################################
   kegg.pathway:
+    remote: true
     entry.content.type: txt
     name: KEGG Pathway
     parsing.expr:
@@ -174,6 +182,7 @@ databases:
 # KEGG Reaction {{{2
 ################################################################################
   kegg.reaction:
+    remote: true
     entry.content.type: txt
     name: KEGG Reaction
     parsing.expr:

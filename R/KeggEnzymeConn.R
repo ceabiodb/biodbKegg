@@ -21,38 +21,39 @@
 #' # Terminate instance.
 #' mybiodb$terminate()
 #'
+#' @import R6
 #' @include KeggConn.R
-#' @export KeggEnzymeConn
-#' @exportClass KeggEnzymeConn
-KeggEnzymeConn <- methods::setRefClass("KeggEnzymeConn",
-    contains=c("KeggConn"),
+#' @export
+KeggEnzymeConn <- R6::R6Class("KeggEnzymeConn",
+inherit=KeggConn,
 
-methods=list(
+
+public=list(
 
 initialize=function(...) {
-    callSuper(db.name='enzyme', db.abbrev='ec', ...)
+    super$initialize(db.name='enzyme', db.abbrev='ec', ...)
 },
 
+#' @description
+#' Gets organism pathways.  This method retrieves KEGG pathways of the
+#'     specified organism in which the enzymes are involved.
+#' @param id A character vector of KEGG Compound IDs.
+#' @param org The organism in which to search for pathways, as a KEGG organism code
+#'     (3-4 letters code, like 'hsa', 'mmu', ...). See
+#' @param https //www.genome.jp/kegg/catalog/org_list.html for a complete list of KEGG
+#'     organism codes.
+#' @return A vector of KEGG pathway IDs.
 getPathwayIds=function(id, org) {
-    ":\n\nGets organism pathways.  This method retrieves KEGG pathways of the
-    specified organism in which the enzymes are involved.
-    \nid: A character vector of KEGG Compound IDs.
-    \norg: The organism in which to search for pathways, as a KEGG organism code
-    (3-4 letters code, like 'hsa', 'mmu', ...). See
-    https://www.genome.jp/kegg/catalog/org_list.html for a complete list of KEGG
-    organism codes.
-    \nReturned value: A vector of KEGG pathway IDs.
-    "
 
     pathways <- character()
-    fact <- .self$getBiodb()$getFactory()
+    fact <- self$getBiodb()$getFactory()
     kegg.gen.conn <- fact$getConn('kegg.genes')
 
     # Loop on all enzymes
     for (enz.id in id) {
 
         pws <- NULL
-        enz <- .self$getEntry(enz.id)
+        enz <- self$getEntry(enz.id)
         if (is.null(enz))
             next
 
@@ -98,5 +99,7 @@ getPathwayIds=function(id, org) {
 
     return(pathways)
 }
+),
 
+private=list(
 ))

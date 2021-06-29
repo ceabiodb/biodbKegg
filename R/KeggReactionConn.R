@@ -22,15 +22,17 @@
 #' mybiodb$terminate()
 #'
 #' @include KeggConn.R
-#' @export KeggReactionConn
-#' @exportClass KeggReactionConn
-KeggReactionConn <- methods::setRefClass("KeggReactionConn",
-    contains="KeggConn",
+#' @export
+KeggReactionConn <- R6::R6Class("KeggReactionConn",
+inherit=KeggConn,
 
-methods=list(
+
+public=list(
 
 initialize=function(...) {
-    callSuper(db.name='reaction', db.abbrev='rn', accession.prefix='R', ...)
+    super$initialize(db.name='reaction', db.abbrev='rn', accession.prefix='R', ...)
 }
+),
 
+private=list(
 ))

@@ -16,60 +16,61 @@
 #' # Terminate instance.
 #' mybiodb$terminate()
 #'
+#' @import R6
 #' @include KeggEntry.R
-#' @export KeggGenesEntry
-#' @exportClass KeggGenesEntry
-KeggGenesEntry <- methods::setRefClass("KeggGenesEntry",
-    contains='KeggEntry',
+#' @export
+KeggGenesEntry <- R6::R6Class("KeggGenesEntry",
+inherit=KeggEntry,
 
-methods=list(
+public=list(
 
 initialize=function(...) {
 
-    callSuper(...)
-},
+    super$initialize(...)
+}
+),
 
-.parseFieldsStep2=function(parsed.content) {
+private=list(
+parseFieldsStep2=function(parsed.content) {
 
     # Name
-    .self$.parseNames(parsed.content, strip.chars=' ;', split.char=',')
+    private$parseNames(parsed.content, strip.chars=' ;', split.char=',')
 
     # Parse DB links
-    .self$.parseDbLinks(parsed.content)
+    private$parseDbLinks(parsed.content)
 
     # Adjust accession with organism code
-    if (.self$hasField('kegg.organism.code')) {
-        org <- .self$getFieldValue('kegg.organism.code')
-        acc <- .self$getFieldValue('accession')
-        .self$setFieldValue('accession', paste(org, acc, sep=':'))
+    if (self$hasField('kegg.organism.code')) {
+        org <- self$getFieldValue('kegg.organism.code')
+        acc <- self$getFieldValue('accession')
+        self$setFieldValue('accession', paste(org, acc, sep=':'))
     }
 
     # Other KEGG IDs
-    .self$.parseModuleIds(parsed.content)
-    .self$.parsePathwayIds(parsed.content=parsed.content)
-    .self$.parseOrthologyIds(parsed.content=parsed.content)
+    private$parseModuleIds(parsed.content)
+    private$parsePathwayIds(parsed.content=parsed.content)
+    private$parseOrthologyIds(parsed.content=parsed.content)
 
     # AA SEQ
-    lines <- .self$.getTagLines(tag='AASEQ', parsed.content=parsed.content)
+    lines <- private$getTagLines(tag='AASEQ', parsed.content=parsed.content)
     seq.length <- as.integer(lines[[1]])
     sequence <- paste(lines[2:length(lines)], collapse='')
     if (seq.length != nchar(sequence))
-        .self$caution('Length of AA sequence (', nchar(sequence),
+        self$caution('Length of AA sequence (', nchar(sequence),
             ') is different from the stated length (', seq.length,
-            '). In entry ', .self$getFieldValue('accession'), '.')
-    .self$setFieldValue('aa.seq', sequence)
-    .self$setFieldValue('aa.seq.length', seq.length)
+            '). In entry ', self$getFieldValue('accession'), '.')
+    self$setFieldValue('aa.seq', sequence)
+    self$setFieldValue('aa.seq.length', seq.length)
 
     # NT SEQ
-    lines <- .self$.getTagLines(tag='NTSEQ', parsed.content=parsed.content)
+    lines <- private$getTagLines(tag='NTSEQ', parsed.content=parsed.content)
     seq.length <- as.integer(lines[[1]])
     sequence <- paste(lines[2:length(lines)], collapse='')
     if (seq.length != nchar(sequence))
-        .self$caution('Length of NT sequence (', nchar(sequence),
+        self$caution('Length of NT sequence (', nchar(sequence),
             ') is different from the stated length (', seq.length,
-            '). In entry ', .self$getFieldValue('accession'), '.')
-    .self$setFieldValue('nt.seq', sequence)
-    .self$setFieldValue('nt.seq.length', seq.length)
+            '). In entry ', self$getFieldValue('accession'), '.')
+    self$setFieldValue('nt.seq', sequence)
+    self$setFieldValue('nt.seq.length', seq.length)
 }
-
 ))

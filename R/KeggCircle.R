@@ -16,10 +16,10 @@
 #'
 #' @examples
 #' # Create an instance
-#' c1 <- KeggCircle(x=12, y=5, r=3)
+#' c1 <- KeggCircle$new(x=12, y=5, r=3)
 #'
 #' # Since it inherits from KeggShape, a color and a label can be set
-#' c2 <- KeggCircle(x=12, y=5, r=3, color='blue', label='Circle 2')
+#' c2 <- KeggCircle$new(x=12, y=5, r=3, color='blue', label='Circle 2')
 #'
 #' # Getting center
 #' c1$getX()
@@ -33,23 +33,19 @@
 #' c1$draw()
 #' }
 #'
-#' @import methods
+#' @import R6
 #' @include KeggShape.R
-#' @export KeggCircle
-#' @exportClass KeggCircle
-KeggCircle <- methods::setRefClass('KeggCircle',
-    contains='KeggShape',
-    fields=list(.x='integer',
-                .y='integer',
-                .r='integer'),
+#' @export
+KeggCircle <- R6::R6Class('KeggCircle',
+inherit=KeggShape,
 
-methods=list(
+public=list(
 
 initialize=function(x, y, r, ...) {
-    callSuper(...)
-    .self$.x <- as.integer(x)
-    .self$.y <- as.integer(y)
-    .self$.r <- as.integer(r)
+    super$initialize(...)
+    private$x <- as.integer(x)
+    private$y <- as.integer(y)
+    private$r <- as.integer(r)
 },
 
 equals=function(other) {
@@ -58,44 +54,50 @@ equals=function(other) {
     eq <- FALSE
     
     if (methods::is(other, "KeggCircle")) {
-        eq <- .self$.x == other$.x && .self$.y == other$.y &&
-            .self$.r == other$.r
+        eq <- private$x == other$.__enclos_env__$private$x &&
+            private$y == other$.__enclos_env__$private$y &&
+            private$r == other$.__enclos_env__$private$r
     }
  
     return(eq)
 },
 
+#' @description
+#' Get the X coordinate.
+#' @return The X coordinate.
 getX=function() {
-    ":\n\nGet the X coordinate.
-    \nReturned value: The X coordinate.
-    "
 
-    return(.self$.x)
+    return(private$x)
 },
 
+#' @description
+#' Get the Y coordinate.
+#' @return The Y coordinate.
 getY=function() {
-    ":\n\nGet the Y coordinate.
-    \nReturned value: The Y coordinate.
-    "
 
-    return(.self$.y)
+    return(private$y)
 },
 
+#' @description
+#' Get the radius.
+#' @return The radius.
 getRadius=function() {
-    ":\n\nGet the radius.
-    \nReturned value: The radius.
-    "
 
-    return(.self$.r)
+    return(private$r)
 },
 
 draw=function() {
     # Overrides super class' method.
 
-    symbols(x=.self$.x, y=.self$.y,
-            circles=.self$.r,
-            bg=.self$getRgbColor(alpha=127),
+    symbols(x=private$x, y=private$y,
+            circles=private$r,
+            bg=self$getRgbColor(alpha=127),
             add=TRUE, inches=FALSE)
 }
+),
 
+private=list(
+    x=NULL,
+    y=NULL,
+    r=NULL
 ))

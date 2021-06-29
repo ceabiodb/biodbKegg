@@ -1,14 +1,13 @@
 test.rect <- function(biodb) {
 
-	rect = KeggRect(label = 'A', color = 'red',
-		left = 10L, right = 20L, top = 5L, bottom = 40L)
+	rect <- KeggRect$new(label='A', color='red', left=10L, right=20L, top=5L,
+        bottom=40L)
 	expect_is(rect, 'KeggRect')
 }
 
 test.circle <- function(biodb) {
 
-	circle = KeggCircle(label = 'A', color = 'red',
-		x = 10L, y = 20L, r = 5L)
+	circle <- KeggCircle$new(label='A', color='red', x=10L, y=20L, r=5L)
 	expect_is(circle, 'KeggCircle')
 }
 

@@ -17,27 +17,29 @@
 #' mybiodb$terminate()
 #'
 #' @include KeggEntry.R
-#' @export KeggModuleEntry
-#' @exportClass KeggModuleEntry
-KeggModuleEntry <- methods::setRefClass("KeggModuleEntry",
-    contains='KeggEntry',
+#' @export
+KeggModuleEntry <- R6::R6Class("KeggModuleEntry",
+inherit=KeggEntry,
 
-methods=list(
+
+public=list(
 
 initialize=function(...) {
-    callSuper(...)
-},
+    super$initialize(...)
+}
+),
 
-.makesRefToEntryRecurse=function(db, oid) {
+private=list(
+makesRefToEntryRecurse=function(db, oid) {
 
     makes_ref <- FALSE
 
-    if (db == 'kegg.enzyme' && .self$hasField('kegg.reaction.id')) {
+    if (db == 'kegg.enzyme' && self$hasField('kegg.reaction.id')) {
 
         # We need to check that the oid is listed
         # in at least one of the reactions
-        krc <- .self$getBiodb()$getFactory()$getConn('kegg.reaction')
-        reaction.ids <- .self$getFieldValue('kegg.reaction.id')
+        krc <- self$getBiodb()$getFactory()$getConn('kegg.reaction')
+        reaction.ids <- self$getFieldValue('kegg.reaction.id')
         makes_ref <- krc$makesRefToEntry(reaction.ids, db=db, oid=oid,
             any=TRUE, recurse=TRUE)
     }
@@ -45,19 +47,18 @@ initialize=function(...) {
     return(makes_ref)
 },
 
-.parseFieldsStep2=function(parsed.content) {
+parseFieldsStep2=function(parsed.content) {
 
     # Name
-    .self$.parseNames(parsed.content)
+    private$parseNames(parsed.content)
 
     # Compounds
-    .self$.parseCompoundIds(parsed.content)
+    private$parseCompoundIds(parsed.content)
 
     # Reactions
-    .self$.parseReactionIds(parsed.content)
+    private$parseReactionIds(parsed.content)
 
     # Pathway
-    .self$.parsePathwayIds(parsed.content)
+    private$parsePathwayIds(parsed.content)
 }
-
 ))
