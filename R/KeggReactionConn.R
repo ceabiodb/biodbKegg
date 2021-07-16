@@ -29,8 +29,14 @@ inherit=KeggConn,
 
 public=list(
 
+#' @description
+#' New instance initializer. Connector classes must not be instantiated
+#' directly. Instead, you must use the createConn() method of the factory class.
+#' @param ... All parameters are passed to the super class initializer.
+#' @return Nothing.
 initialize=function(...) {
-    super$initialize(db.name='reaction', db.abbrev='rn', accession.prefix='R', ...)
+    super$initialize(db.name='reaction', db.abbrev='rn', accession.prefix='R',
+        ...)
 }
 ),
 

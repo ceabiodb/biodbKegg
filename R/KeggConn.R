@@ -31,6 +31,17 @@ inherit=biodb::BiodbConn,
 
 public=list(
 
+#' @description
+#' New instance initializer. Connector classes must not be instantiated
+#' directly. Instead, you must use the createConn() method of the factory class.
+#' The parameters of this function are for the use of subclasses.
+#' @param db.name The database name as defined in
+#' www.kegg.jp/kegg/docs/keggapi.html.
+#' @param db.abbrev The database abbreviation as defined in
+#' www.kegg.jp/kegg/docs/keggapi.html.
+#' @param accession.prefix The prefix used for accession identifiers. 
+#' @param ... All parameters are passed to the super class initializer.
+#' @return Nothing.
 initialize=function(db.name=NA_character_, db.abbrev=NA_character_,
     accession.prefix=NA_character_, ...) {
 
@@ -42,16 +53,6 @@ initialize=function(db.name=NA_character_, db.abbrev=NA_character_,
     private$db.name <- db.name
     private$db.abbrev <- db.abbrev
     private$accession.prefix <- accession.prefix
-},
-
-getEntryPageUrl=function(id) {
-    # Overrides super class' method.
-
-    u <- c(self$getPropValSlot('urls', 'entry.page.url'), 'www_bget')
-    p <- private$completeEntryId(id)
-    fct <- function(x) BiodbUrl$new(url=u, params=p)$toString()
-
-    return(vapply(id, fct, FUN.VALUE=''))
 },
 
 #' @description
@@ -159,8 +160,17 @@ private=list(
     db.name=NULL,
     db.abbrev=NULL,
     accession.prefix=NULL
-,
-doSearchForEntries=function(fields=NULL, max.results=0) {
+
+,doGetEntryPageUrl=function(id) {
+
+    u <- c(self$getPropValSlot('urls', 'entry.page.url'), 'www_bget')
+    p <- private$completeEntryId(id)
+    fct <- function(x) BiodbUrl$new(url=u, params=p)$toString()
+
+    return(vapply(id, fct, FUN.VALUE=''))
+}
+
+,doSearchForEntries=function(fields=NULL, max.results=0) {
 
     ids <- NULL
     ref.fields <- c('ref.title', 'ref.accession', 'ref.authors', 'ref.journal',

@@ -35,6 +35,11 @@ inherit=KeggConn,
 
 public=list(
 
+#' @description
+#' New instance initializer. Connector classes must not be instantiated
+#' directly. Instead, you must use the createConn() method of the factory class.
+#' @param ... All parameters are passed to the super class initializer.
+#' @return Nothing.
 initialize=function(...) {
     super$initialize(db.name='compound', db.abbrev='cpd', accession.prefix='C',
         ...)
@@ -42,8 +47,8 @@ initialize=function(...) {
 
 #' @description
 #' Searches for entries by mass.
-#'     You must either provide a single mass through `mass` parameter or provide a
-#'     range through `mass.min` and `mass.max`.
+#' You must either provide a single mass through `mass` parameter or provide a
+#' range through `mass.min` and `mass.max`.
 #' @param See http //www.kegg.jp/kegg/docs/keggapi.html for details.
 #' @param mass Single mass.
 #' @param mass.min Minimal mass.
@@ -80,18 +85,6 @@ wsFindMolecularWeight=function(mass=NULL, mass.min=NULL, mass.max=NULL, ...) {
         biodb::error0('You need to specify either mass parameter or both',
                     ' mass.min and mass.max.')
     return(self$wsFind(query=query, option='mol_weight', ...))
-},
-
-getEntryImageUrl=function(id) {
-    # Overrides super class' method.
-
-    fct <- function(x) {
-        bu <- self$getPropValSlot('urls', 'base.url')
-        u <- c(bu, 'Fig', 'compound', paste(x, 'gif', sep='.'))
-        BiodbUrl$new(url=u)$toString()
-    }
-
-    return(vapply(id, fct, FUN.VALUE=''))
 },
 
 #' @description
@@ -288,4 +281,16 @@ addInfo=function(x, id.col, org, limit=3, prefix='') {
 ),
 
 private=list(
+
+doGetEntryImageUrl=function(id) {
+    # Overrides super class' method.
+
+    fct <- function(x) {
+        bu <- self$getPropValSlot('urls', 'base.url')
+        u <- c(bu, 'Fig', 'compound', paste(x, 'gif', sep='.'))
+        BiodbUrl$new(url=u)$toString()
+    }
+
+    return(vapply(id, fct, FUN.VALUE=''))
+}
 ))
