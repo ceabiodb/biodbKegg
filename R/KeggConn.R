@@ -58,10 +58,10 @@ initialize=function(db.name=NA_character_, db.abbrev=NA_character_,
 #' @description
 #' Gets the full list of entry IDs. See
 #' @param http //www.kegg.jp/kegg/docs/keggapi.html for details.
-#' @param retfmt Use to set the format of the returned value. 'plain' will return
-#'     the raw result from the server, as a character value. 'request' will return
-#'     the request as it would have been sent, as a BiodbRequest object. 'ids' will
-#'     return a character vector containing entry IDs.
+#' @param retfmt Use to set the format of the returned value. 'plain' will
+#' return the raw result from the server, as a character value. 'request' will
+#' return the request as it would have been sent, as a BiodbRequest object.
+#' 'ids' will return a character vector containing entry IDs.
 #' @return Depending on `retfmt`.
 wsList=function(retfmt=c('plain', 'request', 'ids')) {
 
@@ -96,21 +96,21 @@ wsList=function(retfmt=c('plain', 'request', 'ids')) {
 
 #' @description
 #' Searches for entries. See http://www.kegg.jp/kegg/docs/keggapi.html
-#'     for details.
+#' for details.
 #' @param query The query to send to the database web service. When searching by
-#' @param mass (i.e. 'option' parameter set to either 'exact_mass' or 'mol_weight'),
-#' @param this query field must be set to either an exact (i.e. 174.05) or a range
-#' @param (i.e. '250-260').
+#' mass (i.e. 'option' parameter set to either 'exact_mass' or 'mol_weight'),
+#' this query field must be set to either an exact (i.e. 174.05) or a range
+#' (i.e. '250-260').
 #' @param option Set this parameter to 'NONE' for querying on fields 'ENTRY',
-#'     'NAME', 'DESCRIPTION', 'COMPOSITION', 'DEFINITION' and 'ORTHOLOGY'. See
-#' @param http //www.kegg.jp/kegg/docs/keggapi.html for an exact list of fields that
-#'     are searched for each database, and also for other possible values of this
-#'     'option' paramater.
-#' @param retfmt Use to set the format of the returned value. 'plain' will return
-#'     the raw result from the server, as a character value. 'request' will return
-#'     the request as it would have been sent, as a BiodbRequest object. 'parsed'
-#'     will return a data frame. 'ids' will return a character vector containing
-#'     the IDs of the matching entries.
+#' 'NAME', 'DESCRIPTION', 'COMPOSITION', 'DEFINITION' and 'ORTHOLOGY'. See
+#' http //www.kegg.jp/kegg/docs/keggapi.html for an exact list of fields that
+#' are searched for each database, and also for other possible values of this
+#' 'option' paramater.
+#' @param retfmt Use to set the format of the returned value. 'plain' will
+#' return the raw result from the server, as a character value. 'request' will
+#' return the request as it would have been sent, as a BiodbRequest object.
+#' 'parsed' will return a data frame. 'ids' will return a character vector
+#' containing the IDs of the matching entries.
 #' @return Depending on `retfmt`.
 wsFind=function(query, option=c('NONE', 'formula', 'exact_mass', 'mol_weight',
     'nop'), retfmt=c('plain', 'request', 'parsed', 'ids', 'ids.no.prefix')) {
@@ -170,23 +170,8 @@ private=list(
     return(vapply(id, fct, FUN.VALUE=''))
 }
 
-,doSearchForEntries=function(fields=NULL, max.results=0) {
+,searchByText=function(ids, fields) {
 
-    ids <- NULL
-    ref.fields <- c('ref.title', 'ref.accession', 'ref.authors', 'ref.journal',
-        'ref.doi')
-
-    # Add wide search for fields that are not searchable with the web service,
-    # a filtering will be done later on these non-searchable fields.
-    if (all(names(fields) %in% ref.fields) &&
-        # Test if at least one value is: NOT NULL, NOT NA, NOT EMPTY STRING
-        ! all(vapply(ref.fields, is.null, FUN.VALUE=TRUE) | is.na(ref.fields)
-        | (ref.fields == '')))
-        fields$accession <- switch(private$db.name,
-            enzyme='.',
-            private$accession.prefix)
-
-    # Search by text field 
     for (text.field in c('accession', 'name', 'composition', 'description'))
         if (text.field %in% names(fields)) {
             chk::chk_character(fields[[text.field]])
@@ -200,7 +185,11 @@ private=list(
             }
         }
 
-    # Search by mass
+    return(ids)
+}
+
+,searchByMass=function(ids, fields) {
+
     for (mass.field in c('monoisotopic.mass' ,'molecular.mass')) {
         if (mass.field %in% names(fields)) {
 
@@ -223,7 +212,11 @@ private=list(
         }
     }
 
-    # Filter on references
+    return(ids)
+}
+
+,filterOnReferences=function(ids, fields, ref.fields, max.results) {
+
     if (any(ref.fields %in% names(fields)) && ! is.null(ids)) {
 
         ref.fields <- ref.fields[ref.fields %in% names(fields)]
@@ -266,6 +259,31 @@ private=list(
         }
         ids <- filtered.ids
     }
+
+    return(ids)
+}
+
+,doSearchForEntries=function(fields=NULL, max.results=0) {
+
+    ids <- NULL
+    ref.fields <- c('ref.title', 'ref.accession', 'ref.authors', 'ref.journal',
+        'ref.doi')
+
+    # Add wide search for fields that are not searchable with the web service,
+    # a filtering will be done later on these non-searchable fields.
+    if (all(names(fields) %in% ref.fields) &&
+        # Test if at least one value is: NOT NULL, NOT NA, NOT EMPTY STRING
+        ! all(vapply(ref.fields, is.null, FUN.VALUE=TRUE) | is.na(ref.fields)
+        | (ref.fields == '')))
+        fields$accession <- switch(private$db.name,
+            enzyme='.',
+            private$accession.prefix)
+
+    # Search
+    ids <- private$searchByText(ids=ids, fields=fields)
+    ids <- private$searchByMass(ids=ids, fields=fields)
+    ids <- private$filterOnReferences(ids=ids, fields=fields,
+        ref.fields=ref.fields, max.results=max.results)
 
     return(ids)
 },

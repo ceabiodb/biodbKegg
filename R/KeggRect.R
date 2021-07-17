@@ -65,7 +65,7 @@ private=list(
             private$top == other$.__enclos_env__$private$top &&
             private$bottom == other$.__enclos_env__$private$bottom
     }
- 
+
     return(eq)
 }
 

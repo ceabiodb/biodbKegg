@@ -68,13 +68,13 @@ wsFindExactMass=function(mass=NULL, mass.min=NULL, mass.max=NULL, ...) {
 
 #' @description
 #' Searches for entries by molecular mass.
-#'     You must either provide a single mass through `mass` parameter or provide a
-#'     range through `mass.min` and `mass.max`.
-#' @param See http //www.kegg.jp/kegg/docs/keggapi.html for details.
+#' You must either provide a single mass through `mass` parameter or provide a
+#' range through `mass.min` and `mass.max`.
+#' See http //www.kegg.jp/kegg/docs/keggapi.html for details.
 #' @param mass Single mass.
 #' @param mass.min Minimal mass.
 #' @param mass.max Maximal mass.
-#' @param ... parameters passed to KeggConn::wsFind().
+#' @param ... Parameters passed to KeggConn::wsFind().
 #' @return wsFind().
 wsFindMolecularWeight=function(mass=NULL, mass.min=NULL, mass.max=NULL, ...) {
 
@@ -89,17 +89,17 @@ wsFindMolecularWeight=function(mass=NULL, mass.min=NULL, mass.max=NULL, ...) {
 
 #' @description
 #' Gets organism pathways for each compound. This method retrieves for
-#'     each compound the KEGG pathways of the organism in which the compound is
-#'     involved.
+#' each compound the KEGG pathways of the organism in which the compound is
+#' involved.
 #' @param id A character vector of KEGG Compound IDs.
-#' @param org The organism in which to search for pathways, as a KEGG organism code
-#'     (3-4 letters code, like 'hsa', 'mmu', ...). See
-#' @param https //www.genome.jp/kegg/catalog/org_list.html for a complete list of KEGG
-#'     organism codes.
+#' @param org The organism in which to search for pathways, as a KEGG organism
+#' code (3-4 letters code, like 'hsa', 'mmu', ...). See
+#' https //www.genome.jp/kegg/catalog/org_list.html for a complete list of KEGG
+#' organism codes.
 #' @param limit The maximum number of modules IDs to retrieve for each compound.
-#'     Set to 0 to disable.
+#' Set to 0 to disable.
 #' @return A named list of KEGG pathway ID vectors, where the names
-#'     of the list are the compound IDs."
+#' of the list are the compound IDs."
 getPathwayIdsPerCompound=function(id, org, limit=3) {
     pathways <- list()
 
@@ -108,11 +108,8 @@ getPathwayIdsPerCompound=function(id, org, limit=3) {
 
     # Loop on all compound ids
     prg <- biodb::Progress$new(biodb=self$getBiodb(),
-                               msg='Retrieving pathways of compounds.',
-                               total=length(id))
+        msg='Retrieving pathways of compounds.', total=length(id))
     for (comp.id in id) {
-
-        pws <- NULL
 
         # Send progress message
         prg$increment()
@@ -122,29 +119,8 @@ getPathwayIdsPerCompound=function(id, org, limit=3) {
         if (is.null(comp))
             next
 
-        # Does this compound have a list of pathways?
-        if (comp$hasField('kegg.pathway.id')) {
-
-            # Get pathways
-            pws <- comp$getFieldValue('kegg.pathway.id')
-
-            # Convert them to specified organism
-            kegg.path.conn <- fac$getConn('kegg.pathway')
-            pws <- kegg.path.conn$convertToOrgPathways(pws, org=org)
-        }
-
-        # Look for enzymes
-        else if (comp$hasField('kegg.enzyme.id')) {
-
-            # Get pathways
-            enzid <- comp$getFieldValue('kegg.enzyme.id')
-            pws <- kegg.enz.conn$getPathwayIds(enzid, org=org)
-
-            # Filter out wrong pathways
-            kpc <- fac$getConn('kegg.pathway')
-            pws <- pws[kpc$makesRefToEntry(pws, db='kegg.compound',
-                oid=comp.id, recurse=TRUE)]
-        }
+        # Get pathway IDs
+        pws <- private$getCompoundPathwayIds(comp=comp, org=org)
 
         # Record found pathways
         if ( ! is.null(pws)) {
@@ -159,17 +135,17 @@ getPathwayIdsPerCompound=function(id, org, limit=3) {
 
 #' @description
 #' Gets organism modules for each compound. This method retrieves for
-#'     each compound the KEGG modules of the organism in which the compound is
-#'     involved.
+#' each compound the KEGG modules of the organism in which the compound is
+#' involved.
 #' @param id A character vector of KEGG Compound IDs.
-#' @param org The organism in which to search for modules, as a KEGG organism code
-#'     (3-4 letters code, like 'hsa', 'mmu', ...). See
-#' @param https //www.genome.jp/kegg/catalog/org_list.html for a complete list of KEGG
-#'     organism codes.
+#' @param org The organism in which to search for modules, as a KEGG organism
+#' code (3-4 letters code, like 'hsa', 'mmu', ...). See
+#' https //www.genome.jp/kegg/catalog/org_list.html for a complete list of KEGG
+#' organism codes.
 #' @param limit The maximum number of modules IDs to retrieve for each compound.
-#'     Set to 0 to disable.
+#' Set to 0 to disable.
 #' @return A named list of KEGG module ID vectors, where the names
-#'     of the list are the compound IDs."
+#' of the list are the compound IDs."
 getModuleIdsPerCompound=function(id, org, limit=3) {
     modules <- list()
     pw <- self$getBiodb()$getFactory()$getConn('kegg.pathway')
@@ -200,12 +176,12 @@ getModuleIdsPerCompound=function(id, org, limit=3) {
 
 #' @description
 #' Gets organism pathways. This method retrieves KEGG pathways of the
-#'     specified organism in which the compounds are involved.
+#' specified organism in which the compounds are involved.
 #' @param id A character vector of KEGG Compound IDs.
-#' @param org The organism in which to search for pathways, as a KEGG organism code
-#'     (3-4 letters code, like 'hsa', 'mmu', ...). See
-#' @param https //www.genome.jp/kegg/catalog/org_list.html for a complete list of KEGG
-#'     organism codes.
+#' @param org The organism in which to search for pathways, as a KEGG organism
+#' code (3-4 letters code, like 'hsa', 'mmu', ...). See
+#' https //www.genome.jp/kegg/catalog/org_list.html for a complete list of KEGG
+#' organism codes.
 #' @return A vector of KEGG pathway IDs.
 getPathwayIds=function(id, org) {
 
@@ -217,20 +193,21 @@ getPathwayIds=function(id, org) {
 
 #' @description
 #' Add informations (as new column appended to the end) to an existing
-#'     data frame containing a column of KEGG Compound IDs.
+#' data frame containing a column of KEGG Compound IDs.
 #' @param x A data frame containing at least one column with Biodb entry IDs
-#'     identified by the parameter `id.col`.
-#' @param id.col The name of the column containing IDs inside the input data frame.
-#' @param org The organism in which to search for pathways, as a KEGG organism code
-#'     (3-4 letters code, like 'hsa', 'mmu', ...). See
-#' @param https //www.genome.jp/kegg/catalog/org_list.html for a complete list of KEGG
-#'     organism codes.
+#' identified by the parameter `id.col`.
+#' @param id.col The name of the column containing IDs inside the input data
+#' frame.
+#' @param org The organism in which to search for pathways, as a KEGG organism
+#' code (3-4 letters code, like 'hsa', 'mmu', ...). See
+#' https //www.genome.jp/kegg/catalog/org_list.html for a complete list of KEGG
+#' organism codes.
 #' @param limit This is the maximum number of values obtained for each ID, for
-#'     every column added, in case multiple values are obtained. Set to 0 to get
-#'     all values.
+#' every column added, in case multiple values are obtained. Set to 0 to get
+#' all values.
 #' @param prefix Insert a prefix at the start of name of all new columns.
 #' @return A data frame containing `x` and new columns appended with
-#'     KEGG identifiers and data.
+#' KEGG identifiers and data.
 addInfo=function(x, id.col, org, limit=3, prefix='') {
 
     chk::chk_is(x, 'data.frame')
@@ -292,5 +269,38 @@ doGetEntryImageUrl=function(id) {
     }
 
     return(vapply(id, fct, FUN.VALUE=''))
+}
+
+,getCompoundPathwayIds=function(comp, org) {
+
+    pws <- NULL
+    fac <- self$getBiodb()$getFactory()
+
+    # Does this compound have a list of pathways?
+    if (comp$hasField('kegg.pathway.id')) {
+
+        # Get pathways
+        pws <- comp$getFieldValue('kegg.pathway.id')
+
+        # Convert them to specified organism
+        kegg.path.conn <- fac$getConn('kegg.pathway')
+        pws <- kegg.path.conn$convertToOrgPathways(pws, org=org)
+    }
+
+    # Look for enzymes
+    else if (comp$hasField('kegg.enzyme.id')) {
+
+        # Get pathways
+        enzid <- comp$getFieldValue('kegg.enzyme.id')
+        kegg.enz.conn <- fac$getConn('kegg.enzyme')
+        pws <- kegg.enz.conn$getPathwayIds(enzid, org=org)
+
+        # Filter out wrong pathways
+        kpc <- fac$getConn('kegg.pathway')
+        pws <- pws[kpc$makesRefToEntry(pws, db='kegg.compound',
+            oid=comp$getFieldValue('accession'), recurse=TRUE)]
+    }
+
+    return(pws)
 }
 ))

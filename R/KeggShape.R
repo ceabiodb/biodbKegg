@@ -59,8 +59,8 @@ getColor=function() {
 
 #' @description
 #' Gets the RGB color associated with this shape.
-#' @param alpha The value to use for the alpha channel when building the RGB color
-#'     object.
+#' @param alpha The value to use for the alpha channel when building the RGB
+#' color object.
 #' @return The color as an RGB color object.
 getRgbColor=function(alpha=255) {
 

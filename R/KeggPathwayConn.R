@@ -70,9 +70,9 @@ getReactions=function(id, drop=TRUE) {
             }
         }
     }
-    
+
     react_ids <- unique(react_ids)
-    
+
     kegg.react.conn <- self$getBiodb()$getFactory()$getConn('kegg.reaction')
     reactions <- kegg.react.conn$getEntry(react_ids, drop=FALSE)
     reactions <- reactions[ ! vapply(reactions, is.null, FUN.VALUE=TRUE)]
@@ -81,21 +81,20 @@ getReactions=function(id, drop=TRUE) {
     if (drop && length(reactions) <= 1) {
         reactions <- (if (length(reactions) == 1) reactions[[1]] else NULL)
     }
- 
+
     return(reactions)
 },
 
 #' @description
-#' Takes a list of pathways IDs and converts them to the
-#'     specified organism, filtering out the ones that do not exist in
-#'     KEGG.
+#' Takes a list of pathways IDs and converts them to the specified organism,
+#' filtering out the ones that do not exist in KEGG.
 #' @param id A character vector of entry IDs.
-#' @param org The organism in which to search for pathways, as a KEGG organism code
-#'     (3-4 letters code, like 'hsa', 'mmu', ...). See
-#' @param https //www.genome.jp/kegg/catalog/org_list.html for a complete list of KEGG
-#'     organism codes.
-#' @return A character vector, the same length as `id`,
-#'     containing the converted IDs.
+#' @param org The organism in which to search for pathways, as a KEGG organism
+#' code (3-4 letters code, like 'hsa', 'mmu', ...). See
+#' https //www.genome.jp/kegg/catalog/org_list.html for a complete list of KEGG
+#' organism codes.
+#' @return A character vector, the same length as `id`, containing the
+#' converted IDs.
 convertToOrgPathways=function(id, org) {
 
     # Set organism code in IDs
@@ -111,17 +110,15 @@ convertToOrgPathways=function(id, org) {
 },
 
 #' @description
-#' Builds a pathway graph in the form of two tables of
-#'     vertices and edges, using KEGG database.
+#' Builds a pathway graph in the form of two tables of vertices and edges,
+#' using KEGG database.
 #' @param id A character vector of KEGG pathway entry IDs.
-#' @param directed If set to TRUE, use available direction information
-#'     to create directed edges, duplicating if necessary the vertices.
-#' @param drop If set to TRUE and the output list contains only one
-#'     element, then the returned value is a single list of two data
-#'     frames.
-#' @return A named list whose
-#'     names are the pathway IDs, and values are lists containing two data frames
-#'     named vertices and edges.
+#' @param directed If set to TRUE, use available direction information to
+#' create directed edges, duplicating if necessary the vertices.
+#' @param drop If set to TRUE and the output list contains only one element,
+#' then the returned value is a single list of two data frames.
+#' @return A named list whose names are the pathway IDs, and values are lists
+#' containing two data frames named vertices and edges.
 buildPathwayGraph=function(id, directed=FALSE, drop=TRUE) {
 
     graph <- list()
@@ -160,16 +157,16 @@ buildPathwayGraph=function(id, directed=FALSE, drop=TRUE) {
 #' @description
 #' Builds a pathway graph, as an igraph object, using KEGG database.
 #' @param id A character vector of KEGG pathway entry IDs.
-#' @param directed If set to TRUE, use available direction information
-#'     to create directed edges, duplicating if necessary the vertices.
-#' @param drop If set to TRUE and the output list contains only one
-#'     element, then the returned value is a single igraph object.
-#' @return A list of igraph objects, or an empty list if
-#'     the igraph library is not available.
+#' @param directed If set to TRUE, use available direction information to
+#' create directed edges, duplicating if necessary the vertices.
+#' @param drop If set to TRUE and the output list contains only one element,
+#' then the returned value is a single igraph object.
+#' @return A list of igraph objects, or an empty list if the igraph library is
+#' not available.
 getPathwayIgraph=function(id, directed=FALSE, drop=TRUE) {
 
     graph <- list()
- 
+
     if (require('igraph', quietly=TRUE, warn.conflicts=FALSE)) {
         detach('package:igraph') # Force using namespace.
         
@@ -198,13 +195,12 @@ getPathwayIgraph=function(id, directed=FALSE, drop=TRUE) {
 #' @description
 #' Create a pathway graph picture, with some of its elements colorized.
 #' @param id A KEGG pathway ID.
-#' @param color2ids A named list defining colors for entry IDs that are present on
-#'     the graph. The names of the list are standard color names. The values are
-#'     character vector of entry IDs.
-#' @return an image object or NULL if the package magick is not
-#'     available.
+#' @param color2ids A named list defining colors for entry IDs that are present
+#' on the graph. The names of the list are standard color names. The values are
+#' character vector of entry IDs.
+#' @return An image object or NULL if the package magick is not available.
 getDecoratedGraphPicture=function(id, color2ids) {
- 
+
     pix <- NULL
     
     if (require('magick', quietly=TRUE, warn.conflicts=FALSE)) {
@@ -225,16 +221,16 @@ getDecoratedGraphPicture=function(id, color2ids) {
     }
     
     return(pix)
-},
+}
 
 #' @description
 #' Extracts shapes from a pathway map image.
 #' @param id A KEGG pathway ID.
-#' @param color2ids A named list defining colors for entry IDs that are present on
-#'     the graph. The names of the list are standard color names. The values are
-#'     character vector of entry IDs.
+#' @param color2ids A named list defining colors for entry IDs that are present
+#' on the graph. The names of the list are standard color names. The values are
+#' character vector of entry IDs.
 #' @return A list of BiodbShape objects.
-extractPathwayMapShapes=function(id, color2ids) {
+,extractPathwayMapShapes=function(id, color2ids) {
 
     shapes <- list()
 
@@ -247,6 +243,8 @@ extractPathwayMapShapes=function(id, color2ids) {
             # Escape special chars
             eid <- gsub('\\.', '\\\\.', id)
 
+            # Look for lines containing shapes definition
+
 # <area shape="circle" coords="336,170,4" href="/dbget-bin/www_bget?C00089"
 # title="C00089 (Sucrose)" onmouseover="popupTimer(&quot;C00089&quot;,
 # &quot;C00089 (Sucrose)&quot;, &quot;#ffffff&quot;)" onmouseout="hideMapTn()">
@@ -258,36 +256,8 @@ extractPathwayMapShapes=function(id, color2ids) {
                 'coords="?([^" ]+)"?\\s+.+',
                 'title="([^"]+[ ,])?(', eid, ')[ ,][^"]*"')
             g <- stringr::str_match_all(html, regex)[[1]]
-            if (nrow(g) > 0) {
-
-                for (i in seq_len(nrow(g))) {
-
-                    type <- g[i, 2]
-                    c <- as.integer(strsplit(g[i, 3], ',')[[1]])
-                    s <- switch(type,
-                                rect=KeggRect$new(label=g[i, 5],
-                                    color=color,
-                                    left=c[[1]], top=c[[2]],
-                                    right=c[[3]], bottom=c[[4]]),
-                                circle=KeggCircle$new(label=g[i, 5],
-                                    color=color, x=c[[1]],
-                                    y=c[[2]], r=c[[3]]),
-                                NULL)
-
-                    # Append new shape to list
-                    if ( ! is.null(s)) {
-                        is_new <- TRUE
-                        for (shape in shapes) {
-                            if (shape$equals(s)) {
-                                is_new <- FALSE
-                                break
-                            }
-                        }
-                        if (is_new)
-                            shapes <- c(shapes, list(s))
-                    }
-                }
-            }
+            if (nrow(g) > 0)
+                shapes <- private$extractShapes(shapes=shapes, g=g, color=color)
         }
     }
 
@@ -296,7 +266,39 @@ extractPathwayMapShapes=function(id, color2ids) {
 ),
 
 private=list(
-getPathwayHtml=function(id) {
+
+extractShapes=function(shapes, g, color) {
+
+    for (i in seq_len(nrow(g))) {
+
+        type <- g[i, 2]
+        c <- as.integer(strsplit(g[i, 3], ',')[[1]])
+        s <- switch(type,
+            rect=KeggRect$new(label=g[i, 5], color=color,
+                left=c[[1]], top=c[[2]], right=c[[3]],
+                bottom=c[[4]]),
+            circle=KeggCircle$new(label=g[i, 5], color=color,
+                x=c[[1]], y=c[[2]], r=c[[3]]),
+            NULL)
+
+        # Append new shape to list
+        if ( ! is.null(s)) {
+            is_new <- TRUE
+            for (shape in shapes) {
+                if (shape$equals(s)) {
+                    is_new <- FALSE
+                    break
+                }
+            }
+            if (is_new)
+                shapes <- c(shapes, list(s))
+        }
+    }
+
+    return(shapes)
+}
+
+,getPathwayHtml=function(id) {
 
     # Extract pathway number
     path_idx <- sub('^[^0-9]+', '', id)

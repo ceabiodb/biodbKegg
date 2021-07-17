@@ -196,10 +196,10 @@ Gets the full list of entry IDs. See
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{retfmt}}{Use to set the format of the returned value. 'plain' will return
-the raw result from the server, as a character value. 'request' will return
-the request as it would have been sent, as a BiodbRequest object. 'ids' will
-return a character vector containing entry IDs.}
+\item{\code{retfmt}}{Use to set the format of the returned value. 'plain' will
+return the raw result from the server, as a character value. 'request' will
+return the request as it would have been sent, as a BiodbRequest object.
+'ids' will return a character vector containing entry IDs.}
 
 \item{\code{http}}{//www.kegg.jp/kegg/docs/keggapi.html for details.}
 }
@@ -214,7 +214,7 @@ Depending on `retfmt`.
 \if{latex}{\out{\hypertarget{method-wsFind}{}}}
 \subsection{Method \code{wsFind()}}{
 Searches for entries. See http://www.kegg.jp/kegg/docs/keggapi.html
-    for details.
+for details.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{KeggConn$wsFind(
   query,
@@ -226,26 +226,22 @@ Searches for entries. See http://www.kegg.jp/kegg/docs/keggapi.html
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{query}}{The query to send to the database web service. When searching by}
+\item{\code{query}}{The query to send to the database web service. When searching by
+mass (i.e. 'option' parameter set to either 'exact_mass' or 'mol_weight'),
+this query field must be set to either an exact (i.e. 174.05) or a range
+(i.e. '250-260').}
 
 \item{\code{option}}{Set this parameter to 'NONE' for querying on fields 'ENTRY',
-'NAME', 'DESCRIPTION', 'COMPOSITION', 'DEFINITION' and 'ORTHOLOGY'. See}
-
-\item{\code{retfmt}}{Use to set the format of the returned value. 'plain' will return
-the raw result from the server, as a character value. 'request' will return
-the request as it would have been sent, as a BiodbRequest object. 'parsed'
-will return a data frame. 'ids' will return a character vector containing
-the IDs of the matching entries.}
-
-\item{\code{mass}}{(i.e. 'option' parameter set to either 'exact_mass' or 'mol_weight'),}
-
-\item{\code{this}}{query field must be set to either an exact (i.e. 174.05) or a range}
-
-\item{\code{(i.e.}}{'250-260').}
-
-\item{\code{http}}{//www.kegg.jp/kegg/docs/keggapi.html for an exact list of fields that
+'NAME', 'DESCRIPTION', 'COMPOSITION', 'DEFINITION' and 'ORTHOLOGY'. See
+http //www.kegg.jp/kegg/docs/keggapi.html for an exact list of fields that
 are searched for each database, and also for other possible values of this
 'option' paramater.}
+
+\item{\code{retfmt}}{Use to set the format of the returned value. 'plain' will
+return the raw result from the server, as a character value. 'request' will
+return the request as it would have been sent, as a BiodbRequest object.
+'parsed' will return a data frame. 'ids' will return a character vector
+containing the IDs of the matching entries.}
 }
 \if{html}{\out{</div>}}
 }

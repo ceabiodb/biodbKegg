@@ -173,9 +173,8 @@ Nothing.
 \if{html}{\out{<a id="method-getPathwayIdsPerGene"></a>}}
 \if{latex}{\out{\hypertarget{method-getPathwayIdsPerGene}{}}}
 \subsection{Method \code{getPathwayIdsPerGene()}}{
-Gets organism pathways for each gene. This method retrieves for
-    each gene the KEGG pathways of the organism in which the gene is
-    involved.
+Gets organism pathways for each gene. This method retrieves for each gene
+the KEGG pathways of the organism in which the gene is involved.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{KeggGenesConn$getPathwayIdsPerGene(id, org, limit = 3)}\if{html}{\out{</div>}}
 }
@@ -185,20 +184,19 @@ Gets organism pathways for each gene. This method retrieves for
 \describe{
 \item{\code{id}}{A character vector of KEGG Gene IDs.}
 
-\item{\code{org}}{The organism in which to search for pathways, as a KEGG organism code
-(3-4 letters code, like 'hsa', 'mmu', ...). See}
+\item{\code{org}}{The organism in which to search for pathways, as a KEGG organism
+code (3-4 letters code, like 'hsa', 'mmu', ...). See
+https //www.genome.jp/kegg/catalog/org_list.html for a complete list of KEGG
+organism codes.}
 
 \item{\code{limit}}{The maximum number of modules IDs to retrieve for each gene.
 Set to 0 to disable.}
-
-\item{\code{https}}{//www.genome.jp/kegg/catalog/org_list.html for a complete list of KEGG
-organism codes.}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
 A named list of KEGG pathway ID vectors, where the names
-    of the list are the gene IDs."
+of the list are the gene IDs."
 }
 }
 \if{html}{\out{<hr>}}
@@ -206,7 +204,7 @@ A named list of KEGG pathway ID vectors, where the names
 \if{latex}{\out{\hypertarget{method-getPathwayIds}{}}}
 \subsection{Method \code{getPathwayIds()}}{
 Gets organism pathways. This method retrieves KEGG pathways of the
-    specified organism in which the genes are involved.
+specified organism in which the genes are involved.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{KeggGenesConn$getPathwayIds(id, org)}\if{html}{\out{</div>}}
 }
@@ -216,10 +214,9 @@ Gets organism pathways. This method retrieves KEGG pathways of the
 \describe{
 \item{\code{id}}{A character vector of KEGG Genes IDs.}
 
-\item{\code{org}}{The organism in which to search for pathways, as a KEGG organism code
-(3-4 letters code, like 'hsa', 'mmu', ...). See}
-
-\item{\code{https}}{//www.genome.jp/kegg/catalog/org_list.html for a complete list of KEGG
+\item{\code{org}}{The organism in which to search for pathways, as a KEGG organism
+code (3-4 letters code, like 'hsa', 'mmu', ...). See
+https //www.genome.jp/kegg/catalog/org_list.html for a complete list of KEGG
 organism codes.}
 }
 \if{html}{\out{</div>}}

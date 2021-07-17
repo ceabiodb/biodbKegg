@@ -120,8 +120,8 @@ Gets the RGB color associated with this shape.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{alpha}}{The value to use for the alpha channel when building the RGB color
-object.}
+\item{\code{alpha}}{The value to use for the alpha channel when building the RGB
+color object.}
 }
 \if{html}{\out{</div>}}
 }

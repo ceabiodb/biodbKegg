@@ -205,9 +205,8 @@ A list of KEGG reaction objects.
 \if{html}{\out{<a id="method-convertToOrgPathways"></a>}}
 \if{latex}{\out{\hypertarget{method-convertToOrgPathways}{}}}
 \subsection{Method \code{convertToOrgPathways()}}{
-Takes a list of pathways IDs and converts them to the
-    specified organism, filtering out the ones that do not exist in
-    KEGG.
+Takes a list of pathways IDs and converts them to the specified organism,
+filtering out the ones that do not exist in KEGG.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{KeggPathwayConn$convertToOrgPathways(id, org)}\if{html}{\out{</div>}}
 }
@@ -217,25 +216,24 @@ Takes a list of pathways IDs and converts them to the
 \describe{
 \item{\code{id}}{A character vector of entry IDs.}
 
-\item{\code{org}}{The organism in which to search for pathways, as a KEGG organism code
-(3-4 letters code, like 'hsa', 'mmu', ...). See}
-
-\item{\code{https}}{//www.genome.jp/kegg/catalog/org_list.html for a complete list of KEGG
+\item{\code{org}}{The organism in which to search for pathways, as a KEGG organism
+code (3-4 letters code, like 'hsa', 'mmu', ...). See
+https //www.genome.jp/kegg/catalog/org_list.html for a complete list of KEGG
 organism codes.}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-A character vector, the same length as `id`,
-    containing the converted IDs.
+A character vector, the same length as `id`, containing the
+converted IDs.
 }
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-buildPathwayGraph"></a>}}
 \if{latex}{\out{\hypertarget{method-buildPathwayGraph}{}}}
 \subsection{Method \code{buildPathwayGraph()}}{
-Builds a pathway graph in the form of two tables of
-    vertices and edges, using KEGG database.
+Builds a pathway graph in the form of two tables of vertices and edges,
+using KEGG database.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{KeggPathwayConn$buildPathwayGraph(id, directed = FALSE, drop = TRUE)}\if{html}{\out{</div>}}
 }
@@ -245,19 +243,17 @@ Builds a pathway graph in the form of two tables of
 \describe{
 \item{\code{id}}{A character vector of KEGG pathway entry IDs.}
 
-\item{\code{directed}}{If set to TRUE, use available direction information
-to create directed edges, duplicating if necessary the vertices.}
+\item{\code{directed}}{If set to TRUE, use available direction information to
+create directed edges, duplicating if necessary the vertices.}
 
-\item{\code{drop}}{If set to TRUE and the output list contains only one
-element, then the returned value is a single list of two data
-frames.}
+\item{\code{drop}}{If set to TRUE and the output list contains only one element,
+then the returned value is a single list of two data frames.}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-A named list whose
-    names are the pathway IDs, and values are lists containing two data frames
-    named vertices and edges.
+A named list whose names are the pathway IDs, and values are lists
+containing two data frames named vertices and edges.
 }
 }
 \if{html}{\out{<hr>}}
@@ -274,17 +270,17 @@ Builds a pathway graph, as an igraph object, using KEGG database.
 \describe{
 \item{\code{id}}{A character vector of KEGG pathway entry IDs.}
 
-\item{\code{directed}}{If set to TRUE, use available direction information
-to create directed edges, duplicating if necessary the vertices.}
+\item{\code{directed}}{If set to TRUE, use available direction information to
+create directed edges, duplicating if necessary the vertices.}
 
-\item{\code{drop}}{If set to TRUE and the output list contains only one
-element, then the returned value is a single igraph object.}
+\item{\code{drop}}{If set to TRUE and the output list contains only one element,
+then the returned value is a single igraph object.}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-A list of igraph objects, or an empty list if
-    the igraph library is not available.
+A list of igraph objects, or an empty list if the igraph library is
+not available.
 }
 }
 \if{html}{\out{<hr>}}
@@ -301,15 +297,14 @@ Create a pathway graph picture, with some of its elements colorized.
 \describe{
 \item{\code{id}}{A KEGG pathway ID.}
 
-\item{\code{color2ids}}{A named list defining colors for entry IDs that are present on
-the graph. The names of the list are standard color names. The values are
+\item{\code{color2ids}}{A named list defining colors for entry IDs that are present
+on the graph. The names of the list are standard color names. The values are
 character vector of entry IDs.}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-an image object or NULL if the package magick is not
-    available.
+An image object or NULL if the package magick is not available.
 }
 }
 \if{html}{\out{<hr>}}
@@ -326,8 +321,8 @@ Extracts shapes from a pathway map image.
 \describe{
 \item{\code{id}}{A KEGG pathway ID.}
 
-\item{\code{color2ids}}{A named list defining colors for entry IDs that are present on
-the graph. The names of the list are standard color names. The values are
+\item{\code{color2ids}}{A named list defining colors for entry IDs that are present
+on the graph. The names of the list are standard color names. The values are
 character vector of entry IDs.}
 }
 \if{html}{\out{</div>}}

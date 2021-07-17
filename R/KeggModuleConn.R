@@ -35,7 +35,8 @@ public=list(
 #' @param ... All parameters are passed to the super class initializer.
 #' @return Nothing.
 initialize=function(...) {
-    super$initialize(db.name='module', db.abbrev='md', accession.prefix='M', ...)
+    super$initialize(db.name='module', db.abbrev='md', accession.prefix='M',
+        ...)
 }
 ),
 

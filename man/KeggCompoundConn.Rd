@@ -219,8 +219,9 @@ wsFind().
 \if{latex}{\out{\hypertarget{method-wsFindMolecularWeight}{}}}
 \subsection{Method \code{wsFindMolecularWeight()}}{
 Searches for entries by molecular mass.
-    You must either provide a single mass through `mass` parameter or provide a
-    range through `mass.min` and `mass.max`.
+You must either provide a single mass through `mass` parameter or provide a
+range through `mass.min` and `mass.max`.
+See http //www.kegg.jp/kegg/docs/keggapi.html for details.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{KeggCompoundConn$wsFindMolecularWeight(
   mass = NULL,
@@ -239,9 +240,7 @@ Searches for entries by molecular mass.
 
 \item{\code{mass.max}}{Maximal mass.}
 
-\item{\code{...}}{parameters passed to KeggConn::wsFind().}
-
-\item{\code{See}}{http //www.kegg.jp/kegg/docs/keggapi.html for details.}
+\item{\code{...}}{Parameters passed to KeggConn::wsFind().}
 }
 \if{html}{\out{</div>}}
 }
@@ -254,8 +253,8 @@ wsFind().
 \if{latex}{\out{\hypertarget{method-getPathwayIdsPerCompound}{}}}
 \subsection{Method \code{getPathwayIdsPerCompound()}}{
 Gets organism pathways for each compound. This method retrieves for
-    each compound the KEGG pathways of the organism in which the compound is
-    involved.
+each compound the KEGG pathways of the organism in which the compound is
+involved.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{KeggCompoundConn$getPathwayIdsPerCompound(id, org, limit = 3)}\if{html}{\out{</div>}}
 }
@@ -265,20 +264,19 @@ Gets organism pathways for each compound. This method retrieves for
 \describe{
 \item{\code{id}}{A character vector of KEGG Compound IDs.}
 
-\item{\code{org}}{The organism in which to search for pathways, as a KEGG organism code
-(3-4 letters code, like 'hsa', 'mmu', ...). See}
+\item{\code{org}}{The organism in which to search for pathways, as a KEGG organism
+code (3-4 letters code, like 'hsa', 'mmu', ...). See
+https //www.genome.jp/kegg/catalog/org_list.html for a complete list of KEGG
+organism codes.}
 
 \item{\code{limit}}{The maximum number of modules IDs to retrieve for each compound.
 Set to 0 to disable.}
-
-\item{\code{https}}{//www.genome.jp/kegg/catalog/org_list.html for a complete list of KEGG
-organism codes.}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
 A named list of KEGG pathway ID vectors, where the names
-    of the list are the compound IDs."
+of the list are the compound IDs."
 }
 }
 \if{html}{\out{<hr>}}
@@ -286,8 +284,8 @@ A named list of KEGG pathway ID vectors, where the names
 \if{latex}{\out{\hypertarget{method-getModuleIdsPerCompound}{}}}
 \subsection{Method \code{getModuleIdsPerCompound()}}{
 Gets organism modules for each compound. This method retrieves for
-    each compound the KEGG modules of the organism in which the compound is
-    involved.
+each compound the KEGG modules of the organism in which the compound is
+involved.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{KeggCompoundConn$getModuleIdsPerCompound(id, org, limit = 3)}\if{html}{\out{</div>}}
 }
@@ -297,20 +295,19 @@ Gets organism modules for each compound. This method retrieves for
 \describe{
 \item{\code{id}}{A character vector of KEGG Compound IDs.}
 
-\item{\code{org}}{The organism in which to search for modules, as a KEGG organism code
-(3-4 letters code, like 'hsa', 'mmu', ...). See}
+\item{\code{org}}{The organism in which to search for modules, as a KEGG organism
+code (3-4 letters code, like 'hsa', 'mmu', ...). See
+https //www.genome.jp/kegg/catalog/org_list.html for a complete list of KEGG
+organism codes.}
 
 \item{\code{limit}}{The maximum number of modules IDs to retrieve for each compound.
 Set to 0 to disable.}
-
-\item{\code{https}}{//www.genome.jp/kegg/catalog/org_list.html for a complete list of KEGG
-organism codes.}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
 A named list of KEGG module ID vectors, where the names
-    of the list are the compound IDs."
+of the list are the compound IDs."
 }
 }
 \if{html}{\out{<hr>}}
@@ -318,7 +315,7 @@ A named list of KEGG module ID vectors, where the names
 \if{latex}{\out{\hypertarget{method-getPathwayIds}{}}}
 \subsection{Method \code{getPathwayIds()}}{
 Gets organism pathways. This method retrieves KEGG pathways of the
-    specified organism in which the compounds are involved.
+specified organism in which the compounds are involved.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{KeggCompoundConn$getPathwayIds(id, org)}\if{html}{\out{</div>}}
 }
@@ -328,10 +325,9 @@ Gets organism pathways. This method retrieves KEGG pathways of the
 \describe{
 \item{\code{id}}{A character vector of KEGG Compound IDs.}
 
-\item{\code{org}}{The organism in which to search for pathways, as a KEGG organism code
-(3-4 letters code, like 'hsa', 'mmu', ...). See}
-
-\item{\code{https}}{//www.genome.jp/kegg/catalog/org_list.html for a complete list of KEGG
+\item{\code{org}}{The organism in which to search for pathways, as a KEGG organism
+code (3-4 letters code, like 'hsa', 'mmu', ...). See
+https //www.genome.jp/kegg/catalog/org_list.html for a complete list of KEGG
 organism codes.}
 }
 \if{html}{\out{</div>}}
@@ -345,7 +341,7 @@ A vector of KEGG pathway IDs.
 \if{latex}{\out{\hypertarget{method-addInfo}{}}}
 \subsection{Method \code{addInfo()}}{
 Add informations (as new column appended to the end) to an existing
-    data frame containing a column of KEGG Compound IDs.
+data frame containing a column of KEGG Compound IDs.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{KeggCompoundConn$addInfo(x, id.col, org, limit = 3, prefix = "")}\if{html}{\out{</div>}}
 }
@@ -356,25 +352,25 @@ Add informations (as new column appended to the end) to an existing
 \item{\code{x}}{A data frame containing at least one column with Biodb entry IDs
 identified by the parameter `id.col`.}
 
-\item{\code{id.col}}{The name of the column containing IDs inside the input data frame.}
+\item{\code{id.col}}{The name of the column containing IDs inside the input data
+frame.}
 
-\item{\code{org}}{The organism in which to search for pathways, as a KEGG organism code
-(3-4 letters code, like 'hsa', 'mmu', ...). See}
+\item{\code{org}}{The organism in which to search for pathways, as a KEGG organism
+code (3-4 letters code, like 'hsa', 'mmu', ...). See
+https //www.genome.jp/kegg/catalog/org_list.html for a complete list of KEGG
+organism codes.}
 
 \item{\code{limit}}{This is the maximum number of values obtained for each ID, for
 every column added, in case multiple values are obtained. Set to 0 to get
 all values.}
 
 \item{\code{prefix}}{Insert a prefix at the start of name of all new columns.}
-
-\item{\code{https}}{//www.genome.jp/kegg/catalog/org_list.html for a complete list of KEGG
-organism codes.}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
 A data frame containing `x` and new columns appended with
-    KEGG identifiers and data.
+KEGG identifiers and data.
 }
 }
 \if{html}{\out{<hr>}}

@@ -40,18 +40,17 @@ initialize=function(...) {
 },
 
 #' @description
-#' Gets organism pathways for each gene. This method retrieves for
-#'     each gene the KEGG pathways of the organism in which the gene is
-#'     involved.
+#' Gets organism pathways for each gene. This method retrieves for each gene
+#' the KEGG pathways of the organism in which the gene is involved.
 #' @param id A character vector of KEGG Gene IDs.
-#' @param org The organism in which to search for pathways, as a KEGG organism code
-#'     (3-4 letters code, like 'hsa', 'mmu', ...). See
-#' @param https //www.genome.jp/kegg/catalog/org_list.html for a complete list of KEGG
-#'     organism codes.
+#' @param org The organism in which to search for pathways, as a KEGG organism
+#' code (3-4 letters code, like 'hsa', 'mmu', ...). See
+#' https //www.genome.jp/kegg/catalog/org_list.html for a complete list of KEGG
+#' organism codes.
 #' @param limit The maximum number of modules IDs to retrieve for each gene.
-#'     Set to 0 to disable.
+#' Set to 0 to disable.
 #' @return A named list of KEGG pathway ID vectors, where the names
-#'     of the list are the gene IDs."
+#' of the list are the gene IDs."
 getPathwayIdsPerGene=function(id, org, limit=3) {
     pathways <- list()
 
@@ -59,8 +58,7 @@ getPathwayIdsPerGene=function(id, org, limit=3) {
 
     # Loop on all gene ids
     prg <- biodb::Progress$new(biodb=self$getBiodb(),
-                               msg='Retrieving pathways of genes.',
-                               total=length(id))
+        msg='Retrieving pathways of genes.', total=length(id))
     for (gene.id in id) {
 
         pws <- NULL
@@ -97,12 +95,12 @@ getPathwayIdsPerGene=function(id, org, limit=3) {
 
 #' @description
 #' Gets organism pathways. This method retrieves KEGG pathways of the
-#'     specified organism in which the genes are involved.
+#' specified organism in which the genes are involved.
 #' @param id A character vector of KEGG Genes IDs.
-#' @param org The organism in which to search for pathways, as a KEGG organism code
-#'     (3-4 letters code, like 'hsa', 'mmu', ...). See
-#' @param https //www.genome.jp/kegg/catalog/org_list.html for a complete list of KEGG
-#'     organism codes.
+#' @param org The organism in which to search for pathways, as a KEGG organism
+#' code (3-4 letters code, like 'hsa', 'mmu', ...). See
+#' https //www.genome.jp/kegg/catalog/org_list.html for a complete list of KEGG
+#' organism codes.
 #' @return A vector of KEGG pathway IDs.
 getPathwayIds=function(id, org) {
 

@@ -83,21 +83,19 @@ private=list(
     r=NULL
 
 ,doesEqual=function(other) {
-    
+
     eq <- FALSE
-    
+
     if (methods::is(other, "KeggCircle")) {
         eq <- private$x == other$.__enclos_env__$private$x &&
             private$y == other$.__enclos_env__$private$y &&
             private$r == other$.__enclos_env__$private$r
     }
- 
+
     return(eq)
 }
 
 ,doDraw=function() {
-    # Overrides super class' method.
-
     symbols(x=private$x, y=private$y, circles=private$r,
         bg=self$getRgbColor(alpha=127), add=TRUE, inches=FALSE)
 }

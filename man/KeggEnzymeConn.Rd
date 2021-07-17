@@ -173,7 +173,7 @@ Nothing.
 \if{latex}{\out{\hypertarget{method-getPathwayIds}{}}}
 \subsection{Method \code{getPathwayIds()}}{
 Gets organism pathways.  This method retrieves KEGG pathways of the
-    specified organism in which the enzymes are involved.
+specified organism in which the enzymes are involved.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{KeggEnzymeConn$getPathwayIds(id, org)}\if{html}{\out{</div>}}
 }
@@ -183,10 +183,9 @@ Gets organism pathways.  This method retrieves KEGG pathways of the
 \describe{
 \item{\code{id}}{A character vector of KEGG Compound IDs.}
 
-\item{\code{org}}{The organism in which to search for pathways, as a KEGG organism code
-(3-4 letters code, like 'hsa', 'mmu', ...). See}
-
-\item{\code{https}}{//www.genome.jp/kegg/catalog/org_list.html for a complete list of KEGG
+\item{\code{org}}{The organism in which to search for pathways, as a KEGG organism
+code (3-4 letters code, like 'hsa', 'mmu', ...). See
+https //www.genome.jp/kegg/catalog/org_list.html for a complete list of KEGG
 organism codes.}
 }
 \if{html}{\out{</div>}}
