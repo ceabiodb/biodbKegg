@@ -20,13 +20,7 @@
 KeggEntry=R6::R6Class("KeggEntry",
 inherit=BiodbTxtEntry,
 
-
 public=list(
-
-initialize=function(...) {
-    super$initialize(...)
-    biodb::abstractClass('KeggEntry', self)
-}
 ),
 
 private=list(

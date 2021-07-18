@@ -45,7 +45,6 @@ mybiodb$terminate()
 \if{html}{
 \out{<details ><summary>Inherited methods</summary>}
 \itemize{
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="defineParsingExpressions">}\href{../../biodb/html/BiodbConnBase.html#method-defineParsingExpressions}{\code{biodb::BiodbConnBase$defineParsingExpressions()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="getBaseUrl">}\href{../../biodb/html/BiodbConnBase.html#method-getBaseUrl}{\code{biodb::BiodbConnBase$getBaseUrl()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="getConnClass">}\href{../../biodb/html/BiodbConnBase.html#method-getConnClass}{\code{biodb::BiodbConnBase$getConnClass()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="getConnClassName">}\href{../../biodb/html/BiodbConnBase.html#method-getConnClassName}{\code{biodb::BiodbConnBase$getConnClassName()}}\out{</span>}
@@ -108,6 +107,7 @@ mybiodb$terminate()
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getEntryContentRequest">}\href{../../biodb/html/BiodbConn.html#method-getEntryContentRequest}{\code{biodb::BiodbConn$getEntryContentRequest()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getEntryIds">}\href{../../biodb/html/BiodbConn.html#method-getEntryIds}{\code{biodb::BiodbConn$getEntryIds()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getEntryImageUrl">}\href{../../biodb/html/BiodbConn.html#method-getEntryImageUrl}{\code{biodb::BiodbConn$getEntryImageUrl()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getEntryPageUrl">}\href{../../biodb/html/BiodbConn.html#method-getEntryPageUrl}{\code{biodb::BiodbConn$getEntryPageUrl()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getId">}\href{../../biodb/html/BiodbConn.html#method-getId}{\code{biodb::BiodbConn$getId()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getMatchingMzField">}\href{../../biodb/html/BiodbConn.html#method-getMatchingMzField}{\code{biodb::BiodbConn$getMatchingMzField()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getMzValues">}\href{../../biodb/html/BiodbConn.html#method-getMzValues}{\code{biodb::BiodbConn$getMzValues()}}\out{</span>}
@@ -142,7 +142,6 @@ mybiodb$terminate()
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="setWritingAllowed">}\href{../../biodb/html/BiodbConn.html#method-setWritingAllowed}{\code{biodb::BiodbConn$setWritingAllowed()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="write">}\href{../../biodb/html/BiodbConn.html#method-write}{\code{biodb::BiodbConn$write()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="writingIsAllowed">}\href{../../biodb/html/BiodbConn.html#method-writingIsAllowed}{\code{biodb::BiodbConn$writingIsAllowed()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodbKegg" data-topic="KeggConn" data-id="getEntryPageUrl">}\href{../../biodbKegg/html/KeggConn.html#method-getEntryPageUrl}{\code{biodbKegg::KeggConn$getEntryPageUrl()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodbKegg" data-topic="KeggConn" data-id="wsFind">}\href{../../biodbKegg/html/KeggConn.html#method-wsFind}{\code{biodbKegg::KeggConn$wsFind()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodbKegg" data-topic="KeggConn" data-id="wsList">}\href{../../biodbKegg/html/KeggConn.html#method-wsList}{\code{biodbKegg::KeggConn$wsList()}}\out{</span>}
 }
@@ -152,17 +151,29 @@ mybiodb$terminate()
 \if{html}{\out{<a id="method-new"></a>}}
 \if{latex}{\out{\hypertarget{method-new}{}}}
 \subsection{Method \code{new()}}{
+New instance initializer. Connector classes must not be instantiated
+directly. Instead, you must use the createConn() method of the factory class.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{KeggEnzymeConn$new(...)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{...}}{All parameters are passed to the super class initializer.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+Nothing.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-getPathwayIds"></a>}}
 \if{latex}{\out{\hypertarget{method-getPathwayIds}{}}}
 \subsection{Method \code{getPathwayIds()}}{
 Gets organism pathways.  This method retrieves KEGG pathways of the
-    specified organism in which the enzymes are involved.
+specified organism in which the enzymes are involved.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{KeggEnzymeConn$getPathwayIds(id, org)}\if{html}{\out{</div>}}
 }
@@ -172,10 +183,9 @@ Gets organism pathways.  This method retrieves KEGG pathways of the
 \describe{
 \item{\code{id}}{A character vector of KEGG Compound IDs.}
 
-\item{\code{org}}{The organism in which to search for pathways, as a KEGG organism code
-(3-4 letters code, like 'hsa', 'mmu', ...). See}
-
-\item{\code{https}}{//www.genome.jp/kegg/catalog/org_list.html for a complete list of KEGG
+\item{\code{org}}{The organism in which to search for pathways, as a KEGG organism
+code (3-4 letters code, like 'hsa', 'mmu', ...). See
+https //www.genome.jp/kegg/catalog/org_list.html for a complete list of KEGG
 organism codes.}
 }
 \if{html}{\out{</div>}}

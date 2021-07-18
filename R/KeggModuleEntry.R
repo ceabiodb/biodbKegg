@@ -23,10 +23,6 @@ inherit=KeggEntry,
 
 
 public=list(
-
-initialize=function(...) {
-    super$initialize(...)
-}
 ),
 
 private=list(
@@ -47,7 +43,7 @@ makesRefToEntryRecurse=function(db, oid) {
     return(makes_ref)
 },
 
-parseFieldsStep2=function(parsed.content) {
+doParseFieldsStep2=function(parsed.content) {
 
     # Name
     private$parseNames(parsed.content)

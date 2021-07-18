@@ -27,12 +27,20 @@ inherit=KeggConn,
 
 public=list(
 
+#' @description
+#' New instance initializer. Connector classes must not be instantiated
+#' directly. Instead, you must use the createConn() method of the factory class.
+#' @param ... All parameters are passed to the super class initializer.
+#' @return Nothing.
 initialize=function(...) {
-    super$initialize(db.name='glycan', db.abbrev='gl', accession.prefix='G', ...)
-},
+    super$initialize(db.name='glycan', db.abbrev='gl', accession.prefix='G',
+        ...)
+}
+),
 
-getEntryImageUrl=function(id) {
-    # Overrides super class' method.
+private=list(
+
+doGetEntryImageUrl=function(id) {
 
     fct <- function(x) {
         bu <- self$getPropValSlot('urls', 'base.url')
@@ -42,7 +50,4 @@ getEntryImageUrl=function(id) {
 
     return(vapply(id, fct, FUN.VALUE=''))
 }
-),
-
-private=list(
 ))

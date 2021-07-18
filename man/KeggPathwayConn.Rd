@@ -53,7 +53,6 @@ mybiodb$terminate()
 \if{html}{
 \out{<details ><summary>Inherited methods</summary>}
 \itemize{
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="defineParsingExpressions">}\href{../../biodb/html/BiodbConnBase.html#method-defineParsingExpressions}{\code{biodb::BiodbConnBase$defineParsingExpressions()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="getBaseUrl">}\href{../../biodb/html/BiodbConnBase.html#method-getBaseUrl}{\code{biodb::BiodbConnBase$getBaseUrl()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="getConnClass">}\href{../../biodb/html/BiodbConnBase.html#method-getConnClass}{\code{biodb::BiodbConnBase$getConnClass()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="getConnClassName">}\href{../../biodb/html/BiodbConnBase.html#method-getConnClassName}{\code{biodb::BiodbConnBase$getConnClassName()}}\out{</span>}
@@ -116,6 +115,7 @@ mybiodb$terminate()
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getEntryContentRequest">}\href{../../biodb/html/BiodbConn.html#method-getEntryContentRequest}{\code{biodb::BiodbConn$getEntryContentRequest()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getEntryIds">}\href{../../biodb/html/BiodbConn.html#method-getEntryIds}{\code{biodb::BiodbConn$getEntryIds()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getEntryImageUrl">}\href{../../biodb/html/BiodbConn.html#method-getEntryImageUrl}{\code{biodb::BiodbConn$getEntryImageUrl()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getEntryPageUrl">}\href{../../biodb/html/BiodbConn.html#method-getEntryPageUrl}{\code{biodb::BiodbConn$getEntryPageUrl()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getId">}\href{../../biodb/html/BiodbConn.html#method-getId}{\code{biodb::BiodbConn$getId()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getMatchingMzField">}\href{../../biodb/html/BiodbConn.html#method-getMatchingMzField}{\code{biodb::BiodbConn$getMatchingMzField()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getMzValues">}\href{../../biodb/html/BiodbConn.html#method-getMzValues}{\code{biodb::BiodbConn$getMzValues()}}\out{</span>}
@@ -150,7 +150,6 @@ mybiodb$terminate()
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="setWritingAllowed">}\href{../../biodb/html/BiodbConn.html#method-setWritingAllowed}{\code{biodb::BiodbConn$setWritingAllowed()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="write">}\href{../../biodb/html/BiodbConn.html#method-write}{\code{biodb::BiodbConn$write()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="writingIsAllowed">}\href{../../biodb/html/BiodbConn.html#method-writingIsAllowed}{\code{biodb::BiodbConn$writingIsAllowed()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodbKegg" data-topic="KeggConn" data-id="getEntryPageUrl">}\href{../../biodbKegg/html/KeggConn.html#method-getEntryPageUrl}{\code{biodbKegg::KeggConn$getEntryPageUrl()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodbKegg" data-topic="KeggConn" data-id="wsFind">}\href{../../biodbKegg/html/KeggConn.html#method-wsFind}{\code{biodbKegg::KeggConn$wsFind()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodbKegg" data-topic="KeggConn" data-id="wsList">}\href{../../biodbKegg/html/KeggConn.html#method-wsList}{\code{biodbKegg::KeggConn$wsList()}}\out{</span>}
 }
@@ -160,10 +159,22 @@ mybiodb$terminate()
 \if{html}{\out{<a id="method-new"></a>}}
 \if{latex}{\out{\hypertarget{method-new}{}}}
 \subsection{Method \code{new()}}{
+New instance initializer. Connector classes must not be instantiated
+directly. Instead, you must use the createConn() method of the factory class.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{KeggPathwayConn$new(...)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{...}}{All parameters are passed to the super class initializer.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+Nothing.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-getReactions"></a>}}
@@ -194,9 +205,8 @@ A list of KEGG reaction objects.
 \if{html}{\out{<a id="method-convertToOrgPathways"></a>}}
 \if{latex}{\out{\hypertarget{method-convertToOrgPathways}{}}}
 \subsection{Method \code{convertToOrgPathways()}}{
-Takes a list of pathways IDs and converts them to the
-    specified organism, filtering out the ones that do not exist in
-    KEGG.
+Takes a list of pathways IDs and converts them to the specified organism,
+filtering out the ones that do not exist in KEGG.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{KeggPathwayConn$convertToOrgPathways(id, org)}\if{html}{\out{</div>}}
 }
@@ -206,25 +216,24 @@ Takes a list of pathways IDs and converts them to the
 \describe{
 \item{\code{id}}{A character vector of entry IDs.}
 
-\item{\code{org}}{The organism in which to search for pathways, as a KEGG organism code
-(3-4 letters code, like 'hsa', 'mmu', ...). See}
-
-\item{\code{https}}{//www.genome.jp/kegg/catalog/org_list.html for a complete list of KEGG
+\item{\code{org}}{The organism in which to search for pathways, as a KEGG organism
+code (3-4 letters code, like 'hsa', 'mmu', ...). See
+https //www.genome.jp/kegg/catalog/org_list.html for a complete list of KEGG
 organism codes.}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-A character vector, the same length as `id`,
-    containing the converted IDs.
+A character vector, the same length as `id`, containing the
+converted IDs.
 }
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-buildPathwayGraph"></a>}}
 \if{latex}{\out{\hypertarget{method-buildPathwayGraph}{}}}
 \subsection{Method \code{buildPathwayGraph()}}{
-Builds a pathway graph in the form of two tables of
-    vertices and edges, using KEGG database.
+Builds a pathway graph in the form of two tables of vertices and edges,
+using KEGG database.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{KeggPathwayConn$buildPathwayGraph(id, directed = FALSE, drop = TRUE)}\if{html}{\out{</div>}}
 }
@@ -234,19 +243,17 @@ Builds a pathway graph in the form of two tables of
 \describe{
 \item{\code{id}}{A character vector of KEGG pathway entry IDs.}
 
-\item{\code{directed}}{If set to TRUE, use available direction information
-to create directed edges, duplicating if necessary the vertices.}
+\item{\code{directed}}{If set to TRUE, use available direction information to
+create directed edges, duplicating if necessary the vertices.}
 
-\item{\code{drop}}{If set to TRUE and the output list contains only one
-element, then the returned value is a single list of two data
-frames.}
+\item{\code{drop}}{If set to TRUE and the output list contains only one element,
+then the returned value is a single list of two data frames.}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-A named list whose
-    names are the pathway IDs, and values are lists containing two data frames
-    named vertices and edges.
+A named list whose names are the pathway IDs, and values are lists
+containing two data frames named vertices and edges.
 }
 }
 \if{html}{\out{<hr>}}
@@ -263,17 +270,17 @@ Builds a pathway graph, as an igraph object, using KEGG database.
 \describe{
 \item{\code{id}}{A character vector of KEGG pathway entry IDs.}
 
-\item{\code{directed}}{If set to TRUE, use available direction information
-to create directed edges, duplicating if necessary the vertices.}
+\item{\code{directed}}{If set to TRUE, use available direction information to
+create directed edges, duplicating if necessary the vertices.}
 
-\item{\code{drop}}{If set to TRUE and the output list contains only one
-element, then the returned value is a single igraph object.}
+\item{\code{drop}}{If set to TRUE and the output list contains only one element,
+then the returned value is a single igraph object.}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-A list of igraph objects, or an empty list if
-    the igraph library is not available.
+A list of igraph objects, or an empty list if the igraph library is
+not available.
 }
 }
 \if{html}{\out{<hr>}}
@@ -290,15 +297,14 @@ Create a pathway graph picture, with some of its elements colorized.
 \describe{
 \item{\code{id}}{A KEGG pathway ID.}
 
-\item{\code{color2ids}}{A named list defining colors for entry IDs that are present on
-the graph. The names of the list are standard color names. The values are
+\item{\code{color2ids}}{A named list defining colors for entry IDs that are present
+on the graph. The names of the list are standard color names. The values are
 character vector of entry IDs.}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-an image object or NULL if the package magick is not
-    available.
+An image object or NULL if the package magick is not available.
 }
 }
 \if{html}{\out{<hr>}}
@@ -315,8 +321,8 @@ Extracts shapes from a pathway map image.
 \describe{
 \item{\code{id}}{A KEGG pathway ID.}
 
-\item{\code{color2ids}}{A named list defining colors for entry IDs that are present on
-the graph. The names of the list are standard color names. The values are
+\item{\code{color2ids}}{A named list defining colors for entry IDs that are present
+on the graph. The names of the list are standard color names. The values are
 character vector of entry IDs.}
 }
 \if{html}{\out{</div>}}

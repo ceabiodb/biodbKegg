@@ -46,7 +46,6 @@ mybiodb$terminate()
 \item \href{#method-new}{\code{KeggCompoundConn$new()}}
 \item \href{#method-wsFindExactMass}{\code{KeggCompoundConn$wsFindExactMass()}}
 \item \href{#method-wsFindMolecularWeight}{\code{KeggCompoundConn$wsFindMolecularWeight()}}
-\item \href{#method-getEntryImageUrl}{\code{KeggCompoundConn$getEntryImageUrl()}}
 \item \href{#method-getPathwayIdsPerCompound}{\code{KeggCompoundConn$getPathwayIdsPerCompound()}}
 \item \href{#method-getModuleIdsPerCompound}{\code{KeggCompoundConn$getModuleIdsPerCompound()}}
 \item \href{#method-getPathwayIds}{\code{KeggCompoundConn$getPathwayIds()}}
@@ -57,7 +56,6 @@ mybiodb$terminate()
 \if{html}{
 \out{<details ><summary>Inherited methods</summary>}
 \itemize{
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="defineParsingExpressions">}\href{../../biodb/html/BiodbConnBase.html#method-defineParsingExpressions}{\code{biodb::BiodbConnBase$defineParsingExpressions()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="getBaseUrl">}\href{../../biodb/html/BiodbConnBase.html#method-getBaseUrl}{\code{biodb::BiodbConnBase$getBaseUrl()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="getConnClass">}\href{../../biodb/html/BiodbConnBase.html#method-getConnClass}{\code{biodb::BiodbConnBase$getConnClass()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="getConnClassName">}\href{../../biodb/html/BiodbConnBase.html#method-getConnClassName}{\code{biodb::BiodbConnBase$getConnClassName()}}\out{</span>}
@@ -119,6 +117,8 @@ mybiodb$terminate()
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getEntryContentFromDb">}\href{../../biodb/html/BiodbConn.html#method-getEntryContentFromDb}{\code{biodb::BiodbConn$getEntryContentFromDb()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getEntryContentRequest">}\href{../../biodb/html/BiodbConn.html#method-getEntryContentRequest}{\code{biodb::BiodbConn$getEntryContentRequest()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getEntryIds">}\href{../../biodb/html/BiodbConn.html#method-getEntryIds}{\code{biodb::BiodbConn$getEntryIds()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getEntryImageUrl">}\href{../../biodb/html/BiodbConn.html#method-getEntryImageUrl}{\code{biodb::BiodbConn$getEntryImageUrl()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getEntryPageUrl">}\href{../../biodb/html/BiodbConn.html#method-getEntryPageUrl}{\code{biodb::BiodbConn$getEntryPageUrl()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getId">}\href{../../biodb/html/BiodbConn.html#method-getId}{\code{biodb::BiodbConn$getId()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getMatchingMzField">}\href{../../biodb/html/BiodbConn.html#method-getMatchingMzField}{\code{biodb::BiodbConn$getMatchingMzField()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getMzValues">}\href{../../biodb/html/BiodbConn.html#method-getMzValues}{\code{biodb::BiodbConn$getMzValues()}}\out{</span>}
@@ -153,7 +153,6 @@ mybiodb$terminate()
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="setWritingAllowed">}\href{../../biodb/html/BiodbConn.html#method-setWritingAllowed}{\code{biodb::BiodbConn$setWritingAllowed()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="write">}\href{../../biodb/html/BiodbConn.html#method-write}{\code{biodb::BiodbConn$write()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="writingIsAllowed">}\href{../../biodb/html/BiodbConn.html#method-writingIsAllowed}{\code{biodb::BiodbConn$writingIsAllowed()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodbKegg" data-topic="KeggConn" data-id="getEntryPageUrl">}\href{../../biodbKegg/html/KeggConn.html#method-getEntryPageUrl}{\code{biodbKegg::KeggConn$getEntryPageUrl()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodbKegg" data-topic="KeggConn" data-id="wsFind">}\href{../../biodbKegg/html/KeggConn.html#method-wsFind}{\code{biodbKegg::KeggConn$wsFind()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodbKegg" data-topic="KeggConn" data-id="wsList">}\href{../../biodbKegg/html/KeggConn.html#method-wsList}{\code{biodbKegg::KeggConn$wsList()}}\out{</span>}
 }
@@ -163,18 +162,30 @@ mybiodb$terminate()
 \if{html}{\out{<a id="method-new"></a>}}
 \if{latex}{\out{\hypertarget{method-new}{}}}
 \subsection{Method \code{new()}}{
+New instance initializer. Connector classes must not be instantiated
+directly. Instead, you must use the createConn() method of the factory class.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{KeggCompoundConn$new(...)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{...}}{All parameters are passed to the super class initializer.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+Nothing.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-wsFindExactMass"></a>}}
 \if{latex}{\out{\hypertarget{method-wsFindExactMass}{}}}
 \subsection{Method \code{wsFindExactMass()}}{
 Searches for entries by mass.
-    You must either provide a single mass through `mass` parameter or provide a
-    range through `mass.min` and `mass.max`.
+You must either provide a single mass through `mass` parameter or provide a
+range through `mass.min` and `mass.max`.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{KeggCompoundConn$wsFindExactMass(
   mass = NULL,
@@ -208,8 +219,9 @@ wsFind().
 \if{latex}{\out{\hypertarget{method-wsFindMolecularWeight}{}}}
 \subsection{Method \code{wsFindMolecularWeight()}}{
 Searches for entries by molecular mass.
-    You must either provide a single mass through `mass` parameter or provide a
-    range through `mass.min` and `mass.max`.
+You must either provide a single mass through `mass` parameter or provide a
+range through `mass.min` and `mass.max`.
+See http //www.kegg.jp/kegg/docs/keggapi.html for details.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{KeggCompoundConn$wsFindMolecularWeight(
   mass = NULL,
@@ -228,9 +240,7 @@ Searches for entries by molecular mass.
 
 \item{\code{mass.max}}{Maximal mass.}
 
-\item{\code{...}}{parameters passed to KeggConn::wsFind().}
-
-\item{\code{See}}{http //www.kegg.jp/kegg/docs/keggapi.html for details.}
+\item{\code{...}}{Parameters passed to KeggConn::wsFind().}
 }
 \if{html}{\out{</div>}}
 }
@@ -239,21 +249,12 @@ wsFind().
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getEntryImageUrl"></a>}}
-\if{latex}{\out{\hypertarget{method-getEntryImageUrl}{}}}
-\subsection{Method \code{getEntryImageUrl()}}{
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{KeggCompoundConn$getEntryImageUrl(id)}\if{html}{\out{</div>}}
-}
-
-}
-\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-getPathwayIdsPerCompound"></a>}}
 \if{latex}{\out{\hypertarget{method-getPathwayIdsPerCompound}{}}}
 \subsection{Method \code{getPathwayIdsPerCompound()}}{
 Gets organism pathways for each compound. This method retrieves for
-    each compound the KEGG pathways of the organism in which the compound is
-    involved.
+each compound the KEGG pathways of the organism in which the compound is
+involved.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{KeggCompoundConn$getPathwayIdsPerCompound(id, org, limit = 3)}\if{html}{\out{</div>}}
 }
@@ -263,20 +264,19 @@ Gets organism pathways for each compound. This method retrieves for
 \describe{
 \item{\code{id}}{A character vector of KEGG Compound IDs.}
 
-\item{\code{org}}{The organism in which to search for pathways, as a KEGG organism code
-(3-4 letters code, like 'hsa', 'mmu', ...). See}
+\item{\code{org}}{The organism in which to search for pathways, as a KEGG organism
+code (3-4 letters code, like 'hsa', 'mmu', ...). See
+https //www.genome.jp/kegg/catalog/org_list.html for a complete list of KEGG
+organism codes.}
 
 \item{\code{limit}}{The maximum number of modules IDs to retrieve for each compound.
 Set to 0 to disable.}
-
-\item{\code{https}}{//www.genome.jp/kegg/catalog/org_list.html for a complete list of KEGG
-organism codes.}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
 A named list of KEGG pathway ID vectors, where the names
-    of the list are the compound IDs."
+of the list are the compound IDs."
 }
 }
 \if{html}{\out{<hr>}}
@@ -284,8 +284,8 @@ A named list of KEGG pathway ID vectors, where the names
 \if{latex}{\out{\hypertarget{method-getModuleIdsPerCompound}{}}}
 \subsection{Method \code{getModuleIdsPerCompound()}}{
 Gets organism modules for each compound. This method retrieves for
-    each compound the KEGG modules of the organism in which the compound is
-    involved.
+each compound the KEGG modules of the organism in which the compound is
+involved.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{KeggCompoundConn$getModuleIdsPerCompound(id, org, limit = 3)}\if{html}{\out{</div>}}
 }
@@ -295,20 +295,19 @@ Gets organism modules for each compound. This method retrieves for
 \describe{
 \item{\code{id}}{A character vector of KEGG Compound IDs.}
 
-\item{\code{org}}{The organism in which to search for modules, as a KEGG organism code
-(3-4 letters code, like 'hsa', 'mmu', ...). See}
+\item{\code{org}}{The organism in which to search for modules, as a KEGG organism
+code (3-4 letters code, like 'hsa', 'mmu', ...). See
+https //www.genome.jp/kegg/catalog/org_list.html for a complete list of KEGG
+organism codes.}
 
 \item{\code{limit}}{The maximum number of modules IDs to retrieve for each compound.
 Set to 0 to disable.}
-
-\item{\code{https}}{//www.genome.jp/kegg/catalog/org_list.html for a complete list of KEGG
-organism codes.}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
 A named list of KEGG module ID vectors, where the names
-    of the list are the compound IDs."
+of the list are the compound IDs."
 }
 }
 \if{html}{\out{<hr>}}
@@ -316,7 +315,7 @@ A named list of KEGG module ID vectors, where the names
 \if{latex}{\out{\hypertarget{method-getPathwayIds}{}}}
 \subsection{Method \code{getPathwayIds()}}{
 Gets organism pathways. This method retrieves KEGG pathways of the
-    specified organism in which the compounds are involved.
+specified organism in which the compounds are involved.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{KeggCompoundConn$getPathwayIds(id, org)}\if{html}{\out{</div>}}
 }
@@ -326,10 +325,9 @@ Gets organism pathways. This method retrieves KEGG pathways of the
 \describe{
 \item{\code{id}}{A character vector of KEGG Compound IDs.}
 
-\item{\code{org}}{The organism in which to search for pathways, as a KEGG organism code
-(3-4 letters code, like 'hsa', 'mmu', ...). See}
-
-\item{\code{https}}{//www.genome.jp/kegg/catalog/org_list.html for a complete list of KEGG
+\item{\code{org}}{The organism in which to search for pathways, as a KEGG organism
+code (3-4 letters code, like 'hsa', 'mmu', ...). See
+https //www.genome.jp/kegg/catalog/org_list.html for a complete list of KEGG
 organism codes.}
 }
 \if{html}{\out{</div>}}
@@ -343,7 +341,7 @@ A vector of KEGG pathway IDs.
 \if{latex}{\out{\hypertarget{method-addInfo}{}}}
 \subsection{Method \code{addInfo()}}{
 Add informations (as new column appended to the end) to an existing
-    data frame containing a column of KEGG Compound IDs.
+data frame containing a column of KEGG Compound IDs.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{KeggCompoundConn$addInfo(x, id.col, org, limit = 3, prefix = "")}\if{html}{\out{</div>}}
 }
@@ -354,25 +352,25 @@ Add informations (as new column appended to the end) to an existing
 \item{\code{x}}{A data frame containing at least one column with Biodb entry IDs
 identified by the parameter `id.col`.}
 
-\item{\code{id.col}}{The name of the column containing IDs inside the input data frame.}
+\item{\code{id.col}}{The name of the column containing IDs inside the input data
+frame.}
 
-\item{\code{org}}{The organism in which to search for pathways, as a KEGG organism code
-(3-4 letters code, like 'hsa', 'mmu', ...). See}
+\item{\code{org}}{The organism in which to search for pathways, as a KEGG organism
+code (3-4 letters code, like 'hsa', 'mmu', ...). See
+https //www.genome.jp/kegg/catalog/org_list.html for a complete list of KEGG
+organism codes.}
 
 \item{\code{limit}}{This is the maximum number of values obtained for each ID, for
 every column added, in case multiple values are obtained. Set to 0 to get
 all values.}
 
 \item{\code{prefix}}{Insert a prefix at the start of name of all new columns.}
-
-\item{\code{https}}{//www.genome.jp/kegg/catalog/org_list.html for a complete list of KEGG
-organism codes.}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
 A data frame containing `x` and new columns appended with
-    KEGG identifiers and data.
+KEGG identifiers and data.
 }
 }
 \if{html}{\out{<hr>}}

@@ -51,17 +51,17 @@ c1$draw()
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-new}{\code{KeggCircle$new()}}
-\item \href{#method-equals}{\code{KeggCircle$equals()}}
 \item \href{#method-getX}{\code{KeggCircle$getX()}}
 \item \href{#method-getY}{\code{KeggCircle$getY()}}
 \item \href{#method-getRadius}{\code{KeggCircle$getRadius()}}
-\item \href{#method-draw}{\code{KeggCircle$draw()}}
 \item \href{#method-clone}{\code{KeggCircle$clone()}}
 }
 }
 \if{html}{
 \out{<details open ><summary>Inherited methods</summary>}
 \itemize{
+\item \out{<span class="pkg-link" data-pkg="biodbKegg" data-topic="KeggShape" data-id="draw">}\href{../../biodbKegg/html/KeggShape.html#method-draw}{\code{biodbKegg::KeggShape$draw()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="biodbKegg" data-topic="KeggShape" data-id="equals">}\href{../../biodbKegg/html/KeggShape.html#method-equals}{\code{biodbKegg::KeggShape$equals()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodbKegg" data-topic="KeggShape" data-id="getColor">}\href{../../biodbKegg/html/KeggShape.html#method-getColor}{\code{biodbKegg::KeggShape$getColor()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodbKegg" data-topic="KeggShape" data-id="getLabel">}\href{../../biodbKegg/html/KeggShape.html#method-getLabel}{\code{biodbKegg::KeggShape$getLabel()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodbKegg" data-topic="KeggShape" data-id="getRgbColor">}\href{../../biodbKegg/html/KeggShape.html#method-getRgbColor}{\code{biodbKegg::KeggShape$getRgbColor()}}\out{</span>}
@@ -72,19 +72,27 @@ c1$draw()
 \if{html}{\out{<a id="method-new"></a>}}
 \if{latex}{\out{\hypertarget{method-new}{}}}
 \subsection{Method \code{new()}}{
+Initialize new instance.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{KeggCircle$new(x, y, r, ...)}\if{html}{\out{</div>}}
 }
 
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-equals"></a>}}
-\if{latex}{\out{\hypertarget{method-equals}{}}}
-\subsection{Method \code{equals()}}{
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{KeggCircle$equals(other)}\if{html}{\out{</div>}}
-}
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{x}}{Abscissa of the circle's center.}
 
+\item{\code{y}}{Ordinate of the circle's center.}
+
+\item{\code{r}}{Radius of the circle.}
+
+\item{\code{...}}{Additional parameters are passed to super class' initializer.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+Nothing.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-getX"></a>}}
@@ -124,15 +132,6 @@ Get the radius.
 \subsection{Returns}{
 The radius.
 }
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-draw"></a>}}
-\if{latex}{\out{\hypertarget{method-draw}{}}}
-\subsection{Method \code{draw()}}{
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{KeggCircle$draw()}\if{html}{\out{</div>}}
-}
-
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-clone"></a>}}

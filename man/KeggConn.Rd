@@ -41,7 +41,6 @@ mybiodb$terminate()
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-new}{\code{KeggConn$new()}}
-\item \href{#method-getEntryPageUrl}{\code{KeggConn$getEntryPageUrl()}}
 \item \href{#method-wsList}{\code{KeggConn$wsList()}}
 \item \href{#method-wsFind}{\code{KeggConn$wsFind()}}
 \item \href{#method-clone}{\code{KeggConn$clone()}}
@@ -50,7 +49,6 @@ mybiodb$terminate()
 \if{html}{
 \out{<details ><summary>Inherited methods</summary>}
 \itemize{
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="defineParsingExpressions">}\href{../../biodb/html/BiodbConnBase.html#method-defineParsingExpressions}{\code{biodb::BiodbConnBase$defineParsingExpressions()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="getBaseUrl">}\href{../../biodb/html/BiodbConnBase.html#method-getBaseUrl}{\code{biodb::BiodbConnBase$getBaseUrl()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="getConnClass">}\href{../../biodb/html/BiodbConnBase.html#method-getConnClass}{\code{biodb::BiodbConnBase$getConnClass()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="getConnClassName">}\href{../../biodb/html/BiodbConnBase.html#method-getConnClassName}{\code{biodb::BiodbConnBase$getConnClassName()}}\out{</span>}
@@ -113,6 +111,7 @@ mybiodb$terminate()
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getEntryContentRequest">}\href{../../biodb/html/BiodbConn.html#method-getEntryContentRequest}{\code{biodb::BiodbConn$getEntryContentRequest()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getEntryIds">}\href{../../biodb/html/BiodbConn.html#method-getEntryIds}{\code{biodb::BiodbConn$getEntryIds()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getEntryImageUrl">}\href{../../biodb/html/BiodbConn.html#method-getEntryImageUrl}{\code{biodb::BiodbConn$getEntryImageUrl()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getEntryPageUrl">}\href{../../biodb/html/BiodbConn.html#method-getEntryPageUrl}{\code{biodb::BiodbConn$getEntryPageUrl()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getId">}\href{../../biodb/html/BiodbConn.html#method-getId}{\code{biodb::BiodbConn$getId()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getMatchingMzField">}\href{../../biodb/html/BiodbConn.html#method-getMatchingMzField}{\code{biodb::BiodbConn$getMatchingMzField()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getMzValues">}\href{../../biodb/html/BiodbConn.html#method-getMzValues}{\code{biodb::BiodbConn$getMzValues()}}\out{</span>}
@@ -154,6 +153,9 @@ mybiodb$terminate()
 \if{html}{\out{<a id="method-new"></a>}}
 \if{latex}{\out{\hypertarget{method-new}{}}}
 \subsection{Method \code{new()}}{
+New instance initializer. Connector classes must not be instantiated
+directly. Instead, you must use the createConn() method of the factory class.
+The parameters of this function are for the use of subclasses.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{KeggConn$new(
   db.name = NA_character_,
@@ -163,15 +165,24 @@ mybiodb$terminate()
 )}\if{html}{\out{</div>}}
 }
 
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getEntryPageUrl"></a>}}
-\if{latex}{\out{\hypertarget{method-getEntryPageUrl}{}}}
-\subsection{Method \code{getEntryPageUrl()}}{
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{KeggConn$getEntryPageUrl(id)}\if{html}{\out{</div>}}
-}
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{db.name}}{The database name as defined in
+www.kegg.jp/kegg/docs/keggapi.html.}
 
+\item{\code{db.abbrev}}{The database abbreviation as defined in
+www.kegg.jp/kegg/docs/keggapi.html.}
+
+\item{\code{accession.prefix}}{The prefix used for accession identifiers.}
+
+\item{\code{...}}{All parameters are passed to the super class initializer.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+Nothing.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-wsList"></a>}}
@@ -185,10 +196,10 @@ Gets the full list of entry IDs. See
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{retfmt}}{Use to set the format of the returned value. 'plain' will return
-the raw result from the server, as a character value. 'request' will return
-the request as it would have been sent, as a BiodbRequest object. 'ids' will
-return a character vector containing entry IDs.}
+\item{\code{retfmt}}{Use to set the format of the returned value. 'plain' will
+return the raw result from the server, as a character value. 'request' will
+return the request as it would have been sent, as a BiodbRequest object.
+'ids' will return a character vector containing entry IDs.}
 
 \item{\code{http}}{//www.kegg.jp/kegg/docs/keggapi.html for details.}
 }
@@ -203,7 +214,7 @@ Depending on `retfmt`.
 \if{latex}{\out{\hypertarget{method-wsFind}{}}}
 \subsection{Method \code{wsFind()}}{
 Searches for entries. See http://www.kegg.jp/kegg/docs/keggapi.html
-    for details.
+for details.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{KeggConn$wsFind(
   query,
@@ -215,26 +226,22 @@ Searches for entries. See http://www.kegg.jp/kegg/docs/keggapi.html
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{query}}{The query to send to the database web service. When searching by}
+\item{\code{query}}{The query to send to the database web service. When searching by
+mass (i.e. 'option' parameter set to either 'exact_mass' or 'mol_weight'),
+this query field must be set to either an exact (i.e. 174.05) or a range
+(i.e. '250-260').}
 
 \item{\code{option}}{Set this parameter to 'NONE' for querying on fields 'ENTRY',
-'NAME', 'DESCRIPTION', 'COMPOSITION', 'DEFINITION' and 'ORTHOLOGY'. See}
-
-\item{\code{retfmt}}{Use to set the format of the returned value. 'plain' will return
-the raw result from the server, as a character value. 'request' will return
-the request as it would have been sent, as a BiodbRequest object. 'parsed'
-will return a data frame. 'ids' will return a character vector containing
-the IDs of the matching entries.}
-
-\item{\code{mass}}{(i.e. 'option' parameter set to either 'exact_mass' or 'mol_weight'),}
-
-\item{\code{this}}{query field must be set to either an exact (i.e. 174.05) or a range}
-
-\item{\code{(i.e.}}{'250-260').}
-
-\item{\code{http}}{//www.kegg.jp/kegg/docs/keggapi.html for an exact list of fields that
+'NAME', 'DESCRIPTION', 'COMPOSITION', 'DEFINITION' and 'ORTHOLOGY'. See
+http //www.kegg.jp/kegg/docs/keggapi.html for an exact list of fields that
 are searched for each database, and also for other possible values of this
 'option' paramater.}
+
+\item{\code{retfmt}}{Use to set the format of the returned value. 'plain' will
+return the raw result from the server, as a character value. 'request' will
+return the request as it would have been sent, as a BiodbRequest object.
+'parsed' will return a data frame. 'ids' will return a character vector
+containing the IDs of the matching entries.}
 }
 \if{html}{\out{</div>}}
 }

@@ -23,15 +23,10 @@ inherit=KeggEntry,
 
 
 public=list(
-
-initialize=function(...) {
-
-    super$initialize(...)
-}
 ),
 
 private=list(
-parseFieldsStep2=function(parsed.content) {
+doParseFieldsStep2=function(parsed.content) {
 
     # Name
     private$parseNames(parsed.content)

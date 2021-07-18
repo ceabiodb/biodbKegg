@@ -23,6 +23,11 @@ KeggShape <- R6::R6Class('KeggShape',
 
 public=list(
 
+#' @description
+#' Initialize new instance.
+#' @param label The text label to display.
+#' @param color The color to use.
+#' @return Nothing.
 initialize=function(label=NA_character_, color=NA_character_) {
     private$label <- label
     private$color <- color
@@ -33,8 +38,7 @@ initialize=function(label=NA_character_, color=NA_character_) {
 #' @param other The other shape to compare with.
 #' @return TRUE or FALSE.
 equals=function(other) {
-
-    return(FALSE)
+    return(private$doesEqual(other))
 },
 
 #' @description
@@ -55,8 +59,8 @@ getColor=function() {
 
 #' @description
 #' Gets the RGB color associated with this shape.
-#' @param alpha The value to use for the alpha channel when building the RGB color
-#'     object.
+#' @param alpha The value to use for the alpha channel when building the RGB
+#' color object.
 #' @return The color as an RGB color object.
 getRgbColor=function(alpha=255) {
 
@@ -70,12 +74,19 @@ getRgbColor=function(alpha=255) {
 #' Draw the shape on the current image.
 #' @return None.
 draw=function() {
-
-    invisible()
+    private$doDraw()
+    return(invisible(NULL))
 }
 ),
 
 private=list(
     label=NULL,
     color=NULL
+
+,doesEqual=function(other) {
+    return(FALSE)
+}
+
+,doDraw=function() {
+}
 ))

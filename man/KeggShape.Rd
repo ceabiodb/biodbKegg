@@ -44,10 +44,23 @@ r <- KeggRect$new(left=10, top=10, bottom=20, right=30, color='yellow')
 \if{html}{\out{<a id="method-new"></a>}}
 \if{latex}{\out{\hypertarget{method-new}{}}}
 \subsection{Method \code{new()}}{
+Initialize new instance.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{KeggShape$new(label = NA_character_, color = NA_character_)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{label}}{The text label to display.}
+
+\item{\code{color}}{The color to use.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+Nothing.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-equals"></a>}}
@@ -107,8 +120,8 @@ Gets the RGB color associated with this shape.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{alpha}}{The value to use for the alpha channel when building the RGB color
-object.}
+\item{\code{alpha}}{The value to use for the alpha channel when building the RGB
+color object.}
 }
 \if{html}{\out{</div>}}
 }

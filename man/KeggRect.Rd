@@ -4,10 +4,14 @@
 \alias{KeggRect}
 \title{A class for representing a rectangle.}
 \description{
-This class represents a rectangle, used for graphical
-representation.
+A class for representing a rectangle.
+
+A class for representing a rectangle.
 }
 \details{
+This class represents a rectangle, used for graphical
+representation.
+
 Arguments to the constructor are:
 
 left: Coordinate of left border.
@@ -38,14 +42,14 @@ r$draw()
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-new}{\code{KeggRect$new()}}
-\item \href{#method-equals}{\code{KeggRect$equals()}}
-\item \href{#method-draw}{\code{KeggRect$draw()}}
 \item \href{#method-clone}{\code{KeggRect$clone()}}
 }
 }
 \if{html}{
 \out{<details open ><summary>Inherited methods</summary>}
 \itemize{
+\item \out{<span class="pkg-link" data-pkg="biodbKegg" data-topic="KeggShape" data-id="draw">}\href{../../biodbKegg/html/KeggShape.html#method-draw}{\code{biodbKegg::KeggShape$draw()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="biodbKegg" data-topic="KeggShape" data-id="equals">}\href{../../biodbKegg/html/KeggShape.html#method-equals}{\code{biodbKegg::KeggShape$equals()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodbKegg" data-topic="KeggShape" data-id="getColor">}\href{../../biodbKegg/html/KeggShape.html#method-getColor}{\code{biodbKegg::KeggShape$getColor()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodbKegg" data-topic="KeggShape" data-id="getLabel">}\href{../../biodbKegg/html/KeggShape.html#method-getLabel}{\code{biodbKegg::KeggShape$getLabel()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodbKegg" data-topic="KeggShape" data-id="getRgbColor">}\href{../../biodbKegg/html/KeggShape.html#method-getRgbColor}{\code{biodbKegg::KeggShape$getRgbColor()}}\out{</span>}
@@ -56,28 +60,29 @@ r$draw()
 \if{html}{\out{<a id="method-new"></a>}}
 \if{latex}{\out{\hypertarget{method-new}{}}}
 \subsection{Method \code{new()}}{
+Initialize new instance.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{KeggRect$new(left, top, bottom, right, ...)}\if{html}{\out{</div>}}
 }
 
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-equals"></a>}}
-\if{latex}{\out{\hypertarget{method-equals}{}}}
-\subsection{Method \code{equals()}}{
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{KeggRect$equals(other)}\if{html}{\out{</div>}}
-}
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{left}}{Coordinate of rectangle's left side.}
 
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-draw"></a>}}
-\if{latex}{\out{\hypertarget{method-draw}{}}}
-\subsection{Method \code{draw()}}{
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{KeggRect$draw()}\if{html}{\out{</div>}}
-}
+\item{\code{top}}{Coordinate of rectangle's top side.}
 
+\item{\code{bottom}}{Coordinate of rectangle's bottom side.}
+
+\item{\code{right}}{Coordinate of rectangle's right side.}
+
+\item{\code{...}}{Additional parameters are passed to super class' initializer.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+Nothing.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-clone"></a>}}

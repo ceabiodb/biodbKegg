@@ -41,6 +41,13 @@ inherit=KeggShape,
 
 public=list(
 
+#' @description
+#' Initialize new instance.
+#' @param x Abscissa of the circle's center.
+#' @param y Ordinate of the circle's center.
+#' @param r Radius of the circle.
+#' @param ... Additional parameters are passed to super class' initializer. 
+#' @return Nothing.
 initialize=function(x, y, r, ...) {
     super$initialize(...)
     private$x <- as.integer(x)
@@ -48,25 +55,10 @@ initialize=function(x, y, r, ...) {
     private$r <- as.integer(r)
 },
 
-equals=function(other) {
-    # Overrides super class' method.
-    
-    eq <- FALSE
-    
-    if (methods::is(other, "KeggCircle")) {
-        eq <- private$x == other$.__enclos_env__$private$x &&
-            private$y == other$.__enclos_env__$private$y &&
-            private$r == other$.__enclos_env__$private$r
-    }
- 
-    return(eq)
-},
-
 #' @description
 #' Get the X coordinate.
 #' @return The X coordinate.
 getX=function() {
-
     return(private$x)
 },
 
@@ -74,7 +66,6 @@ getX=function() {
 #' Get the Y coordinate.
 #' @return The Y coordinate.
 getY=function() {
-
     return(private$y)
 },
 
@@ -82,17 +73,7 @@ getY=function() {
 #' Get the radius.
 #' @return The radius.
 getRadius=function() {
-
     return(private$r)
-},
-
-draw=function() {
-    # Overrides super class' method.
-
-    symbols(x=private$x, y=private$y,
-            circles=private$r,
-            bg=self$getRgbColor(alpha=127),
-            add=TRUE, inches=FALSE)
 }
 ),
 
@@ -100,4 +81,22 @@ private=list(
     x=NULL,
     y=NULL,
     r=NULL
+
+,doesEqual=function(other) {
+
+    eq <- FALSE
+
+    if (methods::is(other, "KeggCircle")) {
+        eq <- private$x == other$.__enclos_env__$private$x &&
+            private$y == other$.__enclos_env__$private$y &&
+            private$r == other$.__enclos_env__$private$r
+    }
+
+    return(eq)
+}
+
+,doDraw=function() {
+    symbols(x=private$x, y=private$y, circles=private$r,
+        bg=self$getRgbColor(alpha=127), add=TRUE, inches=FALSE)
+}
 ))

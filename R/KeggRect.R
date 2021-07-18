@@ -32,16 +32,30 @@ inherit=KeggShape,
 
 public=list(
 
+#' @description
+#' Initialize new instance.
+#' @param left   Coordinate of rectangle's left side.
+#' @param right  Coordinate of rectangle's right side.
+#' @param top    Coordinate of rectangle's top side.
+#' @param bottom Coordinate of rectangle's bottom side.
+#' @param ... Additional parameters are passed to super class' initializer. 
+#' @return Nothing.
 initialize=function(left, top, bottom, right, ...) {
     super$initialize(...)
     private$left     <- as.integer(left)
     private$right    <- as.integer(right)
     private$top      <- as.integer(top)
     private$bottom   <- as.integer(bottom)
-},
+}
+),
 
-equals=function(other) {
-    # Overrides super class' method.
+private=list(
+    left=NULL,
+    bottom=NULL,
+    right=NULL,
+    top=NULL
+
+,doesEqual=function(other) {
     
     eq <- FALSE
     
@@ -51,21 +65,13 @@ equals=function(other) {
             private$top == other$.__enclos_env__$private$top &&
             private$bottom == other$.__enclos_env__$private$bottom
     }
- 
-    return(eq)
-},
 
-draw=function() {
-    # Overrides super class' method.
+    return(eq)
+}
+
+,doDraw=function() {
 
     rect(private$left, private$bottom, private$right, private$top,
         col=self$getRgbColor(alpha=127), border=NA)
 }
-),
-
-private=list(
-    left=NULL,
-    bottom=NULL,
-    right=NULL,
-    top=NULL
 ))
