@@ -20,7 +20,6 @@
 KeggEntry=R6::R6Class("KeggEntry",
 inherit=BiodbTxtEntry,
 
-
 public=list(
 ),
 
