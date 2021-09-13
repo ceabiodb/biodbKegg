@@ -1,3 +1,5 @@
+library(igraph)
+library(magick)
 
 test_kegg_pathway_getReactions = function(conn) {
     reactions <- conn$getReactions('mmu00260', drop=FALSE)
@@ -82,7 +84,8 @@ biodb$loadDefinitions(file)
 conn <- biodb$getFactory()$createConn('kegg.pathway')
 
 # Run tests
-biodb::runGenericTests(conn,
+testRefFolder <- system.file("testref", package='biodbKegg')
+biodb::runGenericTests(conn, pkgName='biodbKegg', testRefFolder=testRefFolder,
     opt=list(skip.searchable.fields=c('ref.accession', 'ref.authors', 'ref.doi',
         'ref.journal', 'ref.title')))
 biodb::testThat('getReactions() works correctly.',

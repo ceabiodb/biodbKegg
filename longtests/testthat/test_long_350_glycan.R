@@ -12,7 +12,9 @@ biodb$loadDefinitions(defFile)
 conn <- biodb$getFactory()$createConn('kegg.glycan')
 
 # Run generic tests
-biodb::runGenericTests(conn, short=FALSE, long=TRUE, opt=list(max.results=3))
+testRefFolder <- system.file("testref", package='biodbKegg')
+biodb::runGenericTests(conn, pkgName='biodbKegg', short=FALSE, long=TRUE,
+    testRefFolder=testRefFolder, opt=list(max.results=3))
 
 # Terminate Biodb
 biodb$terminate()

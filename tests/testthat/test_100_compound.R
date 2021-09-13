@@ -175,7 +175,8 @@ biodb$loadDefinitions(file)
 conn <- biodb$getFactory()$createConn('kegg.compound')
 
 # Run tests
-biodb::runGenericTests(conn)
+testRefFolder <- system.file("testref", package='biodbKegg')
+biodb::runGenericTests(conn, pkgName='biodbKegg', testRefFolder=testRefFolder)
 biodb::testThat('wsList() works correctly.', test.kegg.compound.wsList, conn=conn)
 biodb::testThat('wsFind() works correctly.', test.kegg.compound.wsFind, conn=conn)
 biodb::testThat('wsFindExactMass() works correctly.', test.kegg.compound.wsFindExactMass, conn=conn)

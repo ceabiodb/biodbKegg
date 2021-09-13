@@ -22,10 +22,10 @@ Suggests:
 	lgr
 Imports:
 	R6,
-	biodb (>= 1.0.3),
+	biodb (>= 1.1.4),
 	chk,
 	lifecycle
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2
 Collate:
     'KeggShape.R'
     'KeggCircle.R'

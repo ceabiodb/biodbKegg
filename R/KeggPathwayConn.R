@@ -324,8 +324,7 @@ getPathwayImage=function(id) {
     cache <- self$getBiodb()$getPersistentCache()
     img_filename <- paste0('pathwaymap-', path_idx)
     cid <- self$getCacheId()
-    img_file <- cache$getFilePath(cid, img_filename, 'png')
-    if ( ! cache$fileExist(cid, img_filename, 'png')) {
+    if ( ! cache$fileExists(cid, img_filename, 'png')) {
         img_url <- stringr::str_match(html,
             'src="([^"]+)"(\\s+.*)?\\s+(name|id)="pathwayimage"')
         if (is.na(img_url[1, 1]))
@@ -333,9 +332,14 @@ getPathwayImage=function(id) {
                 ' HTML page for pathway ID ', id, '.')
         u <- self$getPropValSlot('urls', 'base.url')
         img_url <- BiodbUrl$new(url=c(u, img_url[1, 2]))
+        tmp_file <- file.path(cache$getTmpFolderPath(),
+            paste(img_filename, 'png', sep='.'))
         self$getBiodb()$getRequestScheduler()$downloadFile(url=img_url,
-            dest.file=img_file)
+            dest.file=tmp_file)
+        cache$addFilesToCache(tmp_file, cache.id=cid, name=img_filename,
+            ext='png', action='move')
     }
+    img_file <- cache$getFilePath(cid, img_filename, 'png')
 
     return(magick::image_read(img_file))
 },

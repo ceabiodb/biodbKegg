@@ -1,0 +1,137 @@
+ENTRY       mmu00053                    Pathway
+NAME        Ascorbate and aldarate metabolism - Mus musculus (mouse)
+CLASS       Metabolism; Carbohydrate metabolism
+PATHWAY_MAP mmu00053  Ascorbate and aldarate metabolism
+MODULE      mmu_M00129  Ascorbate biosynthesis, animals, glucose-1P => ascorbate [PATH:mmu00053]
+DBLINKS     GO: 0019852 0019572
+ORGANISM    Mus musculus (mouse) [GN:mmu]
+GENE        22235  Ugdh; UDP-glucose dehydrogenase [KO:K00012] [EC:1.1.1.22]
+            22238  Ugt2b5; UDP glucuronosyltransferase 2 family, polypeptide B5 [KO:K00699] [EC:2.4.1.17]
+            22236  Ugt1a2; UDP glucuronosyltransferase 1 family, polypeptide A2 [KO:K00699] [EC:2.4.1.17]
+            94284  Ugt1a6a; UDP glucuronosyltransferase 1 family, polypeptide A6A [KO:K00699] [EC:2.4.1.17]
+            94215  Ugt2a1; UDP glucuronosyltransferase 2 family, polypeptide A1 [KO:K00699] [EC:2.4.1.17]
+            394434  Ugt1a9; UDP glucuronosyltransferase 1 family, polypeptide A9 [KO:K00699] [EC:2.4.1.17]
+            394430  Ugt1a10; UDP glycosyltransferase 1 family, polypeptide A10 [KO:K00699] [EC:2.4.1.17]
+            394432  Ugt1a7c; UDP glucuronosyltransferase 1 family, polypeptide A7C [KO:K00699] [EC:2.4.1.17]
+            394433  Ugt1a5; UDP glucuronosyltransferase 1 family, polypeptide A5 [KO:K00699] [EC:2.4.1.17]
+            72094  Ugt2a3; UDP glucuronosyltransferase 2 family, polypeptide A3 [KO:K00699] [EC:2.4.1.17]
+            552899  Ugt2a2; UDP glucuronosyltransferase 2 family, polypeptide A2 [KO:K00699] [EC:2.4.1.17]
+            71773  Ugt2b1; UDP glucuronosyltransferase 2 family, polypeptide B1 [KO:K00699] [EC:2.4.1.17]
+            394435  Ugt1a6b; UDP glucuronosyltransferase 1 family, polypeptide A6B [KO:K00699] [EC:2.4.1.17]
+            394436  Ugt1a1; UDP glucuronosyltransferase 1 family, polypeptide A1 [KO:K00699] [EC:2.4.1.17]
+            100727  Ugt2b34; UDP glucuronosyltransferase 2 family, polypeptide B34 [KO:K00699] [EC:2.4.1.17]
+            231396  Ugt2b36; UDP glucuronosyltransferase 2 family, polypeptide B36 [KO:K00699] [EC:2.4.1.17]
+            100559  Ugt2b38; UDP glucuronosyltransferase 2 family, polypeptide B38 [KO:K00699] [EC:2.4.1.17]
+            112417  Ugt2b37; UDP glucuronosyltransferase 2 family, polypeptide B37 [KO:K00699] [EC:2.4.1.17]
+            243085  Ugt2b35; UDP glucuronosyltransferase 2 family, polypeptide B35 [KO:K00699] [EC:2.4.1.17]
+            613123  Ugt1a8; UDP glucuronosyltransferase 1 family, polypeptide A8 [KO:K00699] [EC:2.4.1.17]
+            110006  Gusb; glucuronidase, beta [KO:K01195] [EC:3.2.1.31]
+            16591  Kl; klotho [KO:K14756] [EC:3.2.1.31]
+            56727  Miox; myo-inositol oxygenase [KO:K00469] [EC:1.13.99.1]
+            58810  Akr1a1; aldo-keto reductase family 1, member A1 (aldehyde reductase) [KO:K00002] [EC:1.1.1.2]
+            19733  Rgn; regucalcin [KO:K01053] [EC:3.1.1.17]
+            268756  Gulo; gulonolactone (L-) oxidase [KO:K00103] [EC:1.1.3.8]
+            11669  Aldh2; aldehyde dehydrogenase 2, mitochondrial [KO:K00128] [EC:1.2.1.3]
+            11671  Aldh3a2; aldehyde dehydrogenase family 3, subfamily A2 [KO:K00128] [EC:1.2.1.3]
+            72535  Aldh1b1; aldehyde dehydrogenase 1 family, member B1 [KO:K00128] [EC:1.2.1.3]
+            110695  Aldh7a1; aldehyde dehydrogenase family 7, member A1 [KO:K14085] [EC:1.2.1.31 1.2.1.8 1.2.1.3]
+            56752  Aldh9a1; aldehyde dehydrogenase 9, subfamily A1 [KO:K00149] [EC:1.2.1.47 1.2.1.3]
+COMPOUND    C00022  Pyruvate
+            C00026  2-Oxoglutarate
+            C00029  UDP-glucose
+            C00072  Ascorbate
+            C00096  GDP-mannose
+            C00137  myo-Inositol
+            C00167  UDP-glucuronate
+            C00191  D-Glucuronate
+            C00216  D-Arabinose
+            C00231  D-Xylulose 5-phosphate
+            C00259  L-Arabinose
+            C00333  D-Galacturonate
+            C00433  2,5-Dioxopentanoate
+            C00545  L-Arabinonate
+            C00558  D-Tagaturonate
+            C00617  UDP-D-galacturonate
+            C00618  3-Dehydro-L-gulonate
+            C00652  D-Arabinono-1,4-lactone
+            C00679  5-Dehydro-4-deoxy-D-glucarate
+            C00684  2-Dehydro-3-deoxy-L-arabinonate
+            C00800  L-Gulonate
+            C00818  D-Glucarate
+            C00878  D-Arabinonate
+            C00879  D-Galactarate
+            C01040  L-Gulono-1,4-lactone
+            C01041  Monodehydroascorbate
+            C01101  L-Ribulose 5-phosphate
+            C01114  L-Arabinono-1,4-lactone
+            C01115  L-Galactono-1,4-lactone
+            C01146  2-Hydroxy-3-oxopropanoate
+            C01620  Threonate
+            C01825  L-Galactose
+            C02280  GDP-L-galactose
+            C02670  D-Glucuronolactone
+            C03033  beta-D-Glucuronoside
+            C03064  3-Dehydro-L-threonate
+            C03289  L-xylo-Hexulonolactone
+            C03291  L-Xylulose 5-phosphate
+            C03826  2-Dehydro-3-deoxy-D-xylonate
+            C03921  2-Dehydro-3-deoxy-D-glucarate
+            C04037  1-Phospho-alpha-D-galacturonate
+            C04575  (4R,5S)-4,5,6-Trihydroxy-2,3-dioxohexanoate
+            C05385  D-Glucuronate 1-phosphate
+            C05411  L-Xylonate
+            C05412  L-Lyxonate
+            C05422  Dehydroascorbate
+            C06316  Dehydro-D-arabinono-1,4-lactone
+            C14899  3-Dehydro-L-gulonate 6-phosphate
+            C15923  L-Gulose
+            C15924  L-Gulose 1-phosphate
+            C15925  GDP-L-gulose
+            C15926  beta-L-Galactose 1-phosphate
+            C15930  L-Galactonate
+            C16186  L-Ascorbate 6-phosphate
+            C20889  D-Galactaro-1,5-lactone
+            C20896  D-Galactaro-1,4-lactone
+            C21955  L-Galactono-1,5-lactone
+REFERENCE   PMID:17222174
+  AUTHORS   Linster CL, Van Schaftingen E
+  TITLE     Vitamin C. Biosynthesis, recycling and degradation in mammals.
+  JOURNAL   FEBS J 274:1-22 (2007)
+            DOI:10.1111/j.1742-4658.2006.05607.x
+REFERENCE   PMID:15564123
+  AUTHORS   Valpuesta V, Botella MA.
+  TITLE     Biosynthesis of L-ascorbic acid in plants: new pathways for an old antioxidant.
+  JOURNAL   Trends Plant Sci 9:573-7 (2004)
+            DOI:10.1016/j.tplants.2004.10.002
+REFERENCE   PMID:10517845
+  AUTHORS   Davey MW, Gilot C, Persiau G, Ostergaard J, Han Y, Bauw GC, Van Montagu MC.
+  TITLE     Ascorbate biosynthesis in Arabidopsis cell suspension culture.
+  JOURNAL   Plant Physiol 121:535-43 (1999)
+            DOI:10.1104/pp.121.2.535
+REFERENCE   PMID:16595667
+  AUTHORS   Conklin PL, Gatzek S, Wheeler GL, Dowdle J, Raymond MJ, Rolinski S, Isupov M, Littlechild JA, Smirnoff N.
+  TITLE     Arabidopsis thaliana VTC4 encodes L-galactose-1-P phosphatase, a plant ascorbic acid biosynthetic enzyme.
+  JOURNAL   J Biol Chem 281:15662-70 (2006)
+            DOI:10.1074/jbc.M601409200
+REFERENCE   PMID:17462988
+  AUTHORS   Linster CL, Gomez TA, Christensen KC, Adler LN, Young BD, Brenner C, Clarke SG.
+  TITLE     Arabidopsis VTC2 Encodes a GDP-L-Galactose Phosphorylase, the Last Unknown Enzyme in the Smirnoff-Wheeler Pathway to Ascorbic Acid in Plants.
+  JOURNAL   J Biol Chem 282:18879-85 (2007)
+            DOI:10.1074/jbc.M702094200
+REFERENCE   PMID:14996803
+  AUTHORS   Campos E, Baldoma L, Aguilar J, Badia J.
+  TITLE     Regulation of expression of the divergent ulaG and ulaABCDEF operons involved in LaAscorbate dissimilation in Escherichia coli.
+  JOURNAL   J Bacteriol 186:1720-8 (2004)
+            DOI:10.1128/JB.186.6.1720-1728.2004
+REFERENCE   PMID:12644495
+  AUTHORS   Zhang Z, Aboulwafa M, Smith MH, Saier MH Jr.
+  TITLE     The ascorbate transporter of Escherichia coli.
+  JOURNAL   J Bacteriol 185:2243-50 (2003)
+            DOI:10.1128/JB.185.7.2243-2250.2003
+REL_PATHWAY mmu00020  Citrate cycle (TCA cycle)
+            mmu00040  Pentose and glucuronate interconversions
+            mmu00051  Fructose and mannose metabolism
+            mmu00520  Amino sugar and nucleotide sugar metabolism
+            mmu00630  Glyoxylate and dicarboxylate metabolism
+KO_PATHWAY  ko00053
+///

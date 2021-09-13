@@ -1,0 +1,51 @@
+ENTRY       G00018                      Glycan
+NAME        DS 3
+COMPOSITION (Gal)2 (GlcNAc)4 (LFuc)1 (Man)3 (Neu5Ac)2 (Asn)1
+MASS        2352.2 (Asn)
+REACTION    R05990
+PATHWAY     map00510  N-Glycan biosynthesis
+            map01100  Metabolic pathways
+MODULE      M00075  N-glycan biosynthesis, complex type
+ENZYME      2.4.99.1
+ORTHOLOGY   K00778  beta-galactoside alpha-2,6-sialyltransferase (sialyltransferase 1) [EC:2.4.99.1]
+REFERENCE   1  [PMID:7592613]
+  AUTHORS   Dell A, Morris HR, Easton RL, Panico M, Patankar M, Oehniger S, Koistinen R, Koistinen H, Seppala M, Clark GF.
+  TITLE     Structural analysis of the oligosaccharides derived from glycodelin, a human glycoprotein with potent immunosuppressive and contraceptive activities.
+  JOURNAL   J Biol Chem 270:24116-26 (1995)
+            DOI:10.1074/jbc.270.41.24116
+REFERENCE   2  [PMID:12054586]
+  AUTHORS   Olczak M, Watorek W.
+  TITLE     Structural analysis of N-glycans from human neutrophil azurocidin.
+  JOURNAL   Biochem Biophys Res Commun 293:213-9 (2002)
+            DOI:10.1016/S0006-291X(02)00201-2
+DBLINKS     CCSD: 1948 1949 1950 1951 1952 1953 1954 1955 1956 4375 4436 4677 5188 5189 5543 7996 8023 8024 8026 8027 8029 8030 8031 8032 8285 9168 12757 12770 12792 16542 18574 20891 25178 25901 27512 33096 35289 35745 36011 37681 39402 40728 41183 41468 46606 46610 48730
+            GlyTouCan: G56749GV
+            JCGGDB: JCGG-STR012504
+NODE        13
+            1   Asn        28     3
+            2   GlcNAc     18     3
+            3   LFuc       10     8
+            4   GlcNAc      9    -2
+            5   Man         1    -2
+            6   Man        -5     4
+            7   Man        -5    -8
+            8   GlcNAc    -13     4
+            9   GlcNAc    -13    -8
+            10  Gal       -21     4
+            11  Gal       -21    -8
+            12  Neu5Ac    -29     4
+            13  Neu5Ac    -29    -8
+EDGE        12
+            1     2:b1    1    
+            2     3:a1    2:6  
+            3     4:b1    2:4  
+            4     5:b1    4:4  
+            5     6:a1    5:6  
+            6     7:a1    5:3  
+            7     8:b1    6:2  
+            8     9:b1    7:2  
+            9    10:b1    8:4  
+            10   11:b1    9:4  
+            11   12:a2   10:6  
+            12   13:a2   11:6  
+///
