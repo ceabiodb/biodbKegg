@@ -12,7 +12,8 @@ biodb$loadDefinitions(file)
 conn <- biodb$getFactory()$createConn('kegg.reaction')
 
 # Run tests
-biodb::runGenericTests(conn)
+testRefFolder <- system.file("testref", package='biodbKegg')
+biodb::runGenericTests(conn, pkgName='biodbKegg', testRefFolder=testRefFolder)
 
 # Terminate Biodb
 biodb$terminate()
