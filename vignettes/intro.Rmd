@@ -66,7 +66,6 @@ ids <- conn$searchForEntries(list(monoisotopic.mass=list(value=64, delta=2.0)), 
 entries <- mybiodb$getFactory()$getEntry('kegg.compound', ids)
 ```
 
-
 # Closing biodb instance
 
 When done with your *biodb* instance you have to terminate it, in order to

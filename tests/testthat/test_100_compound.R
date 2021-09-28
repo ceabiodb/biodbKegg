@@ -141,7 +141,7 @@ test.kegg.compound.getPathwayIdsPerCompound <- function(conn) {
 
 test.addInfo <- function(conn) {
 
-    x <- data.frame(ids=c('C06178', 'C01771'), col2=c(1, 4))
+    x <- data.frame(ids=c('C06178', 'C01771', 'C06144'), col2=c(1, 4, 8))
     z <- data.frame()
 
     y <- conn$addInfo(x, id.col='ids', org='mmu')
@@ -150,11 +150,12 @@ test.addInfo <- function(conn) {
                                  'kegg.pathway.name',
                                  'kegg.pathway.pathway.class', 'kegg.module.id',
                                  'kegg.module.name'), colnames(y))
-    testthat::expect_equal(nrow(y), 2)
+    testthat::expect_equal(nrow(y), 3)
     testthat::expect_false(any(is.na(y[1, ])))
     testthat::expect_true(all(is.na(y[2, c('kegg.pathway.id',
                                            'kegg.pathway.name',
                                            'kegg.pathway.pathway.class')])))
+    testthat::expect_false(any(is.na(y[3, ])))
 
     # Second test
     x2 <- data.frame(ids=c('C06144', 'C06178', 'C02659'))

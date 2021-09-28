@@ -1,13 +1,17 @@
 # biodbKegg
 
-[![Build Status](https://travis-ci.org/pkrog/biodbKegg.svg?branch=master)](https://travis-ci.org/pkrog/biodbKegg)
 [![Codecov test coverage](https://codecov.io/gh/pkrog/biodbKegg/branch/master/graph/badge.svg)](https://codecov.io/gh/pkrog/biodbKegg?branch=master)
 
-An R package for accessing [Kegg](https://www.kegg.jp/) online database, based on R package/framework [biodb](https://github.com/pkrog/biodb/).
+An R Bioconductor package for accessing [KEGG](https://www.kegg.jp/) online
+database, based on Bioconductor package/framework
+[biodb](https://github.com/pkrog/biodb/).
 
 ## Introduction
 
-This package implements *biodb* connectors for the following KEGG databases:
+*biodbKegg* is an  an extension package of the *biodb* package.
+It allows to connect to KEGG for retrieving entries, searching for entries
+by name or mass, and searching for pathways related to compounds.
+It implements *biodb* connectors for the following KEGG databases:
  * KEGG Compound.
  * KEGG Enzyme.
  * KEGG Genes.
@@ -18,15 +22,41 @@ This package implements *biodb* connectors for the following KEGG databases:
 
 ## Examples
 
-TODO
+Getting a single entry:
+```r
+bdb <- biodb::Biodb()
+kegg <- bdb$getFactory()$createConn('kegg.compound')
+entries <- kegg$getEntry(c('C00133', 'C00751'))
+bdb$entriesToDataframe(entries)
+```
+
+Search by mass:
+```r
+ids <- kegg$searchForEntries(list(monoisotopic.mass=list(value=64, delta=2.0)),
+    max.results=10)
+```
 
 ## Installation
 
-TODO
+
+Install the latest stable version using Bioconductor:
+```r
+if (!requireNamespace("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+BiocManager::install('biodbKegg')
+```
 
 ## Documentation
 
-TODO
+See the introduction vignette:
+```r
+vignette('intro', package='biodbKegg')
+```
+
+And the vignette about pathways:
+```r
+vignette('kegg_pathways', package='biodbKegg')
+```
 
 ## Citations
 
