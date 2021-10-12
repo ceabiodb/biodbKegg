@@ -14,12 +14,22 @@ output:
     toc_float:
       collapsed: false
   BiocStyle::pdf_document: default
+bibliography: references.bib
 ---
 
-# Purpose
+# Introduction
 
 biodbKegg is a *biodb* extension package that implements a connector to
 KEGG Compound database [@kanehisa2000_KEGG].
+
+# Installation
+
+Install using Bioconductor:
+```{r, eval=FALSE}
+if (!requireNamespace("BiocManager", quietly=TRUE))
+    install.packages("BiocManager")
+BiocManager::install('biodbKegg')
+```
 
 # Initialization
 
