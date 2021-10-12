@@ -19,7 +19,7 @@ output:
 # Purpose
 
 biodbKegg is a *biodb* extension package that implements a connector to
-KEGG Compound database.
+KEGG Compound database [@kanehisa2000_KEGG].
 
 # Initialization
 
@@ -73,3 +73,11 @@ ensure release of resources (file handles, database connection, etc):
 ```{r}
 mybiodb$terminate()
 ```
+
+# Session information
+
+```{r}
+sessionInfo()
+```
+
+# References

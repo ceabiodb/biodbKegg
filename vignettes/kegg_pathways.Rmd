@@ -4,11 +4,11 @@ author: "Pierrick Roger"
 date: "`r doc_date()`"
 package: "`r pkg_ver('biodbKegg')`"
 abstract: |
-  This vignette shows how to use KEGG databases. In it will learn how to
-  retrieve pathways related to a compound using KEGG databases. How to get a
-  pathways map with a set of enzymes and compounds highlighted on it. How to
-  get new information about KEGG Compound and add it to your existing data
-  frame.
+  This vignette shows the functions of the package that manipulate pathways
+  from the KEGG database. In it we will learn how to retrieve pathways related
+  to a compound using KEGG databases. How to get a pathways map with a set of
+  enzymes and compounds highlighted on it. How to get new information about
+  KEGG Compound and add it to your existing data frame.
 vignette: |
   %\VignetteIndexEntry{Using KEGG databases.}
   %\VignetteEngine{knitr::rmarkdown}
@@ -39,7 +39,7 @@ First we create an instance of the `BiodbMain` class:
 mybiodb <- biodb::newInst()
 ```
 
-Then we get a connector to the KEGG Compound database:
+Then we get a connector to the KEGG Compound database [@kanehisa2000_KEGG]:
 ```{r}
 kegg.comp.conn <- mybiodb$getFactory()$getConn('kegg.compound')
 ```
@@ -168,3 +168,11 @@ instance:
 ```{r Terminating the Biodb instance}
 mybiodb$terminate()
 ```
+
+# Session information
+
+```{r}
+sessionInfo()
+```
+
+# References

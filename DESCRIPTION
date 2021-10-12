@@ -1,6 +1,6 @@
 Package: biodbKegg
 Title: biodbKegg, a library for connecting to the KEGG Database
-Version: 0.99.1
+Version: 0.99.2
 Authors@R: c(person("Pierrick", "Roger", email = "pierrick.roger@cea.fr", role = c("aut", "cre")))
 Description: The biodbKegg library is an extension of the biodb framework package that provides access to the KEGG databases Compound, Enzyme, Genes, Module, Orthology and Reaction. It allows to retrieve entries by their accession numbers, and run some web services like "find", "list" and "findExactMass". Some functions for navigating along the pathways have also been implemented.
 biocViews: Software, Infrastructure, DataImport, Pathways, KEGG

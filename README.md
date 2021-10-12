@@ -50,7 +50,7 @@ BiocManager::install('biodbKegg')
 
 See the introduction vignette:
 ```r
-vignette('intro', package='biodbKegg')
+vignette('biodbKegg', package='biodbKegg')
 ```
 
 And the vignette about pathways:
