@@ -1,8 +1,15 @@
 Package: biodbKegg
 Title: biodbKegg, a library for connecting to the KEGG Database
-Version: 0.99.2
-Authors@R: c(person("Pierrick", "Roger", email = "pierrick.roger@cea.fr", role = c("aut", "cre")))
-Description: The biodbKegg library is an extension of the biodb framework package that provides access to the KEGG databases Compound, Enzyme, Genes, Module, Orthology and Reaction. It allows to retrieve entries by their accession numbers, and run some web services like "find", "list" and "findExactMass". Some functions for navigating along the pathways have also been implemented.
+Version: 0.99.3
+Authors@R: c(person("Pierrick", "Roger", email = "pierrick.roger@cea.fr", role = c("aut", "cre"), comment=c(ORCID="0000-0001-8177-4873")))
+Description: The biodbKegg library is an extension of the biodb framework
+    package that provides access to the KEGG databases Compound, Enzyme, Genes,
+    Module, Orthology and Reaction. It allows to retrieve entries by their
+    accession numbers. Web services like "find", "list" and "findExactMass" are
+    also available. Some functions for navigating along the pathways have also
+    been implemented.
+URL: https://github.com/pkrog/biodbKegg
+BugReports: https://github.com/pkrog/biodbKegg/issues
 biocViews: Software, Infrastructure, DataImport, Pathways, KEGG
 Depends:
     R (>= 4.1)
@@ -10,20 +17,20 @@ License: AGPL-3
 Encoding: UTF-8
 VignetteBuilder: knitr
 Suggests:
-	BiocStyle,
-	roxygen2,
-	devtools,
-	testthat (>= 2.0.0),
-	knitr,
-	rmarkdown,
-	igraph,
-	magick,
-	lgr
+    BiocStyle,
+    roxygen2,
+    devtools,
+    testthat (>= 2.0.0),
+    knitr,
+    rmarkdown,
+    igraph,
+    magick,
+    lgr
 Imports:
-	R6,
-	biodb (>= 1.1.9),
-	chk,
-	lifecycle
+    R6,
+    biodb (>= 1.1.9),
+    chk,
+    lifecycle
 RoxygenNote: 7.1.2
 Collate:
     'KeggShape.R'
