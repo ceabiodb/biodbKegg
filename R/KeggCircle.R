@@ -33,7 +33,7 @@
 #' c1$draw()
 #' }
 #'
-#' @import R6
+#' @importFrom R6 R6Class
 #' @include KeggShape.R
 #' @export
 KeggCircle <- R6::R6Class('KeggCircle',

@@ -17,7 +17,7 @@
 #' # Create a rectangle instance
 #' r <- KeggRect$new(left=10, top=10, bottom=20, right=30, color='yellow')
 #'
-#' @import R6
+#' @importFrom R6 R6Class
 #' @export
 KeggShape <- R6::R6Class('KeggShape',
 

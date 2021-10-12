@@ -304,7 +304,7 @@ extractShapes=function(shapes, g, color) {
     path_idx <- sub('^[^0-9]+', '', id)
 
     # Build Request
-    url=BiodbUrl$new(url=c(self$getPropValSlot('urls', 'base.url'), 'kegg-bin',
+    url=biodb::BiodbUrl$new(url=c(self$getPropValSlot('urls', 'base.url'), 'kegg-bin',
         'show_pathway'),
         params=c(org_name='map', mapno=path_idx,
         mapscale='1.0', show_description='hide'))
@@ -331,7 +331,7 @@ getPathwayImage=function(id) {
             biodb::error0('Impossible to find pathway image path inside',
                 ' HTML page for pathway ID ', id, '.')
         u <- self$getPropValSlot('urls', 'base.url')
-        img_url <- BiodbUrl$new(url=c(u, img_url[1, 2]))
+        img_url <- biodb::BiodbUrl$new(url=c(u, img_url[1, 2]))
         tmp_file <- file.path(cache$getTmpFolderPath(),
             paste(img_filename, 'png', sep='.'))
         self$getBiodb()$getRequestScheduler()$downloadFile(url=img_url,

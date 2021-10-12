@@ -27,8 +27,9 @@
 #' mybiodb$terminate()
 #'
 #' @include KeggConn.R
-#' @import chk
-#' @import lifecycle
+#' @importFrom chk chk_is
+#' @importFrom lifecycle deprecate_soft
+#' @importFrom R6 R6Class
 #' @export
 KeggCompoundConn <- R6::R6Class("KeggCompoundConn",
 inherit=KeggConn,
@@ -265,7 +266,7 @@ doGetEntryImageUrl=function(id) {
     fct <- function(x) {
         bu <- self$getPropValSlot('urls', 'base.url')
         u <- c(bu, 'Fig', 'compound', paste(x, 'gif', sep='.'))
-        BiodbUrl$new(url=u)$toString()
+        biodb::BiodbUrl$new(url=u)$toString()
     }
 
     return(vapply(id, fct, FUN.VALUE=''))

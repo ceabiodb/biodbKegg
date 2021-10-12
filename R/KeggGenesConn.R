@@ -21,7 +21,7 @@
 #' # Terminate instance.
 #' mybiodb$terminate()
 #'
-#' @import R6
+#' @importFrom R6 R6Class
 #' @include KeggConn.R
 #' @export
 KeggGenesConn <- R6::R6Class("KeggGenesConn",

@@ -15,10 +15,10 @@
 #' # Terminate instance.
 #' mybiodb$terminate()
 #'
-#' @import R6
+#' @importFrom R6 R6Class
 #' @export
 KeggEntry=R6::R6Class("KeggEntry",
-inherit=BiodbTxtEntry,
+inherit=biodb::BiodbTxtEntry,
 
 public=list(
 ),

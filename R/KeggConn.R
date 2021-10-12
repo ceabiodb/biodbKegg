@@ -24,7 +24,8 @@
 #' # Terminate instance.
 #' mybiodb$terminate()
 #'
-#' @import R6
+#' @importFrom R6 R6Class
+#' @importFrom biodb BiodbConn
 #' @export
 KeggConn <- R6::R6Class("KeggConn",
 inherit=biodb::BiodbConn,
@@ -73,7 +74,7 @@ wsList=function(retfmt=c('plain', 'request', 'ids')) {
 
     # Build request
     u <- c(self$getPropValSlot('urls', 'ws.url'), 'list', private$db.name)
-    url <- BiodbUrl$new(url=u)
+    url <- biodb::BiodbUrl$new(url=u)
     request <- self$makeRequest(url=url)
     if (retfmt == 'request')
         return(request)
@@ -124,7 +125,7 @@ wsFind=function(query, option=c('NONE', 'formula', 'exact_mass', 'mol_weight',
         query)
     if (option != 'NONE')
         u <- c(u, option) 
-    request <- self$makeRequest(method='get', url=BiodbUrl$new(url=u))
+    request <- self$makeRequest(method='get', url=biodb::BiodbUrl$new(url=u))
     if (retfmt == 'request')
         return(request)
 
@@ -165,7 +166,7 @@ private=list(
 
     u <- c(self$getPropValSlot('urls', 'entry.page.url'), 'www_bget')
     p <- private$completeEntryId(id)
-    fct <- function(x) BiodbUrl$new(url=u, params=p)$toString()
+    fct <- function(x) biodb::BiodbUrl$new(url=u, params=p)$toString()
 
     return(vapply(id, fct, FUN.VALUE=''))
 }
@@ -199,7 +200,7 @@ private=list(
                     private$db.name)
 
             # Call wsFind()
-            rng <- do.call(Range$new, fields[[mass.field]])
+            rng <- do.call(biodb::Range$new, fields[[mass.field]])
             query <- paste(rng$getMin(), rng$getMax(), sep='-')
             option <- if (mass.field == 'monoisotopic.mass') 'exact_mass' else
                 'mol_weight'
@@ -300,7 +301,7 @@ doGetEntryContentRequest=function(id, concatenate=TRUE) {
 
     fct <- function(x) {
         u <- c(self$getPropValSlot('urls', 'ws.url'), 'get', x)
-        BiodbUrl$new(url=u)$toString()
+        biodb::BiodbUrl$new(url=u)$toString()
     }
 
     return(vapply(id, fct, FUN.VALUE=''))

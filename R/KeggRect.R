@@ -25,7 +25,7 @@
 #' }
 #'
 #' @include KeggShape.R
-#' @import R6
+#' @importFrom R6 R6Class
 #' @export
 KeggRect <- R6::R6Class('KeggRect',
 inherit=KeggShape,
