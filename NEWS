@@ -1,3 +1,7 @@
+Changes in version 0.99.4 (2021-10-13)
++ Merge both vignettes into a single one.
++ Remove messages from magick package.
+
 Changes in version 0.99.3 (2021-10-12)
 + Add install section in vignette.
 + Use importFrom.
