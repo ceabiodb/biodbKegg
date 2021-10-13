@@ -53,11 +53,6 @@ See the introduction vignette:
 vignette('biodbKegg', package='biodbKegg')
 ```
 
-And the vignette about pathways:
-```r
-vignette('kegg_pathways', package='biodbKegg')
-```
-
 ## Citations
 
  * Kanehisa, M. and Goto, S.; KEGG: Kyoto Encyclopedia of Genes and Genomes. Nucleic Acids Res. 28, 27-30 (2000), <https://doi.org/10.1093/nar/28.1.27>.
