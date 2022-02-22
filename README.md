@@ -24,7 +24,7 @@ It implements *biodb* connectors for the following KEGG databases:
 
 Getting a single entry:
 ```r
-bdb <- biodb::Biodb()
+bdb <- boidb::newInst()
 kegg <- bdb$getFactory()$createConn('kegg.compound')
 entries <- kegg$getEntry(c('C00133', 'C00751'))
 bdb$entriesToDataframe(entries)
