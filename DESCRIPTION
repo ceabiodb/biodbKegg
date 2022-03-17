@@ -28,7 +28,7 @@ Suggests:
     lgr
 Imports:
     R6,
-    biodb (>= 1.1.9),
+    biodb (>= 1.3.2),
     chk,
     lifecycle
 RoxygenNote: 7.1.2
