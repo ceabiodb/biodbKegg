@@ -1,6 +1,6 @@
 test.kegg.compound.wsList <- function(conn) {
 
-	results <- conn$wsList(retfmt = 'ids')
+	results <- conn$wsList(retfmt='ids')
 	testthat::expect_is(results, 'character')
 	testthat::expect_true(length(results) > 100)
 }

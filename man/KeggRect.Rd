@@ -41,24 +41,24 @@ r$draw()
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-new}{\code{KeggRect$new()}}
-\item \href{#method-clone}{\code{KeggRect$clone()}}
+\item \href{#method-KeggRect-new}{\code{KeggRect$new()}}
+\item \href{#method-KeggRect-clone}{\code{KeggRect$clone()}}
 }
 }
-\if{html}{
-\out{<details open ><summary>Inherited methods</summary>}
-\itemize{
-\item \out{<span class="pkg-link" data-pkg="biodbKegg" data-topic="KeggShape" data-id="draw">}\href{../../biodbKegg/html/KeggShape.html#method-draw}{\code{biodbKegg::KeggShape$draw()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodbKegg" data-topic="KeggShape" data-id="equals">}\href{../../biodbKegg/html/KeggShape.html#method-equals}{\code{biodbKegg::KeggShape$equals()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodbKegg" data-topic="KeggShape" data-id="getColor">}\href{../../biodbKegg/html/KeggShape.html#method-getColor}{\code{biodbKegg::KeggShape$getColor()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodbKegg" data-topic="KeggShape" data-id="getLabel">}\href{../../biodbKegg/html/KeggShape.html#method-getLabel}{\code{biodbKegg::KeggShape$getLabel()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodbKegg" data-topic="KeggShape" data-id="getRgbColor">}\href{../../biodbKegg/html/KeggShape.html#method-getRgbColor}{\code{biodbKegg::KeggShape$getRgbColor()}}\out{</span>}
-}
-\out{</details>}
-}
+\if{html}{\out{
+<details open><summary>Inherited methods</summary>
+<ul>
+<li><span class="pkg-link" data-pkg="biodbKegg" data-topic="KeggShape" data-id="draw"><a href='../../biodbKegg/html/KeggShape.html#method-KeggShape-draw'><code>biodbKegg::KeggShape$draw()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodbKegg" data-topic="KeggShape" data-id="equals"><a href='../../biodbKegg/html/KeggShape.html#method-KeggShape-equals'><code>biodbKegg::KeggShape$equals()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodbKegg" data-topic="KeggShape" data-id="getColor"><a href='../../biodbKegg/html/KeggShape.html#method-KeggShape-getColor'><code>biodbKegg::KeggShape$getColor()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodbKegg" data-topic="KeggShape" data-id="getLabel"><a href='../../biodbKegg/html/KeggShape.html#method-KeggShape-getLabel'><code>biodbKegg::KeggShape$getLabel()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodbKegg" data-topic="KeggShape" data-id="getRgbColor"><a href='../../biodbKegg/html/KeggShape.html#method-KeggShape-getRgbColor'><code>biodbKegg::KeggShape$getRgbColor()</code></a></span></li>
+</ul>
+</details>
+}}
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-new"></a>}}
-\if{latex}{\out{\hypertarget{method-new}{}}}
+\if{html}{\out{<a id="method-KeggRect-new"></a>}}
+\if{latex}{\out{\hypertarget{method-KeggRect-new}{}}}
 \subsection{Method \code{new()}}{
 Initialize new instance.
 \subsection{Usage}{
@@ -85,8 +85,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-clone}{}}}
+\if{html}{\out{<a id="method-KeggRect-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-KeggRect-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{

@@ -31,18 +31,18 @@ r <- KeggRect$new(left=10, top=10, bottom=20, right=30, color='yellow')
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-new}{\code{KeggShape$new()}}
-\item \href{#method-equals}{\code{KeggShape$equals()}}
-\item \href{#method-getLabel}{\code{KeggShape$getLabel()}}
-\item \href{#method-getColor}{\code{KeggShape$getColor()}}
-\item \href{#method-getRgbColor}{\code{KeggShape$getRgbColor()}}
-\item \href{#method-draw}{\code{KeggShape$draw()}}
-\item \href{#method-clone}{\code{KeggShape$clone()}}
+\item \href{#method-KeggShape-new}{\code{KeggShape$new()}}
+\item \href{#method-KeggShape-equals}{\code{KeggShape$equals()}}
+\item \href{#method-KeggShape-getLabel}{\code{KeggShape$getLabel()}}
+\item \href{#method-KeggShape-getColor}{\code{KeggShape$getColor()}}
+\item \href{#method-KeggShape-getRgbColor}{\code{KeggShape$getRgbColor()}}
+\item \href{#method-KeggShape-draw}{\code{KeggShape$draw()}}
+\item \href{#method-KeggShape-clone}{\code{KeggShape$clone()}}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-new"></a>}}
-\if{latex}{\out{\hypertarget{method-new}{}}}
+\if{html}{\out{<a id="method-KeggShape-new"></a>}}
+\if{latex}{\out{\hypertarget{method-KeggShape-new}{}}}
 \subsection{Method \code{new()}}{
 Initialize new instance.
 \subsection{Usage}{
@@ -63,8 +63,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-equals"></a>}}
-\if{latex}{\out{\hypertarget{method-equals}{}}}
+\if{html}{\out{<a id="method-KeggShape-equals"></a>}}
+\if{latex}{\out{\hypertarget{method-KeggShape-equals}{}}}
 \subsection{Method \code{equals()}}{
 Test if this shape is the same as another.
 \subsection{Usage}{
@@ -83,8 +83,8 @@ TRUE or FALSE.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getLabel"></a>}}
-\if{latex}{\out{\hypertarget{method-getLabel}{}}}
+\if{html}{\out{<a id="method-KeggShape-getLabel"></a>}}
+\if{latex}{\out{\hypertarget{method-KeggShape-getLabel}{}}}
 \subsection{Method \code{getLabel()}}{
 Gets the label associated with this shape.
 \subsection{Usage}{
@@ -96,8 +96,8 @@ The label.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getColor"></a>}}
-\if{latex}{\out{\hypertarget{method-getColor}{}}}
+\if{html}{\out{<a id="method-KeggShape-getColor"></a>}}
+\if{latex}{\out{\hypertarget{method-KeggShape-getColor}{}}}
 \subsection{Method \code{getColor()}}{
 Gets the color associated with this shape.
 \subsection{Usage}{
@@ -109,8 +109,8 @@ The color name as a string.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getRgbColor"></a>}}
-\if{latex}{\out{\hypertarget{method-getRgbColor}{}}}
+\if{html}{\out{<a id="method-KeggShape-getRgbColor"></a>}}
+\if{latex}{\out{\hypertarget{method-KeggShape-getRgbColor}{}}}
 \subsection{Method \code{getRgbColor()}}{
 Gets the RGB color associated with this shape.
 \subsection{Usage}{
@@ -130,8 +130,8 @@ The color as an RGB color object.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-draw"></a>}}
-\if{latex}{\out{\hypertarget{method-draw}{}}}
+\if{html}{\out{<a id="method-KeggShape-draw"></a>}}
+\if{latex}{\out{\hypertarget{method-KeggShape-draw}{}}}
 \subsection{Method \code{draw()}}{
 Draw the shape on the current image.
 \subsection{Usage}{
@@ -143,8 +143,8 @@ None.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-clone}{}}}
+\if{html}{\out{<a id="method-KeggShape-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-KeggShape-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{

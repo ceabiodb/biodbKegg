@@ -50,27 +50,27 @@ c1$draw()
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-new}{\code{KeggCircle$new()}}
-\item \href{#method-getX}{\code{KeggCircle$getX()}}
-\item \href{#method-getY}{\code{KeggCircle$getY()}}
-\item \href{#method-getRadius}{\code{KeggCircle$getRadius()}}
-\item \href{#method-clone}{\code{KeggCircle$clone()}}
+\item \href{#method-KeggCircle-new}{\code{KeggCircle$new()}}
+\item \href{#method-KeggCircle-getX}{\code{KeggCircle$getX()}}
+\item \href{#method-KeggCircle-getY}{\code{KeggCircle$getY()}}
+\item \href{#method-KeggCircle-getRadius}{\code{KeggCircle$getRadius()}}
+\item \href{#method-KeggCircle-clone}{\code{KeggCircle$clone()}}
 }
 }
-\if{html}{
-\out{<details open ><summary>Inherited methods</summary>}
-\itemize{
-\item \out{<span class="pkg-link" data-pkg="biodbKegg" data-topic="KeggShape" data-id="draw">}\href{../../biodbKegg/html/KeggShape.html#method-draw}{\code{biodbKegg::KeggShape$draw()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodbKegg" data-topic="KeggShape" data-id="equals">}\href{../../biodbKegg/html/KeggShape.html#method-equals}{\code{biodbKegg::KeggShape$equals()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodbKegg" data-topic="KeggShape" data-id="getColor">}\href{../../biodbKegg/html/KeggShape.html#method-getColor}{\code{biodbKegg::KeggShape$getColor()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodbKegg" data-topic="KeggShape" data-id="getLabel">}\href{../../biodbKegg/html/KeggShape.html#method-getLabel}{\code{biodbKegg::KeggShape$getLabel()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodbKegg" data-topic="KeggShape" data-id="getRgbColor">}\href{../../biodbKegg/html/KeggShape.html#method-getRgbColor}{\code{biodbKegg::KeggShape$getRgbColor()}}\out{</span>}
-}
-\out{</details>}
-}
+\if{html}{\out{
+<details open><summary>Inherited methods</summary>
+<ul>
+<li><span class="pkg-link" data-pkg="biodbKegg" data-topic="KeggShape" data-id="draw"><a href='../../biodbKegg/html/KeggShape.html#method-KeggShape-draw'><code>biodbKegg::KeggShape$draw()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodbKegg" data-topic="KeggShape" data-id="equals"><a href='../../biodbKegg/html/KeggShape.html#method-KeggShape-equals'><code>biodbKegg::KeggShape$equals()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodbKegg" data-topic="KeggShape" data-id="getColor"><a href='../../biodbKegg/html/KeggShape.html#method-KeggShape-getColor'><code>biodbKegg::KeggShape$getColor()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodbKegg" data-topic="KeggShape" data-id="getLabel"><a href='../../biodbKegg/html/KeggShape.html#method-KeggShape-getLabel'><code>biodbKegg::KeggShape$getLabel()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodbKegg" data-topic="KeggShape" data-id="getRgbColor"><a href='../../biodbKegg/html/KeggShape.html#method-KeggShape-getRgbColor'><code>biodbKegg::KeggShape$getRgbColor()</code></a></span></li>
+</ul>
+</details>
+}}
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-new"></a>}}
-\if{latex}{\out{\hypertarget{method-new}{}}}
+\if{html}{\out{<a id="method-KeggCircle-new"></a>}}
+\if{latex}{\out{\hypertarget{method-KeggCircle-new}{}}}
 \subsection{Method \code{new()}}{
 Initialize new instance.
 \subsection{Usage}{
@@ -95,8 +95,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getX"></a>}}
-\if{latex}{\out{\hypertarget{method-getX}{}}}
+\if{html}{\out{<a id="method-KeggCircle-getX"></a>}}
+\if{latex}{\out{\hypertarget{method-KeggCircle-getX}{}}}
 \subsection{Method \code{getX()}}{
 Get the X coordinate.
 \subsection{Usage}{
@@ -108,8 +108,8 @@ The X coordinate.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getY"></a>}}
-\if{latex}{\out{\hypertarget{method-getY}{}}}
+\if{html}{\out{<a id="method-KeggCircle-getY"></a>}}
+\if{latex}{\out{\hypertarget{method-KeggCircle-getY}{}}}
 \subsection{Method \code{getY()}}{
 Get the Y coordinate.
 \subsection{Usage}{
@@ -121,8 +121,8 @@ The Y coordinate.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getRadius"></a>}}
-\if{latex}{\out{\hypertarget{method-getRadius}{}}}
+\if{html}{\out{<a id="method-KeggCircle-getRadius"></a>}}
+\if{latex}{\out{\hypertarget{method-KeggCircle-getRadius}{}}}
 \subsection{Method \code{getRadius()}}{
 Get the radius.
 \subsection{Usage}{
@@ -134,8 +134,8 @@ The radius.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-clone}{}}}
+\if{html}{\out{<a id="method-KeggCircle-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-KeggCircle-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{
